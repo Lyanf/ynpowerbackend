@@ -263,27 +263,30 @@ def getAlgorithm(name):
 
 def formatPredictResult(result):
     tableTwoData = []
-    prefromyear = timeFormat(result["prefromyear"], "year")
-    pretoyear = timeFormat(result["pretoyear"], "year")
-    i = 0
-    while prefromyear <= pretoyear:
-        temp={
-            'year': prefromyear.strftime("%Y"),
-            'predict': round(result['preresult'][i],2)
-        }
-        tableTwoData.append(temp)
-        i += 1
-        prefromyear = getNextYear(prefromyear)
-
-    re ={
-        "tableOneData":[
-            {
-            'mape': round(result["MAPE"],2),
-            "rmse": round(result["RMSE"],2)
+    try:
+        prefromyear = timeFormat(result["prefromyear"], "year")
+        pretoyear = timeFormat(result["pretoyear"], "year")
+        i = 0
+        while prefromyear <= pretoyear:
+            temp={
+                'year': prefromyear.strftime("%Y"),
+                'predict': round(result['preresult'][i],2)
             }
-        ],
-        "tableTwoData": tableTwoData
-    }
+            tableTwoData.append(temp)
+            i += 1
+            prefromyear = getNextYear(prefromyear)
+
+        re ={
+            "tableOneData":[
+                {
+                'mape': round(result["MAPE"],2),
+                "rmse": round(result["RMSE"],2)
+                }
+            ],
+            "tableTwoData": tableTwoData
+        }
+    except:
+        re = None
     return re
 
 def getCombinationMethod():

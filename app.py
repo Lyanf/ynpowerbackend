@@ -718,11 +718,18 @@ class RegionSinglePredict(Resource):
     def post(self):
         # try_print_json()
         result = regionSinglePredict(request.json)
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": result
-        }
+        if result == None:
+            re = {
+                "msg": "参数错误",
+                "code": -1,
+                "data": result
+            }
+        else:
+            re = {
+                "msg": "success",
+                "code": 200,
+                "data": result
+            }
         # payload = {
         #     'graphData': [
         #         {
@@ -773,11 +780,18 @@ class RegionMixPredict(Resource):
     def post(self):
         # try_print_json()
         result = regionMixPredict(request.json)
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": result
-        }
+        if result == None:
+            re = {
+                "msg": "参数错误",
+                "code": -1,
+                "data": result
+            }
+        else:
+            re = {
+                "msg": "success",
+                "code": 200,
+                "data": result
+            }
         # payload = {
         #     'graphData': [
         #         {
@@ -810,11 +824,18 @@ class IndustrySinglePredict(Resource):
         # try_print_json()
         result = industrySinglePredict(request.json)
 
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": result
-        }
+        if result == None:
+            re = {
+                "msg": "参数错误",
+                "code": -1,
+                "data": result
+            }
+        else:
+            re = {
+                "msg": "success",
+                "code": 200,
+                "data": result
+            }
 
         # payload = {
         #     'graphData': [
@@ -866,11 +887,18 @@ class IndustryMixPredict(Resource):
     def post(self):
         # try_print_json()
         result = industryMixPredict(request.json)
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": result
-        }
+        if result == None:
+            re = {
+                "msg": "参数错误",
+                "code": -1,
+                "data": result
+            }
+        else:
+            re = {
+                "msg": "success",
+                "code": 200,
+                "data": result
+            }
         # payload = {
         #     'graphData': [
         #         {
@@ -905,11 +933,18 @@ class SaturationCurvePredict(Resource):
     def post(self):
         # try_print_json()
         result = saturationCurvePredict(request.json)
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": result
-        }
+        if result == None:
+            re = {
+                "msg": "参数错误",
+                "code": -1,
+                "data": result
+            }
+        else:
+            re = {
+                "msg": "success",
+                "code": 200,
+                "data": result
+            }
 
         # payload = {
         #     'graphData': [
@@ -982,7 +1017,7 @@ class PayloadDensityPredict(Resource):
         #     "data": payload
         # }
 
-_files = ['红河州.csv', '迪庆州.json', '仰光.txt', '...']
+_files = []
 
 @register('predict', 'munidata', 'upload')
 class MunicipalDataUpload(Resource):
