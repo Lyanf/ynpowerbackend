@@ -780,7 +780,8 @@ def getAlgorithmArgs(method = None, filename = None):
 
                     if row.iloc[i - 1][j].startswith("预测数据类型"):
                         temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类")
-
+                    if row.iloc[i-1][j].find("计划值指示器") != -1:
+                        temp["value"] = [0,1]
                     if header[j] in defaultValue.keys():
                         if temp["key"] in defaultValue[header[j]]:
                             if temp["kind"] == "int":
