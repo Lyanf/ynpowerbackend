@@ -1,8 +1,11 @@
 import requests
 import json
 from datetime import datetime
+import pandas as pd
+import numpy as np
 
 host = "http://dclab.club:18000/"
+# host = "http://localhost:5000/"
 
 def getData(location, dataName, startTime, endTime):
     l = location.split("_")
@@ -36,6 +39,18 @@ def insertAlgorithmResult(tag, result):
     return r.json()
 
 
+def insertData(data, grain, area, kind):
+    usl = host + "api/add/data"
+    s = json.dumps({
+            "data": data.to_json(orient='split'),
+            "grain":grain,
+            "area": area,
+            "kind":kind
+        })
+    # print(s)
+    r = requests.post(usl, data = s, headers={'Content-Type': 'application/json'}, verify=False)
+    # print(r)
+    return r
 
 #"tags":"tv1,tv2", 是一个字符串
 def getAlgorithmResult(tags):
@@ -54,7 +69,7 @@ def formateTimeString(t, grain):
     if grain == 'day':
         timet = datetime.strptime(t, '%Y/%m/%d')
         timestr = timet.strftime('%Y/%m/%d')
-    elif grain == 'mouth':
+    elif grain == 'month':
         timet = datetime.strptime(t, '%Y/%m')
         timestr = timet.strftime('%Y/%m')
     elif grain == 'hour':
@@ -73,20 +88,23 @@ def formateTimeString(t, grain):
     return timestr
 
 if __name__ == '__main__':
-    # r = getData("yunnan_year_社会经济类", "GDP1", "2008", "2016")
-    # re = json.loads(r)
-    # print(re)
+    r = getData("yunnan_year_社会经济类-test", "GDP1", "2008", "2016")
+    re = json.loads(r)
+    print(re)
     # r = getAlgorithmResult("tv1,tv2")
     # re = json.loads(r)
     # print(re)
     # from algorithms.GM import GM
+    # from  utils.tools import getAlgorithm
     # StartYear = "1990"
     # EndYear = "2019"
     # PreStartYear = "2020"
     # PreEndYear = "2029"
     # timestep = 15
     # pretype = "consumption"
-    # result = GM(StartYear, EndYear, PreStartYear, PreEndYear, timestep, pretype="consumption")
+    # f = getAlgorithm("GM")
+    # result1 = f(StartYear, EndYear, PreStartYear, PreEndYear, timestep, pretype="consumption")
+    # result2 = GM(StartYear, EndYear, PreStartYear, PreEndYear, timestep, pretype="consumption")
     # content = {}
     # content['arg'] = {
     #     "StartYear" : "1990",
@@ -97,7 +115,8 @@ if __name__ == '__main__':
     #     "pretype" : "consumption"
     # }
     # content['result'] = result
-    # print(result)
+    # print(result1)
+    # print(result2)
     # r = insertAlgorithmResult("tv3", result)
     # print(r)
     # r = getAlgorithmResult("tv3")
@@ -106,5 +125,34 @@ if __name__ == '__main__':
     # content = json.loads(re['results'][0][1])
     # print(type(content))
     # print(content['trainfromyear'])
-    result = getData("yunnan_day_电力电量类", "N00_00", "2013/1/1", "2013/1/3")
+    result = getData("yunnan_day_电力电量类-测试1", None, "2013/1/1", "2013/1/3")
     print(result)
+    # data  = pd.read_excel("./args.xlsx", None, index_col = None)
+    # args = {}
+    # for row in data.values():
+    #     # print(row)
+    #     x,y= row.shape
+    #     header = [i for i in row.columns]
+    #     for j in range(1, y):
+    #         args[header[j]] = {
+    #             "name": row.iloc[0][j],
+    #         }
+    #         count = 0
+    #         for i in range(1, x):
+    #             if row.iloc[i][0] != row.iloc[i][0] or row.iloc[i][j] != row.iloc[i][j]:
+    #                 break
+    #             if i % 2 == 0:
+    #                 count += 1
+    #                 continue
+    #             args[header[j]][row.iloc[i][j]] = row.iloc[i+1][j]
+    #         args[header[j]]["num"] = count
+    #
+    #
+    # print(args)
+        # print(row.shape)
+        # for i, r in row.iterrows():
+        #     print(r)
+
+    # print(data)
+
+

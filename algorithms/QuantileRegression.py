@@ -15,12 +15,12 @@ import statsmodels.formula.api as smf
 from algorithms.train_test_set import generate_data,inverse_data
 import algorithms.predict_economic as preeco
 from algorithms.evaluation import RMSE,MAPE
-from algorithms.interface import getData
+from dao.interface import getData
 import json 
 
 """分位数回归，未联调，已修改"""
 
-def QuantileRegression(StartYear,EndYear,PreStartYear,PreEndYear,quatile=0.95,pretype="consumption",econamelist=["GDP"],city="云南省"):
+def QuantileRegression(StartYear,EndYear,PreStartYear,PreEndYear,quatile=0.95,pretype="全社会用电量",econamelist=["GDP"],city="云南省"):
     #首先需要回归得到未来的经济数据
 
     def get_coef(data,xnamelist,yname,quatile):
@@ -60,7 +60,7 @@ def QuantileRegression(StartYear,EndYear,PreStartYear,PreEndYear,quatile=0.95,pr
         period=int(PreEndYear)-int(PreStartYear)+1
         
         #读取历史负荷数据
-        datajson=getData("yunnan_year_电力电量类", pretype, StartYear, EndYear)
+        datajson=getData("云南省_year_电力电量类", pretype, StartYear, EndYear)
         # print(datajson)
         data=json.loads(datajson)
         finaldata.append(data)
@@ -68,7 +68,7 @@ def QuantileRegression(StartYear,EndYear,PreStartYear,PreEndYear,quatile=0.95,pr
         #读取经济数据
         for i in range(len(econamelist)):
             
-            ecodatajson=getData("yunnan_year_社会经济类", econamelist[i], StartYear, EndYear)
+            ecodatajson=getData("云南省_year_社会经济类", econamelist[i], StartYear, EndYear)
             ecodata=json.loads(ecodatajson)
             finaldata.append(ecodata)
             name.append(econamelist[i])
@@ -97,9 +97,11 @@ def QuantileRegression(StartYear,EndYear,PreStartYear,PreEndYear,quatile=0.95,pr
 
 
         #返回结果
-        result={"trainfromyear":StartYear,"traintoyear":EndYear,"trainresult":ytrain,"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre,"MAPE":mape,"RMSE":rmse}
+        result={"trainfromyear":StartYear,"traintoyear":EndYear,"trainresult":ytrain.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
     else:
         result={"False":"暂不支持其他地区预测"}
     return result
+
 if __name__ == '__main__':
- result=QuantileRegression("1995","2019","2020","2021",quatile=0.95,pretype="consumption",econamelist=["GDP"],city="云南省")
+
+    result=QuantileRegression("1995","2019","2020","2021")
