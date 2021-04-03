@@ -1,7 +1,7 @@
 import numpy as np
 import datetime
 import datetime
-from algorithms.loadcompute.algorithm import pro_data
+from algorithm import pro_data, fill_zero
 
 def d_character(data):
 	d_max = np.max(data)
@@ -32,6 +32,7 @@ def m_pre_character(data):
 
 def m_character(file,start,end):
 	data = pro_data(file,start,end)[0]
+	data = fill_zero(data)
 	nrow = data.shape[0]
 	m_mean, m_peak, m_r_mean, m_min_r, m_peak_r = [], [], [], [], []
 	for i in range(nrow):
@@ -49,6 +50,7 @@ def m_character(file,start,end):
 
 def multi_m_character(file,start,end):
 	data = pro_data(file,start,end)[0]
+	data = fill_zero(data)
 	time = pro_data(file,start,end)[1]
 	days = time.shape[0]
 	months = []
