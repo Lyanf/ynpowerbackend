@@ -1,7 +1,7 @@
 import numpy as np
 import datetime
 import matplotlib.pyplot as plt
-from algorithm import pro_data, fill_zero
+from algorithms.loadcompute.algorithm import pro_data, fill_zero
 
 def d_pre_character(data):
 	# data shape: np array (24,)

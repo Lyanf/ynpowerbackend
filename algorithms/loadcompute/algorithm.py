@@ -1,4 +1,4 @@
-from interface import getData
+from dao.interface import getData
 import sys
 import pandas as pd
 import numpy as np
@@ -200,6 +200,7 @@ def y_load(file,start,end):
 	fig = plt.figure()
 	plt.plot(max_load)
 	plt.show()
+	return max_load
 
 def y_load_cons(file,start,end):
 	data = pro_data(file, start,end)[0]
@@ -210,6 +211,7 @@ def y_load_cons(file,start,end):
 	fig = plt.figure()
 	plt.plot(x,data)
 	plt.show()
+	return data.tolist()
 
 if __name__ == '__main__':
 	max_l,min_l,mean_l,max_p2v,y_ratio, s_unbalance, m_unbalance = y_character("yunnan_day_电力电量类", 
