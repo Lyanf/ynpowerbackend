@@ -1,4 +1,4 @@
-from dao.interface import getData
+from interface import getData
 import sys
 import pandas as pd
 import numpy as np
@@ -79,7 +79,16 @@ def get_time(data,colname):
 	result = np.array(result)
 	return result
 
+def fill_zero(data):
+	nrow, ncol = data.shape[0], data.shape[1]
+	for i in range(nrow):
+		for j in range(ncol):
+			if data[i,j] == 0:
+				data[i,j] = data[i-1,j]
+	return data
+
 def character(data):
+    data = fill_zero(data)
     max_l = np.max(data)
     # max load 
     min_l = np.min(data)
@@ -204,11 +213,16 @@ def y_load_cons(file,start,end):
 
 if __name__ == '__main__':
 	max_l,min_l,mean_l,max_p2v,y_ratio, s_unbalance, m_unbalance = y_character("yunnan_day_电力电量类", 
-		"2013/1/1","2013/12/31")
+		"2014/1/1","2014/12/31")
 	#print(max_l,min_l,mean_l,max_p2v,y_ratio, s_unbalance, m_unbalance)
+	#data = pro_data("yunnan_day_电力电量类", 
+	#	"2014/1/1","2014/12/31")[0]
+	#print(np.min(data))
+	#data = fill_zero(data)
+	#print(character(data))
 	#print(typical_day("yunnan_day_电力电量类","2013/1/1","2013/12/31",0))
 	#y_load("yunnan_day_电力电量类","2013/1/1","2013/12/31")
 	#y_load_cons("yunnan_day_电力电量类","2013/1/1","2013/12/31")
 	
-	years, result = multi_y_character("yunnan_day_电力电量类", "2013/1/1","2014/12/31")
+	years, result = multi_y_character("yunnan_day_电力电量类", "2013/1/1","2017/12/31")
 	print(result)

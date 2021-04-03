@@ -1,7 +1,7 @@
 import numpy as np
 import datetime
 import matplotlib.pyplot as plt
-from algorithms.loadcompute.algorithm import pro_data
+from algorithm import pro_data, fill_zero
 
 def d_pre_character(data):
 	# data shape: np array (24,)
@@ -29,20 +29,20 @@ def d_character(file,start,end):
 
 def multi_d_character(file,start,end):
 	data = pro_data(file,start,end)[0]
+	data = fill_zero(data)
 	time = pro_data(file,start,end)[1]
 	days = time.shape[0]
 	result = []
 	for i in range(days):
 		result.append(list(d_pre_character(data[i,:])))
-	result = np.array(result)
+	reuslt = np.array(result)
 	return time, result
 
 def day_plot(file,start,end):
 	data = pro_data(file,start,end)[0].flatten()
-	# fig = plt.figure()
-	# plt.plot(data)
-	# plt.show()
-	return data
+	fig = plt.figure()
+	plt.plot(data)
+	plt.show()
 
 if __name__ == '__main__':
 	data = pro_data("yunnan_day_电力电量类", "2013/1/1","2013/1/3")[0]
