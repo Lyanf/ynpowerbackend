@@ -100,18 +100,20 @@ For details, see GettingStarted.html, distributed with this package, or the offi
       <param.cpp.api />
     </unset>
     <fileset.exports>
-      <file>${PROJECT_ROOT}\Fractal_main.m</file>
+      <file>${PROJECT_ROOT}\fracal_forcast.m</file>
     </fileset.exports>
     <fileset.classes>
       <entity.package name="">
         <entity.class name="Class1">
-          <file>${PROJECT_ROOT}\Fractal_main.m</file>
+          <file>${PROJECT_ROOT}\fracal_forcast.m</file>
         </entity.class>
       </entity.package>
     </fileset.classes>
     <fileset.resources />
     <fileset.depfun>
       <file>${PROJECT_ROOT}\fractal_IFS.m</file>
+      <file>${PROJECT_ROOT}\Fractal_main.m</file>
+      <file>${PROJECT_ROOT}\getData.m</file>
       <file>${PROJECT_ROOT}\Hurst_calculation.m</file>
       <file>${PROJECT_ROOT}\interation.m</file>
     </fileset.depfun>
