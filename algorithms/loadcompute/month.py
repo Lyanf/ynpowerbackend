@@ -1,7 +1,7 @@
 import numpy as np
 import datetime
 import datetime
-from algorithm import pro_data, fill_zero
+from algorithms.loadcompute.algorithm import pro_data, fill_zero
 
 def d_character(data):
 	d_max = np.max(data)
