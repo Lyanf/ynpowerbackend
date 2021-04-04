@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration file="C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi\sxjb.prj" location="C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi" name="sxjb" preferred-package-location="C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi\sxjb\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.library" target-name="Library Compiler">
+  <configuration file="C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi\sxjb.prj" location="C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi" name="sxjb" target="target.ezdeploy.library" target-name="Library Compiler">
     <param.appname>sxjb</param.appname>
     <param.icon />
     <param.icons />
@@ -111,8 +111,8 @@ For details, see GettingStarted.html, distributed with this package, or the offi
     </fileset.classes>
     <fileset.resources />
     <fileset.depfun>
+      <file>${PROJECT_ROOT}\getData.m</file>
       <file>${PROJECT_ROOT}\seek32.m</file>
-      <file>C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\zhishupinghua\getData.m</file>
     </fileset.depfun>
     <fileset.package />
     <fileset.examples />
