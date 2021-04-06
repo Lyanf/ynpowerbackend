@@ -197,9 +197,9 @@ def y_load(file,start,end):
 		m_data = get_mdata(time,data,i)
 		m_max = m_character(m_data)[0]
 		max_load.append(m_max)
-	fig = plt.figure()
-	plt.plot(max_load)
-	plt.show()
+	# fig = plt.figure()
+	# plt.plot(max_load)
+	# plt.show()
 	return max_load
 
 def y_load_cons(file,start,end):
@@ -208,9 +208,9 @@ def y_load_cons(file,start,end):
 	data = -np.sort(-data)
 	x = range(1,len(data)+1,1)
 
-	fig = plt.figure()
-	plt.plot(x,data)
-	plt.show()
+	# fig = plt.figure()
+	# plt.plot(x,data)
+	# plt.show()
 	return data.tolist()
 
 if __name__ == '__main__':

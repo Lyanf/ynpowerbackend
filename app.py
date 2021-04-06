@@ -1962,7 +1962,7 @@ class PayloadChartsYearly(Resource):
 
         payload = {
             'xName': '年份',
-            'xData': list(range(begin_year, end_year + 1)),
+            'xData': list(range(int(begin_year), int(end_year) + 1)),
             'yName': '单位：MW',
             'yData': [
                 {
