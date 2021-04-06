@@ -40,9 +40,10 @@ def multi_d_character(file,start,end):
 
 def day_plot(file,start,end):
 	data = pro_data(file,start,end)[0].flatten()
-	fig = plt.figure()
-	plt.plot(data)
-	plt.show()
+	# fig = plt.figure()
+	# plt.plot(data)
+	# plt.show()
+	return data
 
 if __name__ == '__main__':
 	data = pro_data("yunnan_day_电力电量类", "2013/1/1","2013/1/3")[0]
