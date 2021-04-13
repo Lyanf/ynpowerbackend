@@ -1247,7 +1247,7 @@ class SokuPayloadPredict(Resource):
         result = sokuPayloadPredict(request.json)
         payload = {
             'xName': '小时',
-            'xData': list(range(0, 24, 2)),
+            'xData': list(range(0, 24)),
             'yName': '单位：MW',
             'yData': [
                 {
@@ -1283,7 +1283,7 @@ class ClampingPayloadPredict(Resource):
         print(result)
         payload = {
             'xName': '小时',
-            'xData': list(range(0, 24, 2)),
+            'xData': list(range(0, 24)),
             'yName': '单位：MW',
             'yData': [
                 {
@@ -1313,7 +1313,7 @@ class InterpolatingPayloadPredict(Resource):
         result = interpolatingPayloadPredict(request.json)
         payload = {
             'xName': "小时",
-            'xData': list(range(0, 24, 2)),
+            'xData': list(range(0, 24)),
             'yName': '单位：MW',
             'yData': [
                 {
@@ -1340,9 +1340,10 @@ class YearlyContinuousPayloadPredict(Resource):
     def post(self):
         # try_print_json()
         result = yearlyContinuousPayloadPredict(request.json)
+        length = len(result['result'])
         payload = {
             'xName': "时刻",
-            'xData': list(range(0, 8760)),
+            'xData': list(range(0, length)),
             'yName': '单位：MW',
             'yData': [
                 {
