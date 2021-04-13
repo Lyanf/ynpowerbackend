@@ -2,10 +2,12 @@ function load=seek22(info,premaxload,gamma,pregamma,prebeta)
 global endyear startyear
 %%寻找基准曲线
 numyear=endyear-startyear+1;
+disp(['numyear is ' num2str(numyear)]);
 value=abs(gamma-pregamma*ones(1,numyear));
 disp(value);
 disp(find(value==min(value))+1);
 yearfind=info(1,find(value==min(value)))
+disp(['yearfind is ' num2str(yearfind)]);
 if(yearfind~=0)
     num=size(info,2);
     for j=1:num
@@ -17,6 +19,8 @@ end
 %%对基准曲线进行修正
 base=max(loadcurve)*ones(24,1);
 loadcurve2=loadcurve./base;
+disp('loadcurve2 is ');
+disp(loadcurve2);
 loadcurve3=dsort(loadcurve2);
 for kk=1:length(loadcurve3)
     order(kk,1)=find(loadcurve3(kk)==loadcurve2);
