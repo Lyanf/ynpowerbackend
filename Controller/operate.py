@@ -115,7 +115,7 @@ def tagsRename(current_name, new_name):
 def tagDelete(current_name):
     return deleteTag(current_name)
 
-def miningRequest(tag, tagType, region, factors, method, arg, beginYear, endYear, args):
+def miningRequest(args):
     # data = getDataByCondition(grain=None, startTime=str(beginYear), endTime=str(endYear), kind=None, dataName=None,
     #                           area=region)  # 是否需要粒度，和kind，dataname
     # f = getAlgorithm(method)
@@ -148,6 +148,7 @@ def miningRequest(tag, tagType, region, factors, method, arg, beginYear, endYear
 
 
 def regionSinglePredict(args):
+    print(args)
     beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
     result = executeAlgorithm(method, args)
     print('** algorithm exec result **', result)
