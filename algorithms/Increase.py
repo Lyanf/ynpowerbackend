@@ -49,7 +49,13 @@ def Increase(StartYear,EndYear,PreStartYear,PreEndYear,rate,pretype="全社会�
         ypre=np.array(ypre)
 
 
-        result={"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist()}
+        result={
+            "prefromyear": PreStartYear,
+            "pretoyear": PreEndYear,
+            "preresult": ypre.tolist(),
+            "MAPE": 0,
+            "RMSE": 0
+        }
         return result
 
 
