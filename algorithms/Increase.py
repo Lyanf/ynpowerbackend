@@ -61,9 +61,3 @@ pretype="全社会用电量"
 city="云南省"
 
 result=Increase(StartYear,EndYear,PreStartYear,PreEndYear,0.1,pretype,city) 
-        
-        
-        
-        
-        
-        

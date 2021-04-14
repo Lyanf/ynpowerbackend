@@ -149,7 +149,7 @@ def RNNpre(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会
                 trainyear.append(final.index[count])
                 break
     ypre=np.array(ypre).squeeze()
-    result={"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist()[0],"MAPE":mape,"RMSE":rmse}
+    result={"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
 
     
     return result
