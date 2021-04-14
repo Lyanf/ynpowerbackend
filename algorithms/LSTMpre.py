@@ -20,7 +20,6 @@ import json
 """LSTM"""
 """不支持组合预测"""
 def LSTMpre(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会用电量",city="云南省", hidden_size=24,hidden_layer=1, learningrate=0.005,epoch=1000):
-
     #搭建LSTM模块
     def LSTM(x,y,outputlen,is_training,hidden_size,num_layers,lr,optimizer,keep_pro):
         cell=tf.nn.rnn_cell.BasicLSTMCell
@@ -142,7 +141,7 @@ def LSTMpre(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社�
                 trainyear.append(final.index[count])
                 break
     ypre=np.array(ypre).squeeze()
-    result={"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist()[0],"MAPE":mape,"RMSE":rmse}
+    result={"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
 
     
     return result

@@ -210,7 +210,7 @@ def getData(location, dataName, startTime, endTime):
     area = l[0]
     kind = l[2]
     metadata = getMetaData(area, kind, grain)
-    # print(metadata)
+    print(metadata)
     metadataId = metadata[0][0]
     conn = getConn()
     cur = conn.cursor()
