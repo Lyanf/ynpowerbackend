@@ -148,6 +148,7 @@ def miningRequest(tag, tagType, region, factors, method, arg, beginYear, endYear
 
 
 def regionSinglePredict(args):
+    print(args)
     beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
     result = executeAlgorithm(method, args)
     print('** algorithm exec result **', result)

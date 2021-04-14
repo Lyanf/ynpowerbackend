@@ -804,7 +804,7 @@ def getAlgorithmArgs(method = None, filename = None):
 
 
 def executeAlgorithm(method, args):
-    # print(filename)
+    print('** exec algorithm **', method, args)
     arg = getAlgorithmArgs(method, filename)
     a, b = getAlgorithmName(filename)
     method = methodNameZhToEn(a, b, method)

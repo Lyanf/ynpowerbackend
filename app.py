@@ -716,8 +716,8 @@ class MiningFactorQuery(Resource):
 @register('predict', 'region', 'single')
 class RegionSinglePredict(Resource):
     def post(self):
-        # try_print_json()
-        result = regionSinglePredict(request.json)
+        print('request: ', request, request.json)
+        result = regionSinglePredict(request.json if request.json != None else request.form)
         if result == None:
             re = {
                 "msg": "参数错误",
