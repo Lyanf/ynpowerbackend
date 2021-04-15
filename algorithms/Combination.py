@@ -11,13 +11,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import math
 import copy
-from evaluation import RMSE,MAPE
-from interface import getData, getAlgorithmResult
+from algorithms.evaluation import RMSE,MAPE
+from algorithms.interface import getData, getAlgorithmResult
 import json 
-import interface as ri
-import GBDT
-import BPNN
-import ExponentTime
+import algorithms.interface as ri
+import algorithms.GBDT
+import algorithms.BPNN
+import algorithms.ExponentTime
 import copy
 
 
@@ -83,10 +83,12 @@ def Combination(PreStartYear,PreEndYear,pretype,singleresult,city="云南省", c
     for tag in singleresult:
         r=getAlgorithmResult(tag)
         data=json.loads(json.loads(r)["results"][0][1])
-        if data["arg"]["PreStartYear"]!=int(PreStartYear):
+
+        print(data['arg'])
+        if data["arg"]["beginYear"]!=int(PreStartYear):
             result={"False":"%s 的预测起始年份与所选预测起始年份不符"%tag}
             return result
-        elif data["arg"]["PreEndYear"]!=int(PreEndYear):
+        elif data["arg"]["endYear"]!=int(PreEndYear):
             result={"False":"%s 的预测终止年份与所选预测终止年份不符"%tag}
             return result
         elif "trainresult" not in data["result"]:

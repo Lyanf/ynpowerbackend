@@ -834,8 +834,10 @@ def executeAlgorithm(method, args):
             argstr += "{} = '{}',".format(k, args[key])
         elif v["kind"] == "multioption":
             if not args[key]:
-                args[key] = []
-            argstr += "{} = {},".format(k, args[key])
+                reallist = []
+            else:
+                reallist = args[key].split(',')
+            argstr += "{} = {},".format(k, repr(reallist))
         else:
             argstr += "{} = {},".format(k, args[key])
 
