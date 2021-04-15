@@ -583,13 +583,13 @@ def payloadChartsYearly(args):
 
     if category == "历年最大负荷曲线":
         return result1
-    elif category == "历年平均日负荷率曲线":
+    elif category == "历年平均负荷曲线":
         return result2
     elif category == "历年最大峰谷差率曲线":
         return result3
-    elif category == "历年月不均衡曲线":
+    elif category == "历年月不平衡曲线":
         return result4
-    elif category == "历年季不平衡系数曲线":
+    elif category == "历年季不平衡曲线":
         return result5
 
 def industryMixModelValidate(methods):
