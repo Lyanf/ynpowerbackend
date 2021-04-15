@@ -828,8 +828,16 @@ def executeAlgorithm(method, args):
             argstr += "{} = {},".format(k, value)
         elif v["kind"].startswith("file"):
             argstr += "{} = {},".format(k, 'args["'+key+'"]')
-        elif v["kind"] == "string" or v["kind"] == "option":
+        elif v["kind"] == "string":
             argstr += "{} = '{}',".format(k, args[key])
+        elif v["kind"] == "option":
+            if not args[key]:
+                args[key] = []
+            argstr += "{} = {},".format(k, args[key])
+        elif v["kind"] == "multioption":
+            if not args[key]:
+                args[key] = []
+            argstr += "{} = {},".format(k, args[key])
         else:
             argstr += "{} = {},".format(k, args[key])
 

@@ -5,9 +5,9 @@ Created on Thu Mar  4 11:16:09 2021
 @author: ZR_YL
 """
 
-
+from algorithms.interface import insertData
 from algorithms.evaluation import RMSE,MAPE
-from dao.interface import getData, insertData
+from dao.interface import getData
 import json 
 import pandas as pd
 import numpy as np
@@ -74,36 +74,37 @@ def ForIndustry(StartYear,EndYear,PreStartYear,PreEndYear,rejectlsit,proposedata
         
         
         if Premethod=="指数函数外推":
-            result=ExponentTime.ExponentTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype = savetype, city="云南省")
+            result=ExponentTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype = savetype, city="云南省")
         elif Premethod=="灰色滑动平均模型":
             T=math.floor(len(forpredata)/3)
-            result=GM.GM(StartYear,EndYear,PreStartYear,PreEndYear,timestep=T,pretype=savetype,city="云南省")
+            result=GM(StartYear,EndYear,PreStartYear,PreEndYear,timestep=T,pretype=savetype,city="云南省")
         elif Premethod== "生长函数外推":
-            result=GrowthTime.GrowthTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype=savetype,city="云南省")
+            result=GrowthTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype=savetype,city="云南省")
         elif Premethod== "一元线性外推":
-            result=UnarylinearTime.UnarylinearTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype=savetype,city="云南省")
+            result=UnarylinearTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype=savetype,city="云南省")
         elif Premethod== "对数函数外推":
-            result=LogarithmTime.LogarithmTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype=savetype,city="云南省")
+            result=LogarithmTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype=savetype,city="云南省")
         elif Premethod=="基于滚动机制的灰色预测模型":
             T=math.floor(len(forpredata)/3)
-            result=GPRM.GPRM(StartYear,EndYear,PreStartYear,PreEndYear,T,pretype=savetype,city="云南省")
+            result=GPRM(StartYear,EndYear,PreStartYear,PreEndYear,T,pretype=savetype,city="云南省")
         elif Premethod== "模糊指数平滑模型":
             T=math.floor(len(forpredata)/3)
-            result=FER.FER(StartYear,EndYear,PreStartYear,PreEndYear,T,pretype=savetype,city="云南省")
+            result=FER(StartYear,EndYear,PreStartYear,PreEndYear,T,pretype=savetype,city="云南省")
         elif Premethod=="模糊线性回归模型":
             T=math.floor(len(forpredata)/3)
-            result=FLR.FLR(StartYear,EndYear,PreStartYear,PreEndYear,T,pretype=savetype,city="云南省")   
+            result=FLR(StartYear,EndYear,PreStartYear,PreEndYear,T,pretype=savetype,city="云南省")   
         elif Premethod == "梯度提升模型":
             T=math.floor(len(forpredata)/3)
-            result=GBDT.GBDT(StartYear,EndYear,PreStartYear,PreEndYear,T,pretype=savetype,city="云南省")
+            result=GBDT(StartYear,EndYear,PreStartYear,PreEndYear,T,pretype=savetype,city="云南省")
         elif Premethod == "支持向量机模型":
             T=math.floor(len(forpredata)/3)
-            result=SVM.SVM(StartYear,EndYear,PreStartYear,PreEndYear,T,pretype=savetype,city="云南省")
+            result=SVM(StartYear,EndYear,PreStartYear,PreEndYear,T,pretype=savetype,city="云南省")
         elif Premethod == "随机森林模型":
             T=math.floor(len(forpredata)/3)
-            result=RandomForest.RandomForest(StartYear,EndYear,PreStartYear,PreEndYear,T,pretype=savetype,n_estimators=50,city="云南省")
-            
-        if isinstance(result["preresult"],str):
+            result=RandomForest(StartYear,EndYear,PreStartYear,PreEndYear,T,pretype=savetype,n_estimators=50,city="云南省")
+        else:
+            result = None
+        if result == None or isinstance(result["preresult"],str):
             return {"prefromyear":None,"pretoyear":None,"preresult":"预测失败，请重新选择预测方法."}
         else:
             ypre=[]
@@ -112,7 +113,13 @@ def ForIndustry(StartYear,EndYear,PreStartYear,PreEndYear,rejectlsit,proposedata
                 for n in range(len(rejectlsit)):
                     power=power+propose[rejectlsit[n]].values[k]
                 ypre.append(power)
-        result={"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre}
+        result={
+            "prefromyear": PreStartYear,
+            "pretoyear": PreEndYear,
+            "preresult": ypre,
+            "MAPE": 0,
+            "RMSE": 0
+        }
         return result
 
 
