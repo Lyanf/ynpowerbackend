@@ -26,7 +26,7 @@ port="32345"
 
 class Database():
     # replace the user, password, hostname and database according to your configuration according to your information
-    engine = db.create_engine('postgresql://postgres:admin123@192.168.1.108:32345/electric')
+    engine = db.create_engine('postgresql://%s:%s@%s:%s/%s' % (user, password, host, port, dbname))
     #engine = db.create_engine('postgresql://postgres:ynpower@localhost:5432/electric')
 
     def __init__(self):
@@ -58,7 +58,7 @@ def getDataJson(dataName, startTime, endTime):
 
 
 def insertData(data):
-    engine = db.create_engine('postgresql://postgresadmin:admin123@192.168.1.108:32345/electric')
+    engine = db.create_engine('postgresql://%s:%s@%s:%s/%s' % (user, password, host, port, dbname))
     #engine = db.create_engine('postgresql://postgres:ynpower@localhost:5432/electric')
     #pd.io.sql.to_sql(data, 'electric_data', engine, index=False, if_exists='replace', dtype={'datatime': sqlalchemy.Date()})
     pd.io.sql.to_sql(data, 'electric_data', engine, index=False, if_exists='replace')
@@ -209,6 +209,7 @@ def getData(location, dataName, startTime, endTime):
     grain = l[1]
     area = l[0]
     kind = l[2]
+    print(area, kind, grain)
     metadata = getMetaData(area, kind, grain)
     print(metadata)
     metadataId = metadata[0][0]
