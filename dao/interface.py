@@ -771,7 +771,7 @@ def getAlgorithmArgs(method = None, filename = None):
                         temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="社会经济类")
                     if row.iloc[i-1][j].startswith("组合方式"):
                         temp["value"] = getCombinationMethod()
-                    if row.iloc[i - 1][j].startswith("单预测模型结果"):
+                    if row.iloc[i - 1][j].startswith("单预测模型结果") or row.iloc[i - 1][j].startswith("单预测模型标签"):
                         temp["value"] = getAllTagList()
                     if row.iloc[i - 1][j].startswith("电力变量列表") or row.iloc[i - 1][j].startswith("目标关联名称") or row.iloc[i - 1][j].startswith("关联变量列表"):
                         temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类")
