@@ -20,7 +20,7 @@ from algorithms.evaluation import RMSE,MAPE
 
 
 "未联调"
-def RFindustry(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype,n_estimators=50,city="云南省"):
+def RFIndustry(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype,n_estimators=50,city="云南省"):
     """   
 
     Parameters
