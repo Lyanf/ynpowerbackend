@@ -1,0 +1,66 @@
+[2021-04-14 15:56:16 +0800] [574] [INFO] Starting gunicorn 20.0.4
+[2021-04-14 15:56:16 +0800] [574] [INFO] Listening at: http://0.0.0.0:18000 (574)
+[2021-04-14 15:56:16 +0800] [574] [INFO] Using worker: sync
+[2021-04-14 15:56:16 +0800] [578] [INFO] Booting worker with pid: 578
+[2021-04-14 15:56:16 +0800] [579] [INFO] Booting worker with pid: 579
+Undefined function or variable 'loadcurve'.
+
+Error in seek22 (line 20)
+
+Error in main (line 30)
+
+[2021-04-14 16:12:05,339] ERROR in app: Exception on /api/payload/predict/dbquery [POST]
+Traceback (most recent call last):
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 1253, in post
+    result = sokuPayloadPredict(request.json)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 398, in sokuPayloadPredict
+    result = soukupre(start, ending, premaxload, pretotal,pregamma,prebeta, file=file)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadpredict/souku/souku.py", line 12, in soukupre
+    re = skx.main(start, ending, premaxload, pretotal,pregamma,prebeta,file)
+  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/deployablefunc.py", line 80, in __call__
+    nlhsWasSpecified, stdoutObj, stderrObj).result()
+  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 135, in result
+    raise e
+  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 123, in result
+    raise e
+  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 113, in result
+    self._nlhs, out=self._out, err=self._err)
+matlab_pysdk.runtime.MatlabRuntimeError: An error occurred when evaluating the result from a function. Details: 
+  File /home/dclab/.mcrCache9.6/sk_88B0/Users/gujie/Desktop/devenv/ynpowerbackend/algorithms/loadpredict/souku/seek22.m, line 20, in seek22
+
+  File /home/dclab/.mcrCache9.6/sk_88B0/Users/gujie/Desktop/devenv/ynpowerbackend/algorithms/loadpredict/souku/main.m, line 30, in main
+Undefined function or variable 'loadcurve'.
+
+[2021-04-14 16:12:08 +0800] [574] [INFO] Handling signal: hup
+[2021-04-14 16:12:08 +0800] [574] [INFO] Hang up: Master
+[2021-04-14 16:12:08 +0800] [10977] [INFO] Booting worker with pid: 10977
+[2021-04-14 16:12:08 +0800] [10976] [INFO] Booting worker with pid: 10976
+[2021-04-15 10:21:08,837] ERROR in app: Exception on /getDataJson [POST]
+Traceback (most recent call last):
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 468, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 81, in post
+    re = getDatas(area + "_" + grain + "_" + kind, dataName, startTime, endTime)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 630, in getDatas
+    re = getData(location, dataName, startTime, endTime)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 214, in getData
+    metadataId = metadata[0][0]
+IndexError: list index out of range
