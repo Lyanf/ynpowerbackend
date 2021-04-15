@@ -205,7 +205,7 @@ def addPowerData(data, area, grain, kind):
     conn.close()
 
 def getData(location, dataName, startTime, endTime):
-    l = location.split("_")
+    l = location.split("_", maxsplit=2)
     grain = l[1]
     area = l[0]
     kind = l[2]

@@ -632,13 +632,14 @@ def grainQuery():
 
 def getDatas(location, dataName, startTime, endTime):
     re = getData(location, dataName, startTime, endTime)
+    print('get data returns:', re)
     return re
 def executeAlgorithmTest(method, args):
     executeAlgorithm(method, args)
 
 
 def getDefault(start, end):
-    file = "yunnan_year_loadchara-fengshui-souku-max"
+    file = "yunnan_year_fengshui-souku-max"
     result = {}
     loadmax, electricity = default_jiabi(file, start, end)
 

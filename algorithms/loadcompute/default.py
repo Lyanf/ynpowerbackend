@@ -42,7 +42,7 @@ def default_f(file,start,end):
 start = "2013"
 end = "2018"
 # 3个页面均采用文件名为souku结尾的即可
-file = "yunnan_year_loadchara-fengshui-souku-max"
+file = "yunnan_year_fengshui-souku-max"
 
 loadmax, electricity = default_jiabi(file,start,end)
 loadmax, electricity = default_f(file,start,end)

@@ -1,7 +1,7 @@
 from algorithms.loadpredict.fenxing.fx.for_redistribution_files_only import fx
 import numpy as np
 
-def fenxingpre(start, ending, power,maxload,file="yunnan_year_loadchara_test"):
+def fenxingpre(start, ending, power,maxload,file="yunnan_year_test"):
     start = float(start)
     ending = float(ending)
     power = float(power)
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     power = 1476433;
     maxload = 72442;
 
-    file = "yunnan_year_loadchara_test";
+    file = "yunnan_year_test";
 
     re = fenxingpre(start, ending, power,maxload,file)
     print(re)

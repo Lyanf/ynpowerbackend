@@ -1,7 +1,7 @@
 from algorithms.loadpredict.souku.sk.for_redistribution_files_only import sk
 import numpy as np
 
-def soukupre(start, ending, premaxload, pretotal,pregamma,prebeta,file="yunnan_year_loadchara_souku"):
+def soukupre(start, ending, premaxload, pretotal,pregamma,prebeta,file="yunnan_year_souku"):
     start = float(start)
     ending = float(ending)
     pretotal = float(pretotal)
@@ -23,6 +23,6 @@ if __name__ == '__main__':
     pretotal = float(1300000)
     pregamma = float(0.9)
     prebeta = float(0.7)
-    file = "yunnan_year_loadchara_souku"
+    file = "yunnan_year_souku"
     re = soukupre(start, ending, premaxload, pretotal,pregamma,prebeta,file)
     print(re)

@@ -15,59 +15,59 @@ import pandas as pd
 #获取loadpredict的file参数
 def getFilenameOfLoadPre(season, type, func):
     if season == "丰水期" and type == "最大值" and func == "fx":
-        return "yunnan_year_fengshui_f_max"
+        return "yunnan_year_fengshui-f-max"
     elif season == "丰水期" and type == "最小值" and func == "fx":
-        return "yunnan_year_fengshui_f_min"
+        return "yunnan_year_fengshui-f-min"
     elif season == "丰水期" and type == "中位值" and func == "fx":
-        return "yunnan_year_fengshui_f_median"
+        return "yunnan_year_fengshui-f-median"
     elif season == "丰水期" and type == "最大值" and func == "jb":
-        return "yunnan_year_fengshui_jiabi_max"
+        return "yunnan_year_fengshui-jiabi-max"
     elif season == "丰水期" and type == "最小值" and func == "jb":
-        return "yunnan_year_fengshui_jiabi_min"
+        return "yunnan_year_fengshui-jiabi-min"
     elif season == "丰水期" and type == "中位值" and func == "jb":
-        return "yunnan_year_fengshui_jiabi_median"
+        return "yunnan_year_fengshui-jiabi-median"
     elif season == "丰水期" and type == "最大值" and func == "sk":
-        return "yunnan_year_fengshui_souku_max"
+        return "yunnan_year_fengshui-souku-max"
     elif season == "丰水期" and type == "最小值" and func == "sk":
-        return "yunnan_year_fengshui_souku_min"
+        return "yunnan_year_fengshui-souku-min"
     elif season == "丰水期" and type == "中位值" and func == "sk":
-        return "yunnan_year_fengshui_souku_median"
+        return "yunnan_year_fengshui-souku-median"
     elif season == "汛后枯期" and type == "最大值" and func == "fx":
-        return "yunnan_year_xunhou_f_max"
+        return "yunnan_year_xunhou-f-max"
     elif season == "汛后枯期" and type == "最小值" and func == "fx":
-        return "yunnan_year_xunhou_f_min"
+        return "yunnan_year_xunhou-f-min"
     elif season == "汛后枯期" and type == "中位值" and func == "fx":
-        return "yunnan_year_xunhou_f_median"
+        return "yunnan_year_xunhou-f-median"
     elif season == "汛后枯期" and type == "最大值" and func == "jb":
-        return "yunnan_year_xunhou_jiabi_max"
+        return "yunnan_year_xunhou-jiabi-max"
     elif season == "汛后枯期" and type == "最小值" and func == "jb":
-        return "yunnan_year_xunhou_jiabi_min"
+        return "yunnan_year_xunhou-jiabi-min"
     elif season == "汛后枯期" and type == "中位值" and func == "jb":
-        return "yunnan_year_xunhou_jiabi_median"
+        return "yunnan_year_xunhou-jiabi-median"
     elif season == "汛后枯期" and type == "最大值" and func == "sk":
-        return "yunnan_year_xunhou_souku_max"
+        return "yunnan_year_xunhou-souku-max"
     elif season == "汛后枯期" and type == "最小值" and func == "sk":
-        return "yunnan_year_xunhou_souku_min"
+        return "yunnan_year_xunhou-souku-min"
     elif season == "汛后枯期" and type == "中位值" and func == "sk":
-        return "yunnan_year_xunhou_souku_median"
+        return "yunnan_year_xunhou-souku-median"
     elif season == "汛前枯期" and type == "最大值" and func == "fx":
-        return "yunnan_year_xunqian_f_max"
+        return "yunnan_year_xunqian-f-max"
     elif season == "汛前枯期" and type == "最小值" and func == "fx":
-        return "yunnan_year_xunqian_f_min"
+        return "yunnan_year_xunqian-f-min"
     elif season == "汛前枯期" and type == "中位值" and func == "fx":
-        return "yunnan_year_xunqian_f_median"
+        return "yunnan_year_xunqian-f-median"
     elif season == "汛前枯期" and type == "最大值" and func == "jb":
-        return "yunnan_year_xunqian_jiabi_max"
+        return "yunnan_year_xunqian-jiabi-max"
     elif season == "汛前枯期" and type == "最小值" and func == "jb":
-        return "yunnan_year_xunqian_jiabi_min"
+        return "yunnan_year_xunqian-jiabi-min"
     elif season == "汛前枯期" and type == "中位值" and func == "jb":
-        return "yunnan_year_xunqian_jiabi_median"
+        return "yunnan_year_xunqian-jiabi-median"
     elif season == "汛前枯期" and type == "最大值" and func == "sk":
-        return "yunnan_year_xunqian_souku_max"
+        return "yunnan_year_xunqian-souku-max"
     elif season == "汛前枯期" and type == "最小值" and func == "sk":
-        return "yunnan_year_xunqian_souku_min"
+        return "yunnan_year_xunqian-souku-min"
     elif season == "汛前枯期" and type == "中位值" and func == "sk":
-        return "yunnan_year_xunqian_souku_median"
+        return "yunnan_year_xunqian-souku-median"
 
 
 #flag = 0,开始时间，flag=1，结束时间

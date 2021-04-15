@@ -1,7 +1,7 @@
 from algorithms.loadpredict.shuangxiangjiabi.sxjb.for_redistribution_files_only import sxjb
 import numpy as np
 
-def shuangxiangjiabi(start, ending, premaxload, pretotal, file="yunnan_year_loadchara_jiabi"):
+def shuangxiangjiabi(start, ending, premaxload, pretotal, file="yunnan_year_jiabi"):
     start = float(start)
     ending = float(ending)
     pretotal = float(pretotal)
