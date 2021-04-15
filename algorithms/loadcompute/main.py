@@ -14,7 +14,7 @@ def yearfeature(start, end, datasource="yunnan_day_电力电量类"):
             'year': result[0][i],
             'yearMaxPayload': int(result[1][i][0]),
             'yearMinPayload': int(result[1][i][1]),
-            'yearAverageDailyPayloadRate': round(result[1][i][2],3),  # ,
+            'yearAveragePayload': int(result[1][i][2]),  # ,
             'yearMaxPeekValleyDiff': round(result[1][i][3],3),  # ,
             'yearRate': round(result[1][i][4],3),  # ,
             'seasonImbaRate': round(result[1][i][5],3),  # ,

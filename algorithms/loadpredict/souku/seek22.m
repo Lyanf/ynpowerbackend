@@ -3,6 +3,7 @@ global endyear startyear
 %%Ñ°ÕÒ»ù×¼ÇúÏß
 numyear=endyear-startyear+1;
 disp(['numyear is ' num2str(numyear)]);
+disp(info)
 value=abs(gamma-pregamma*ones(1,numyear));
 disp(value);
 disp(find(value==min(value))+1);
