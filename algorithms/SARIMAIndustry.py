@@ -66,7 +66,7 @@ def SARIMAIndustry(StartYear,EndYear,PreStartYear,PreEndYear,pretype,city="云�
     ##select the best parameter proup of SARIMA, using AIC （Akaike信息标准）
     
     # Define the p, d and q parameters to take any value between 0 and 2
-    p=q=P=Q=range(0,3)#短期取得是（0,3）
+    p=q=P=Q=range(0,2)#短期取得是（0,3）
     d=D=1#短期取得是1
     parameters = itertools.product(p,q,P,Q)
     parameters_list = list(parameters)
