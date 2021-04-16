@@ -730,9 +730,10 @@ class RegionSinglePredict(Resource):
                 "code": -1,
                 "data": None
             }
-        elif isinstance(result, Exception):
+        elif isinstance(result[0], Exception):
+            file_name, line_code = result[1:]
             re = {
-                "msg": '%s: %s' % (result.__class__.__name__, str(result)),
+                "msg": '(%s: line %d) %s' % (file_name, line_code, repr(result[0])),
                 "code": -1,
                 "data": None
             }
@@ -798,9 +799,10 @@ class RegionMixPredict(Resource):
                 "code": -1,
                 "data": result
             }
-        elif isinstance(result, Exception):
+        elif isinstance(result[0], Exception):
+            file_name, line_code = result[1:]
             re = {
-                "msg": '%s: %s' % (result.__class__.__name__, str(result)),
+                "msg": '(%s: line %d) %s' % (file_name, line_code, repr(result[0])),
                 "code": -1,
                 "data": None
             }
@@ -848,9 +850,10 @@ class IndustrySinglePredict(Resource):
                 "code": -1,
                 "data": result
             }
-        elif isinstance(result, Exception):
+        elif isinstance(result[0], Exception):
+            file_name, line_code = result[1:]
             re = {
-                "msg": '%s: %s' % (result.__class__.__name__, str(result)),
+                "msg": '(%s: line %d) %s' % (file_name, line_code, repr(result[0])),
                 "code": -1,
                 "data": None
             }
@@ -917,9 +920,10 @@ class IndustryMixPredict(Resource):
                 "code": -1,
                 "data": result
             }
-        elif isinstance(result, Exception):
+        elif isinstance(result[0], Exception):
+            file_name, line_code = result[1:]
             re = {
-                "msg": '%s: %s' % (result.__class__.__name__, str(result)),
+                "msg": '(%s: line %d) %s' % (file_name, line_code, repr(result[0])),
                 "code": -1,
                 "data": None
             }
