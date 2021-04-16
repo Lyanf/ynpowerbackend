@@ -520,7 +520,6 @@ def ChartMonthlyOp(year, category):
         result2 = []
         result3 = []
         result4 = []
-        result5 = []
 
         result = monthFeature(beginMonth.strftime('%Y/%m/%d'), endMonth.strftime('%Y/%m/%d'))
         # print(result)
@@ -529,7 +528,6 @@ def ChartMonthlyOp(year, category):
             result2.append(temp["monthAverageDailyPayloadRate"])
             result3.append(temp["monthMaxPeekValleyDiff"])
             result4.append(temp["monthMaxPeekValleyDiffRate"])
-            result5.append(temp[""])
 
         # while beginMonth < endMonth:
         #     t = beginMonth.strftime('%Y/%m/%d')
@@ -550,8 +548,6 @@ def ChartMonthlyOp(year, category):
             return result3
         elif category == "月最大峰谷差率曲线":
             return result4
-        elif category == "月不均衡系数曲线":
-            return result5
 
 def payloadChartsDaily(day):
 
