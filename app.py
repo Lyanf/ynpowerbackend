@@ -565,13 +565,7 @@ class MiningRequest(Resource):
         #     ARL = request.json['ARL']
         #     re = miningRequest(tag, tagType, region, factors, method, ARL, beginYear, endYear, args)
         result = miningRequest(request.json)
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": result
-
-        }
-        return re
+        return _handle_response(re)
 
 @register('mining', 'factor', 'kmeans', 'suggest')
 class MiningKMeansSuggestCategoryCount(Resource):
