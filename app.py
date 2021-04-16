@@ -564,7 +564,7 @@ class MiningRequest(Resource):
         # elif method == "ARL":
         #     ARL = request.json['ARL']
         #     re = miningRequest(tag, tagType, region, factors, method, ARL, beginYear, endYear, args)
-        result = miningRequest(request.json)
+        re = miningRequest(request.json)
         return _handle_response(re)
 
 @register('mining', 'factor', 'kmeans', 'suggest')
