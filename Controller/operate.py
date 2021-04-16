@@ -1,5 +1,6 @@
 # from dao.interface import getDataByCondition, modifyDataByCondition, getTagByKind, getAllTag, renameTag, deleteTag, \
 #     checkTag, insertAlgorithmContent, getGrain, getKind, getArea
+from numpy.core.fromnumeric import trace
 from algorithms.Outlier import Outlier
 from algorithms.loadcompute.default import default_jiabi, default_souku, default_f
 from algorithms.loadcompute.main import dayFeature, monthFeature, yearfeature, yearLoad, dayLoad, typicalDay, \
@@ -12,7 +13,7 @@ from algorithms.loadpredict.zhishupinghua.zhishupinghua import zhishupinghua
 from dao import *
 from utils import *
 import json
-
+import traceback
 
 def exceptQuery(category, startTime, endTime, grain, area):
     data = getDataByCondition(grain = grain, startTime = startTime, endTime = endTime, kind = category[0], dataName = category[1], area = area)
@@ -163,143 +164,172 @@ def regionSinglePredict(args):
         result = formatPredictResult(result)
         return result
     except Exception as e:
+        traceback.print_exc()
         return e
 
 def regionMixPredict(args):
-    beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
-    singleresult = []
-    for tag in args["singleresult"]:
-        result = getAlgorithmContentByTag(tag)
+    try:
+        beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
+        singleresult = []
+        for tag in args["singleresult"]:
+            result = getAlgorithmContentByTag(tag)
 
-        singleresult.append(json.loads(result[0]["content"])["result"])
-    args["singleresult"] = singleresult
-    result = executeAlgorithm(method, args)
-    content = {}
-    content['arg'] = args
-    content['result'] = result
+            singleresult.append(json.loads(result[0]["content"])["result"])
+        args["singleresult"] = singleresult
+        result = executeAlgorithm(method, args)
+        content = {}
+        content['arg'] = args
+        content['result'] = result
 
-    if tag != None:
-        re = insertAlgorithmContent(tag, tagType, content)
+        if tag != None:
+            re = insertAlgorithmContent(tag, tagType, content)
 
-    result = formatPredictResult(result)
-    print(result)
-    return result
+        result = formatPredictResult(result)
+        print(result)
+        return result
+    except Exception as e:
+        traceback.print_exc()
+        return e
 
 
 def industrySinglePredict(args):
-    beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
-    result = executeAlgorithm(method, args)
+    try:
+        beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
+        result = executeAlgorithm(method, args)
 
-    content = {}
-    content['arg'] = args
-    content["result"] = result
+        content = {}
+        content['arg'] = args
+        content["result"] = result
 
-    if tag != None:
-        re = insertAlgorithmContent(tag, tagType, content)
-    result = formatPredictResult(result)
-    print(result)
-    return result
+        if tag != None:
+            re = insertAlgorithmContent(tag, tagType, content)
+        result = formatPredictResult(result)
+        print(result)
+        return result
+    except Exception as e:
+        traceback.print_exc()
+        return e
 
 def industryMixPredict(args):
-    beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
-    singleresult = []
-    for tag in args["singleresult"]:
-        result = getAlgorithmContentByTag(tag)
+    try:
+        beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
+        singleresult = []
+        for tag in args["singleresult"]:
+            result = getAlgorithmContentByTag(tag)
 
-        singleresult.append(json.loads(result[0]["content"])["result"])
-    args["singleresult"] = singleresult
-    result = executeAlgorithm(method, args)
+            singleresult.append(json.loads(result[0]["content"])["result"])
+        args["singleresult"] = singleresult
+        result = executeAlgorithm(method, args)
 
-    content = {}
-    content['arg'] = args
-    content["result"] = result
+        content = {}
+        content['arg'] = args
+        content["result"] = result
 
-    if tag != None:
+        if tag != None:
 
-        re = insertAlgorithmContent(tag, tagType, content)
-    result = formatPredictResult(result)
-    print(result)
-    return result
+            re = insertAlgorithmContent(tag, tagType, content)
+        result = formatPredictResult(result)
+        print(result)
+        return result
+    except Exception as e:
+        traceback.print_exc()
+        return e
 
 def saturationCurvePredict(args):
-    beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
-    result = executeAlgorithm(method, args)
+    try:
+        beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
+        result = executeAlgorithm(method, args)
 
-    content = {}
-    content['arg'] = args
-    content["result"] = result
+        content = {}
+        content['arg'] = args
+        content["result"] = result
 
-    if tag != None:
+        if tag != None:
 
-        re = insertAlgorithmContent(tag, tagType, content)
-    result = formatPredictResult(result)
-    print(result)
-    return result
+            re = insertAlgorithmContent(tag, tagType, content)
+        result = formatPredictResult(result)
+        print(result)
+        return result
+    except Exception as e:
+        traceback.print_exc()
+        return e
 
 def payloadDensityPredict(args):
-    beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
-    result1 = executeAlgorithm(method, args)
-    content = {}
-    content['arg'] = args
-    content["result"] = result1
+    try:
+        beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
+        result1 = executeAlgorithm(method, args)
+        content = {}
+        content['arg'] = args
+        content["result"] = result1
 
-    if tag != None:
+        if tag != None:
 
-        re = insertAlgorithmContent(tag, tagType, content)
-    result = formatPredictResult(result1)
-    result["bu"] = result1["bu"]
-    print(result)
+            re = insertAlgorithmContent(tag, tagType, content)
+        result = formatPredictResult(result1)
+        result["bu"] = result1["bu"]
+        print(result)
 
-    return result
+        return result
+    except Exception as e:
+        traceback.print_exc()
+        return e
 
 
 def provincialAndMunicipalPredict(args):
-    beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
+    try:
+        beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
 
-    # provPlan = args['provPlan'] # 如果设置为 `__byUpload__` 则从上传文件中读取
-    # provFile = args['provFile']  # 如果 provPlan 是 __byUpload__，那么从这里读
-    # muniData  = args['muniData']
-    result = executeAlgorithm(method, args)
+        # provPlan = args['provPlan'] # 如果设置为 `__byUpload__` 则从上传文件中读取
+        # provFile = args['provFile']  # 如果 provPlan 是 __byUpload__，那么从这里读
+        # muniData  = args['muniData']
+        result = executeAlgorithm(method, args)
 
-    print(result)
+        print(result)
 
 
-    # content = {}
-    # content['arg'] = args
-    # content["result"] = result
-    #
-    # re = insertAlgorithmContent(tag, tagType, content)
-    return result
+        # content = {}
+        # content['arg'] = args
+        # content["result"] = result
+        #
+        # re = insertAlgorithmContent(tag, tagType, content)
+        return result
+    except Exception as e:
+        traceback.print_exc()
+        return e
 
 def bigDataPredict(args):
-    beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
-    result = executeAlgorithm(method, args)
+    try:
+        beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
+        result = executeAlgorithm(method, args)
 
-    content = {}
-    content['arg'] = args
-    content["result"] = result
+        content = {}
+        content['arg'] = args
+        content["result"] = result
 
-    if tag != None:
+        if tag != None:
 
-        re = insertAlgorithmContent(tag, tagType, content)
-    tableTwoData = []
-    prefromyear = timeFormat(result["prefromyear"], "year")
-    pretoyear = timeFormat(result["pretoyear"], "year")
-    i = 0
-    while prefromyear <= pretoyear:
-        temp = {
-            'year': prefromyear.strftime("%Y"),
-            'predict': result['preresult'][i]
+            re = insertAlgorithmContent(tag, tagType, content)
+        tableTwoData = []
+        prefromyear = timeFormat(result["prefromyear"], "year")
+        pretoyear = timeFormat(result["pretoyear"], "year")
+        i = 0
+        while prefromyear <= pretoyear:
+            temp = {
+                'year': prefromyear.strftime("%Y"),
+                'predict': result['preresult'][i]
+            }
+            tableTwoData.append(temp)
+            i += 1
+            prefromyear = getNextYear(prefromyear)
+        result = {
+            "tableTwoData": tableTwoData
         }
-        tableTwoData.append(temp)
-        i += 1
-        prefromyear = getNextYear(prefromyear)
-    result = {
-        "tableTwoData": tableTwoData
-    }
-    print(result)
+        print(result)
 
-    return result
+        return result
+    except Exception as e:
+        traceback.print_exc()
+        return e
 
 def dailyPayloadTraits(args):
     beginDay = args["beginDay"]
