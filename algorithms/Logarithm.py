@@ -40,7 +40,7 @@ def Logarithm(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电
     
     
     if len(econamelist) !=1:
-        return {"False":"请重新选择一个经济变量."}
+        raise ValueError("请重新选择*一个*经济变量")
     
     elif city=="云南省":
         name=[pretype]

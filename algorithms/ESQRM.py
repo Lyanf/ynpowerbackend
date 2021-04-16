@@ -93,11 +93,10 @@ def ESQRM(StartYear,EndYear,PreStartYear,PreEndYear,quatile=0.95,pretype="全社
         return pre    
     
     
-    
     #判断经济因素数量是否合适
     if len(econamelist)>5:
         delnum=len(econamelist)-5
-        print("经济因素选取不应超出5个,请删去%s个,再重新预测。"%delnum)
+        raise ValueError("经济因素选取不应超出 5 个。请删去 %s 个再预测" % delnum)
     elif city=="云南省":
         name=[pretype]
         finaldata=[]
@@ -148,7 +147,7 @@ def ESQRM(StartYear,EndYear,PreStartYear,PreEndYear,quatile=0.95,pretype="全社
         #返回结果
         result={"trainfromyear":StartYear,"traintoyear":EndYear,"trainresult":ytrain.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
     else:
-        result={"preresult":"暂不支持其他地区预测"}
+        raise LookupError("暂不支持其他地区预测")
     return result
 
 result=ESQRM("1995","2019","2020","2021",quatile=0.95,pretype="全社会用电量",econamelist=["GDP"],city="云南省")

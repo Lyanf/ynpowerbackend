@@ -53,7 +53,7 @@ def QuantileRegression(StartYear,EndYear,PreStartYear,PreEndYear,quatile=0.95,pr
     #判断经济因素数量是否合适
     if len(econamelist)>5:
         delnum=len(econamelist)-5
-        print("经济因素选取不应超出5个,请删去%s个,再重新预测。"%delnum)
+        raise ValueError("经济因素选取不应超出 5 个，请删去 %s 个" % delnum)
     elif city=="云南省":
         name=[pretype]
         finaldata=[]
@@ -99,7 +99,7 @@ def QuantileRegression(StartYear,EndYear,PreStartYear,PreEndYear,quatile=0.95,pr
         #返回结果
         result={"trainfromyear":StartYear,"traintoyear":EndYear,"trainresult":ytrain.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
     else:
-        result={"False":"暂不支持其他地区预测"}
+        raise LookupError("暂不支持其他地区预测")
     return result
 
 if __name__ == '__main__':

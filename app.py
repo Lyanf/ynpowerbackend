@@ -726,9 +726,15 @@ class RegionSinglePredict(Resource):
         result = regionSinglePredict(full_params)
         if result == None:
             re = {
-                "msg": "参数错误",
+                "msg": "未知错误",
                 "code": -1,
-                "data": result
+                "data": None
+            }
+        elif isinstance(result, Exception):
+            re = {
+                "msg": '%s: %s' % (result.__class__.__name__, str(result)),
+                "code": -1,
+                "data": None
             }
         else:
             re = {
@@ -788,9 +794,15 @@ class RegionMixPredict(Resource):
         result = regionMixPredict(request.json)
         if result == None:
             re = {
-                "msg": "参数错误",
+                "msg": "未知错误",
                 "code": -1,
                 "data": result
+            }
+        elif isinstance(result, Exception):
+            re = {
+                "msg": '%s: %s' % (result.__class__.__name__, str(result)),
+                "code": -1,
+                "data": None
             }
         else:
             re = {
@@ -832,9 +844,15 @@ class IndustrySinglePredict(Resource):
 
         if result == None:
             re = {
-                "msg": "参数错误",
+                "msg": "未知错误",
                 "code": -1,
                 "data": result
+            }
+        elif isinstance(result, Exception):
+            re = {
+                "msg": '%s: %s' % (result.__class__.__name__, str(result)),
+                "code": -1,
+                "data": None
             }
         else:
             re = {
@@ -895,9 +913,15 @@ class IndustryMixPredict(Resource):
         result = industryMixPredict(request.json)
         if result == None:
             re = {
-                "msg": "参数错误",
+                "msg": "未知错误",
                 "code": -1,
                 "data": result
+            }
+        elif isinstance(result, Exception):
+            re = {
+                "msg": '%s: %s' % (result.__class__.__name__, str(result)),
+                "code": -1,
+                "data": None
             }
         else:
             re = {
@@ -941,9 +965,15 @@ class SaturationCurvePredict(Resource):
         result = saturationCurvePredict(request.json)
         if result == None:
             re = {
-                "msg": "参数错误",
+                "msg": "未知错误",
                 "code": -1,
                 "data": result
+            }
+        elif isinstance(result, Exception):
+            re = {
+                "msg": '%s: %s' % (result.__class__.__name__, str(result)),
+                "code": -1,
+                "data": None
             }
         else:
             re = {

@@ -135,4 +135,4 @@ if __name__ == '__main__':
     pretype="第一产业用电量"
     city="云南省"
     
-    result=RFindustry(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype,n_estimators=50,city="云南省")
+    result=RFIndustry(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype,n_estimators=50,city="云南省")

@@ -34,7 +34,7 @@ def ForIndustry(StartYear,EndYear,PreStartYear,PreEndYear,rejectlsit,proposedata
     propose = pd.read_csv(proposedata, encoding="UTF-8")
     
     if len(propose.values) != int(PreEndYear)-int(PreStartYear)+1:
-        return {"prefromyear":None,"pretoyear":None,"preresult":"上传数据的年限与预测年限不符，请重新上传."}
+        raise ValueError("上传数据的年限与预测年限不符")
     
     else:
         #读取年度数据
@@ -105,7 +105,7 @@ def ForIndustry(StartYear,EndYear,PreStartYear,PreEndYear,rejectlsit,proposedata
         else:
             result = None
         if result == None or isinstance(result["preresult"],str):
-            return {"prefromyear":None,"pretoyear":None,"preresult":"预测失败，请重新选择预测方法."}
+            raise RuntimeError("预测失败，请重新选择预测方法")
         else:
             ypre=[]
             for k in range(len(propose.values)):

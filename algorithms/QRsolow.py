@@ -97,7 +97,7 @@ def QRsolow(hisfromyear,histoyear,fromyear,toyear,quatile=0.95,pretype="consumpt
     #判断经济因素数量是否合适
     if len(econamelist)>5:
         delnum=len(econamelist)-5
-        print("经济因素选取不应超出5个,请删去%s个,再重新预测。"%delnum)
+        raise ValueError("经济因素选取不应超出 5 个，请删去 %s 个"%delnum)
     elif city=="云南省":
         name=[pretype]
         finaldata=[]
@@ -148,4 +148,4 @@ def QRsolow(hisfromyear,histoyear,fromyear,toyear,quatile=0.95,pretype="consumpt
         return {"trainfromyear":hisfromyear,"traintoyear":histoyear,"trainresult":ytrain,
                 "prefromyear":fromyear,"pretoyear":toyear,"preresult":ypre,"MAPE":mape,"RMSE":rmse}
     else:
-        return {"False":"暂不支持其他地区预测"}
+        raise LookupError("暂不支持其他地区预测")

@@ -11,6 +11,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import math
 import copy
+
 from algorithms.evaluation import RMSE,MAPE
 from algorithms.interface import getData, getAlgorithmResult
 import json 
@@ -86,14 +87,11 @@ def Combination(PreStartYear,PreEndYear,pretype,singleresult,city="云南省", c
 
         print(data['arg'])
         if data["arg"]["beginYear"]!=int(PreStartYear):
-            result={"False":"%s 的预测起始年份与所选预测起始年份不符"%tag}
-            return result
+            raise ValueError("%s 的预测起始年份与所选预测起始年份不符" % tag)
         elif data["arg"]["endYear"]!=int(PreEndYear):
-            result={"False":"%s 的预测终止年份与所选预测终止年份不符"%tag}
-            return result
+            raise ValueError("%s 的预测终止年份与所选预测终止年份不符" % tag)
         elif "trainresult" not in data["result"]:
-            result={"False":"%s 不适用于组合预测模型"%tag}
-            return result
+            raise LookupError("%s 不适用于组合预测模型" % tag)
     #读取各个模型的数据
     alldata=[]
     for tag in singleresult:

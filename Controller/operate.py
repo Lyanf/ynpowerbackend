@@ -148,20 +148,22 @@ def miningRequest(args):
 
 
 def regionSinglePredict(args):
-    print(args)
-    beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
-    result = executeAlgorithm(method, args)
-    print('** algorithm exec result **', result)
-    content = {}
-    content['arg'] = args
-    content['result'] = result
+    try:
+        print(args)
+        beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
+        result = executeAlgorithm(method, args)
+        print('** algorithm exec result **', result)
+        content = {}
+        content['arg'] = args
+        content['result'] = result
 
-    if tag != None:
-        re = insertAlgorithmContent(tag, tagType, content)
+        if tag != None:
+            re = insertAlgorithmContent(tag, tagType, content)
 
-
-    result = formatPredictResult(result)
-    return result
+        result = formatPredictResult(result)
+        return result
+    except Exception as e:
+        return e
 
 def regionMixPredict(args):
     beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)

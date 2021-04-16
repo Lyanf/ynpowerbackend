@@ -105,7 +105,7 @@ def BPNNIndustry(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype,city
 
 
     if timestep > (int(EndYear)-int(StartYear)+1)*0.5:
-        return {"trainfromyear":None,"traintoyear":None,"trainresult":None,"prefromyear":None,"pretoyear":None,"preresult":"timestep设定过大，请重新设定。","MAPE":None,"RMSE":None}
+        raise ValueError("timestep 设定过大，请重新设定。")
     else:
         #读取数据，确定参数
         name=[pretype]
@@ -172,7 +172,7 @@ if __name__ == '__main__':
     pretype="采矿业用电量"
     city="云南省"
     
-    result=BPNNindustry(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype,city, hidden=[24,12], learningrate=0.005,epoch=1000)
+    result=BPNNIndustry(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype,city, hidden=[24,12], learningrate=0.005,epoch=1000)
 
 
 

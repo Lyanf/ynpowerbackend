@@ -40,7 +40,7 @@ def Kmeans(StartYear,EndYear,pretype,econamelist,n_clusters,city="云南省"):
 
     """
     if n_clusters>len(econamelist):
-        return {"FactorsName":"聚类数过大，请重新选取"}
+        raise ValueError("聚类数过大，请重新选取")
     else:
         finaldata=[]
         name=[]

@@ -64,7 +64,7 @@ def Binarylinear(StartYear,EndYear,PreStartYear,PreEndYear,econamelist,pretype="
     
     
     if len(econamelist) !=2:
-        return {"False":"请重新选择两个经济变量."}
+        raise ValueError("请选择*两个*经济变量")
     elif city=="云南省":
         name=[pretype]
         finaldata=[]

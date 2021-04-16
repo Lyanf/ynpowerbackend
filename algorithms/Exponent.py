@@ -39,8 +39,7 @@ def Exponent(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电�
         return Para    
 
     if len(econamelist) !=1:
-        return {"trainfromyear":None,"traintoyear":None,"trainresult":None,"prefromyear":None,"pretoyear":None,"preresult":"请重新选择一个经济变量.","MAPE":None,"RMSE":None}
-    
+        raise LookupError("请重新选择一个经济变量")
     elif city=="云南省":
         name=[pretype]
         finaldata=[]

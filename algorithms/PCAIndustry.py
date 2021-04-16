@@ -148,5 +148,5 @@ if __name__ == '__main__':
     pretype="第一产业用电量"
     city="云南省"
     
-    result=PCAindustry(StartYear,EndYear,PreStartYear,PreEndYear,pretype,econamelist,city="云南省")
+    result=PCAIndustry(StartYear,EndYear,PreStartYear,PreEndYear,pretype,econamelist,city="云南省")
 

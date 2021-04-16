@@ -58,7 +58,7 @@ def GM(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会用�
 
 
     if timestep > (int(EndYear)-int(StartYear)+1):
-        return {"trainfromyear":None,"traintoyear":None,"trainresult":None,"prefromyear":None,"pretoyear":None,"preresult":"训练步长过大，请调整后重试.","MAPE":None,"RMSE":None}
+        raise ValueError("训练步长过大，请调整后重试")
     else:
         """负荷预测"""
         name=[pretype]

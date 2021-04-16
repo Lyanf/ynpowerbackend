@@ -36,9 +36,9 @@ def LDM(PreStartYear,PreEndYear,buildingarea,loaddensity,pretype="全社会用�
     columns2=data2.columns
     
     if len(columns) != len(columns2):
-        return {"trainfromyear":None,"traintoyear":None,"trainresult":None,"prefromyear":None,"pretoyear":None,"preresult":"负荷密度和建筑密度列表不匹配，请重新上传。","MAPE":None,"RMSE":None}
+        raise ValueError("负荷密度和建筑密度列表不匹配，请重新上传")
     elif not (data1[columns[0]].values == data2[columns2[0]].values).all():
-        return {"trainfromyear":None,"traintoyear":None,"trainresult":None,"prefromyear":None,"pretoyear":None,"preresult":"负荷密度和建筑密度年份不匹配，请重新上传。","MAPE":None,"RMSE":None}
+        raise ValueError("负荷密度和建筑密度列表不匹配，请重新上传")
     else:
         StartYear = str(data1[columns[0]].values[0])
         EndYear = str(data1[columns[0]].values[-1])

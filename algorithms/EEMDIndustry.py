@@ -41,7 +41,7 @@ def EEMDIndustry(StartYear,EndYear,PreStartYear,PreEndYear,pretype,city="云南�
     delay=totalyear-trainyear-timestep+1
     testyear=trainyear+delay
     if trainyear+2+timestep>totalyear:
-        return {"False":"历史数据时间间隔过短或预测年份过长"}
+        raise ValueError("历史数据时间间隔过短或预测年份过长")
     else:
         train_x=pdyeardata[pretype].values[:trainyear]
         train_y=pdyeardata[pretype].values[trainyear:trainyear+timestep]

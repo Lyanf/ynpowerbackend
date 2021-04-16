@@ -34,7 +34,7 @@ def Outlier(StartYear,EndYear, pretype="全社会用电量",city="云南省"):
     sigma=t[abs(t-t.mean())> 3.0*t.std()]
     #out=sigma.dropna(how="all")#异常值
     if len(sigma.values) == 0:
-        result={"outlier":None,"year":None, "correction":"未发现异常值，无需更正"}
+        raise ValueError("未发现异常值，无需更正")
     else:
         out=np.array(sigma.values).tolist()
         

@@ -66,10 +66,10 @@ def SaturationCurve(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会
     plan=0
     period=int(PreEndYear)-int(PreStartYear)+1
     if len(econamelist) !=1:
-        return {"False":"请重新选择一个经济变量."}
+        raise ValueError("请重新选择*一个*经济变量")
     
     elif period<5:
-        return {"False":"预测目标年限过短, 本方法适用于5年以上的负荷预测."}
+        raise ValueError("预测目标年限过短，本方法适用于 5 年以上的负荷预测")
     elif city=="云南省":
         name=[pretype]
         finaldata=[]
