@@ -302,29 +302,22 @@ def payloadDensityPredict(args):
 
 
 def provincialAndMunicipalPredict(args):
-    try:
-        beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
+    beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
 
-        # provPlan = args['provPlan'] # 如果设置为 `__byUpload__` 则从上传文件中读取
-        # provFile = args['provFile']  # 如果 provPlan 是 __byUpload__，那么从这里读
-        # muniData  = args['muniData']
-        result = executeAlgorithm(method, args)
+    # provPlan = args['provPlan'] # 如果设置为 `__byUpload__` 则从上传文件中读取
+    # provFile = args['provFile']  # 如果 provPlan 是 __byUpload__，那么从这里读
+    # muniData  = args['muniData']
+    result = executeAlgorithm(method, args)
 
-        print(result)
+    print(result)
 
 
-        # content = {}
-        # content['arg'] = args
-        # content["result"] = result
-        #
-        # re = insertAlgorithmContent(tag, tagType, content)
-        return result
-    except Exception as e:
-        _, _, exception_traceback = sys.exc_info()
-        filename = exception_traceback.tb_frame.f_code.co_filename
-        line_number = exception_traceback.tb_lineno
-        traceback.print_exc()
-        return e, filename, line_number
+    # content = {}
+    # content['arg'] = args
+    # content["result"] = result
+    #
+    # re = insertAlgorithmContent(tag, tagType, content)
+    return result
 
 def bigDataPredict(args):
     try:

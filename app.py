@@ -713,6 +713,28 @@ class MiningFactorQuery(Resource):
             "data": re
         }
 
+def _handle_response(result):
+    if result == None:
+        re = {
+            "msg": "未知错误",
+            "code": -1,
+            "data": None
+        }
+    elif type(result) == tuple and isinstance(result[0], Exception):
+        file_name, line_code = result[1:]
+        re = {
+            "msg": '(%s: line %d) %s' % (file_name, line_code, repr(result[0])),
+            "code": -1,
+            "data": None
+        }
+    else:
+        re = {
+            "msg": "success",
+            "code": 200,
+            "data": result
+        }
+    return re
+
 @register('predict', 'region', 'single')
 class RegionSinglePredict(Resource):
     def post(self):
@@ -723,54 +745,8 @@ class RegionSinglePredict(Resource):
                 name: content
             })
 
-        result = regionSinglePredict(full_params)
-        if result == None:
-            re = {
-                "msg": "未知错误",
-                "code": -1,
-                "data": None
-            }
-        elif isinstance(result[0], Exception):
-            file_name, line_code = result[1:]
-            re = {
-                "msg": '(%s: line %d) %s' % (file_name, line_code, repr(result[0])),
-                "code": -1,
-                "data": None
-            }
-        else:
-            re = {
-                "msg": "success",
-                "code": 200,
-                "data": result
-            }
-        # payload = {
-        #     'graphData': [
-        #         {
-        #             'xName': str(i),
-        #             'yValue': randint(0, 1000)
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableOneData': [
-        #         {
-        #             'index': '评价指标 %d' % i,
-        #             'r2': random(),
-        #             'mape': random(),
-        #             'rmse': random()
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableTwoData': [
-        #         {
-        #             'year': i + 2010,
-        #             'predict': random() * randint(300, 500)
-        #         } for i in range(17)
-        #     ]
-        # }
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+        re = regionSinglePredict(full_params)
+        return _handle_response(re)
 
 @register('predict', 'region', 'mix', 'validate')
 class RegionMixModelValidate(Resource):
@@ -778,120 +754,23 @@ class RegionMixModelValidate(Resource):
         # try_print_json()
         methods = request.json['methods']
         re = regionMixModelValidate(methods)
-        # ok = (randint(0, 1) == 0)
-        return {
-            "msg": "success",
-            "code": 200,
-            "data": {
-                "ok": re
-            }
-        }
+        return _handle_response(re)
 
 
 @register('predict', 'region', 'mix')
 class RegionMixPredict(Resource):
     def post(self):
         # try_print_json()
-        result = regionMixPredict(request.json)
-        if result == None:
-            re = {
-                "msg": "未知错误",
-                "code": -1,
-                "data": result
-            }
-        elif isinstance(result[0], Exception):
-            file_name, line_code = result[1:]
-            re = {
-                "msg": '(%s: line %d) %s' % (file_name, line_code, repr(result[0])),
-                "code": -1,
-                "data": None
-            }
-        else:
-            re = {
-                "msg": "success",
-                "code": 200,
-                "data": result
-            }
-        # payload = {
-        #     'graphData': [
-        #         {
-        #             'xName': str(i),
-        #             'yValue': randint(0, 1000)
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableOneData': [
-        #         {
-        #             'index': '评价指标 %d' % i,
-        #             'r2': random(),
-        #             'mape': random(),
-        #             'rmse': random()
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableTwoData': [
-        #         {
-        #             'year': i + 2010,
-        #             'predict': random() * randint(300, 500)
-        #         } for i in range(17)
-        #     ]
-        # }
-        return re
-
+        re = regionMixPredict(request.json)
+        return _handle_response(re)
 
 
 @register('predict', 'industry', 'single')
 class IndustrySinglePredict(Resource):
     def post(self):
         # try_print_json()
-        result = industrySinglePredict(request.json)
-
-        if result == None:
-            re = {
-                "msg": "未知错误",
-                "code": -1,
-                "data": result
-            }
-        elif isinstance(result[0], Exception):
-            file_name, line_code = result[1:]
-            re = {
-                "msg": '(%s: line %d) %s' % (file_name, line_code, repr(result[0])),
-                "code": -1,
-                "data": None
-            }
-        else:
-            re = {
-                "msg": "success",
-                "code": 200,
-                "data": result
-            }
-
-        # payload = {
-        #     'graphData': [
-        #         {
-        #             'xName': str(i),
-        #             'yValue': randint(0, 1000)
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableOneData': [
-        #         {
-        #             'index': '评价指标 %d' % i,
-        #             'r2': random(),
-        #             'mape': random(),
-        #             'rmse': random()
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableTwoData': [
-        #         {
-        #             'year': i + 2010,
-        #             'predict': random() * randint(300, 500)
-        #         } for i in range(17)
-        #     ]
-        # }
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+        re = industrySinglePredict(request.json)
+        return _handle_response(re)
 
 @register('predict', 'industry', 'mix', 'validate')
 class IndustryMixModelValidate(Resource):
@@ -899,122 +778,21 @@ class IndustryMixModelValidate(Resource):
         # try_print_json()
         methods = request.json['methods']
         re = industryMixModelValidate(methods)
-        # ok = (randint(0, 1) == 0)
-        return {
-            "msg": "success",
-            "code": 200,
-            "data": {
-                "ok": re
-            }
-        }
-
+        return _handle_response(re)
 
 @register('predict', 'industry', 'mix')
 class IndustryMixPredict(Resource):
     def post(self):
         # try_print_json()
-        result = industryMixPredict(request.json)
-        if result == None:
-            re = {
-                "msg": "未知错误",
-                "code": -1,
-                "data": result
-            }
-        elif isinstance(result[0], Exception):
-            file_name, line_code = result[1:]
-            re = {
-                "msg": '(%s: line %d) %s' % (file_name, line_code, repr(result[0])),
-                "code": -1,
-                "data": None
-            }
-        else:
-            re = {
-                "msg": "success",
-                "code": 200,
-                "data": result
-            }
-        # payload = {
-        #     'graphData': [
-        #         {
-        #             'xName': str(i),
-        #             'yValue': randint(0, 1000)
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableOneData': [
-        #         {
-        #             'index': '评价指标 %d' % i,
-        #             'r2': random(),
-        #             'mape': random(),
-        #             'rmse': random()
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableTwoData': [
-        #         {
-        #             'year': i + 2010,
-        #             'predict': random() * randint(300, 500)
-        #         } for i in range(17)
-        #     ]
-        # }
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+        re = industryMixPredict(request.json)
+        return _handle_response(re)
 
 @register('predict', 'saturation')
 class SaturationCurvePredict(Resource):
     def post(self):
         # try_print_json()
-        result = saturationCurvePredict(request.json)
-        if result == None:
-            re = {
-                "msg": "未知错误",
-                "code": -1,
-                "data": result
-            }
-        elif isinstance(result[0], Exception):
-            file_name, line_code = result[1:]
-            re = {
-                "msg": '(%s: line %d) %s' % (file_name, line_code, repr(result[0])),
-                "code": -1,
-                "data": None
-            }
-        else:
-            re = {
-                "msg": "success",
-                "code": 200,
-                "data": result
-            }
-
-        # payload = {
-        #     'graphData': [
-        #         {
-        #             'xName': str(i),
-        #             'yValue': randint(0, 1000)
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableOneData': [
-        #         {
-        #             'index': '评价指标 %d' % i,
-        #             'r2': random(),
-        #             'mape': random(),
-        #             'rmse': random()
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableTwoData': [
-        #         {
-        #             'year': i + 2010,
-        #             'predict': random() * randint(300, 500)
-        #         } for i in range(17)
-        #     ]
-        # }
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+        re = saturationCurvePredict(request.json)
+        return _handle_response(re)
 
 @register('predict', 'payload')
 class PayloadDensityPredict(Resource):
@@ -1028,35 +806,7 @@ class PayloadDensityPredict(Resource):
         arg = {**args, **request.form}
 
         re = payloadDensityPredict(arg)
-
-        # payload = {
-        #     'graphData': [
-        #         {
-        #             'xName': str(i),
-        #             'yValue': randint(0, 1000)
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableOneData': [
-        #         {
-        #             'index': '评价指标 %d' % i,
-        #             'r2': random(),
-        #             'mape': random(),
-        #             'rmse': random()
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableTwoData': [
-        #         {
-        #             'year': i + 2010,
-        #             'predict': random() * randint(300, 500)
-        #         } for i in range(17)
-        #     ]
-        # }
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+        return _handle_response(re)
 
 _files = []
 
@@ -1149,12 +899,8 @@ class BigDataPredict(Resource):
         args["proposedata"] = request.files["proposedata"]
         arg = {**args, **request.form}
         print(arg)
-        result = bigDataPredict(arg)
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": result
-        }
+        re = bigDataPredict(arg)
+        return _handle_response(re)
         # payload = {
         #     'graphData': [
         #         {
