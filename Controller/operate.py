@@ -14,6 +14,7 @@ from dao import *
 from utils import *
 import json
 import traceback
+import sys
 
 def exceptQuery(category, startTime, endTime, grain, area):
     data = getDataByCondition(grain = grain, startTime = startTime, endTime = endTime, kind = category[0], dataName = category[1], area = area)
@@ -136,16 +137,23 @@ def miningRequest(args):
     #     minConfidence = arg['minConfidence']
     #     result = f()
     # (tag, tagType, region, factors, method, pearson, beginYear, endYear)
-    beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
-    result = executeAlgorithm(method, args)
-    content = {}
-    content['arg'] = args
-    content['result'] = result
-    if tag != None:
+    try:
+        beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
+        result = executeAlgorithm(method, args)
+        content = {}
+        content['arg'] = args
+        content['result'] = result
+        if tag != None:
 
-        re = insertAlgorithmContent(tag, tagType, content)
+            re = insertAlgorithmContent(tag, tagType, content)
 
-    return result
+        return result
+    except Exception as e:
+        _, _, exception_traceback = sys.exc_info()
+        filename = exception_traceback.tb_frame.f_code.co_filename
+        line_number = exception_traceback.tb_lineno
+        traceback.print_exc()
+        return e, filename, line_number
 
 
 def regionSinglePredict(args):
@@ -164,8 +172,11 @@ def regionSinglePredict(args):
         result = formatPredictResult(result)
         return result
     except Exception as e:
+        _, _, exception_traceback = sys.exc_info()
+        filename = exception_traceback.tb_frame.f_code.co_filename
+        line_number = exception_traceback.tb_lineno
         traceback.print_exc()
-        return e
+        return e, filename, line_number
 
 def regionMixPredict(args):
     try:
@@ -188,8 +199,11 @@ def regionMixPredict(args):
         print(result)
         return result
     except Exception as e:
+        _, _, exception_traceback = sys.exc_info()
+        filename = exception_traceback.tb_frame.f_code.co_filename
+        line_number = exception_traceback.tb_lineno
         traceback.print_exc()
-        return e
+        return e, filename, line_number
 
 
 def industrySinglePredict(args):
@@ -207,8 +221,11 @@ def industrySinglePredict(args):
         print(result)
         return result
     except Exception as e:
+        _, _, exception_traceback = sys.exc_info()
+        filename = exception_traceback.tb_frame.f_code.co_filename
+        line_number = exception_traceback.tb_lineno
         traceback.print_exc()
-        return e
+        return e, filename, line_number
 
 def industryMixPredict(args):
     try:
@@ -232,8 +249,11 @@ def industryMixPredict(args):
         print(result)
         return result
     except Exception as e:
+        _, _, exception_traceback = sys.exc_info()
+        filename = exception_traceback.tb_frame.f_code.co_filename
+        line_number = exception_traceback.tb_lineno
         traceback.print_exc()
-        return e
+        return e, filename, line_number
 
 def saturationCurvePredict(args):
     try:
@@ -251,8 +271,11 @@ def saturationCurvePredict(args):
         print(result)
         return result
     except Exception as e:
+        _, _, exception_traceback = sys.exc_info()
+        filename = exception_traceback.tb_frame.f_code.co_filename
+        line_number = exception_traceback.tb_lineno
         traceback.print_exc()
-        return e
+        return e, filename, line_number
 
 def payloadDensityPredict(args):
     try:
@@ -271,8 +294,11 @@ def payloadDensityPredict(args):
 
         return result
     except Exception as e:
+        _, _, exception_traceback = sys.exc_info()
+        filename = exception_traceback.tb_frame.f_code.co_filename
+        line_number = exception_traceback.tb_lineno
         traceback.print_exc()
-        return e
+        return e, filename, line_number
 
 
 def provincialAndMunicipalPredict(args):
@@ -294,8 +320,11 @@ def provincialAndMunicipalPredict(args):
         # re = insertAlgorithmContent(tag, tagType, content)
         return result
     except Exception as e:
+        _, _, exception_traceback = sys.exc_info()
+        filename = exception_traceback.tb_frame.f_code.co_filename
+        line_number = exception_traceback.tb_lineno
         traceback.print_exc()
-        return e
+        return e, filename, line_number
 
 def bigDataPredict(args):
     try:
@@ -328,8 +357,11 @@ def bigDataPredict(args):
 
         return result
     except Exception as e:
+        _, _, exception_traceback = sys.exc_info()
+        filename = exception_traceback.tb_frame.f_code.co_filename
+        line_number = exception_traceback.tb_lineno
         traceback.print_exc()
-        return e
+        return e, filename, line_number
 
 def dailyPayloadTraits(args):
     beginDay = args["beginDay"]
