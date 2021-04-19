@@ -38,7 +38,7 @@ for i = 1:num
     a = s(i);
     x = str2num(a{1,1}{1,1})-start+1;
     y = str2num(a{1,1}{2,1})+1-point;
-    array(x,y) = a{1,1}{5,1};
+    array(x,y) = a{1,1}{3,1};
 end
 end
 
