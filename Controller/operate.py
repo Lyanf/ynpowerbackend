@@ -168,8 +168,12 @@ def regionSinglePredict(args):
 
         if tag != None:
             re = insertAlgorithmContent(tag, tagType, content)
-
-        result = formatPredictResult(result)
+        
+        print('method is', method)
+        if method != '地区组合预测模型' and method != '行业组合预测模型':
+            result = formatPredictResult(result)
+        else:
+            result = formatPredictResultMix(result)
         return result
     except Exception as e:
         _, _, exception_traceback = sys.exc_info()

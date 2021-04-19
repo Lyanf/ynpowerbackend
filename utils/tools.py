@@ -279,13 +279,48 @@ def formatPredictResult(result):
         re ={
             "tableOneData":[
                 {
-                'mape': round(result["MAPE"],2),
-                "rmse": round(result["RMSE"],2)
+                    'mape': round(result["MAPE"],2),
+                    "rmse": round(result["RMSE"],2)
                 }
             ],
             "tableTwoData": tableTwoData
         }
-    except:
+    except Exception as e:
+        print('formatPredictResult error', repr(e))
+        re = None
+    return re
+
+def formatPredictResultMix(result):
+    tableTwoData = {
+        'xData': [],
+        'yData': []
+    }
+    tableOneData = []
+    try:
+        prefromyear = timeFormat(result["prefromyear"], "year")
+        pretoyear = timeFormat(result["pretoyear"], "year")
+
+        while prefromyear <= pretoyear:
+            tableTwoData['xData'].append(prefromyear.strftime("%Y"))
+            prefromyear = getNextYear(prefromyear)
+        
+        for i in range(len(result['name'])):
+            tableTwoData['yData'].append({
+                'data': result['preresult'][i],
+                'name': result['name'][i]
+            })
+
+        re = {
+            "tableOneData":[
+                {
+                    'mape': round(result["MAPE"][i],2),
+                    "rmse": round(result["RMSE"][i],2)
+                } for i in range(len(result['MAPE']))
+            ],
+            "tableTwoData": tableTwoData
+        }
+    except Exception as e:
+        print('formatPredictResultMix error', repr(e))
         re = None
     return re
 
