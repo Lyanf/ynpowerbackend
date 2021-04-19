@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Apr 15 16:41:37 2021
+Created on Mon Mar  1 16:41:37 2021
 
 @author: ZR_YL
 """
@@ -37,10 +37,10 @@ def EEMDIndustry(StartYear,EndYear,PreStartYear,PreEndYear,pretype,city="云南�
     timestep=int(PreEndYear)-int(PreStartYear)+1
     
     
-    trainyear=math.floor(totalyear-totalyear*0.45)
-    delay=totalyear-trainyear-timestep+1
+    trainyear=math.floor(totalyear-totalyear*0.4)
+    delay=math.floor((totalyear-trainyear-timestep)*0.7)
     testyear=trainyear+delay
-    if trainyear+2+timestep>totalyear:
+    if testyear+timestep>totalyear or delay<1:
         raise ValueError("历史数据时间间隔过短或预测年份过长")
     else:
         train_x=pdyeardata[pretype].values[:trainyear]
@@ -57,9 +57,9 @@ def EEMDIndustry(StartYear,EndYear,PreStartYear,PreEndYear,pretype,city="云南�
         finalpre=np.array(np.flipud(testdata[-1:-(trainyear+1):-1])).reshape(1,-1)
         
         eemd=EMD()
-        IMFs = eemd(train_x.squeeze())#
-        testIMFs=eemd(test_x.squeeze())
-        preIMFs=eemd(finalpre.squeeze())
+        IMFs = eemd(train_x.squeeze())[-1].reshape(1,-1)
+        testIMFs=eemd(test_x.squeeze())[-1].reshape(1,-1)
+        preIMFs=eemd(finalpre.squeeze())[-1].reshape(1,-1)
         
         gbdt=xgb.XGBRegressor(max_depth=5, learning_rate=0.1, n_estimators=100, 
                       silent=True, objective='reg:linear', booster='gblinear', n_jobs=50, 
@@ -77,7 +77,7 @@ def EEMDIndustry(StartYear,EndYear,PreStartYear,PreEndYear,pretype,city="云南�
         testpredict=multi_model.predict(testIMFs) 
         ypre=multi_model.predict(preIMFs)
         
-        
+        print(testpredict,test_y)
         mape=MAPE(testpredict,test_y)
         rmse=RMSE(testpredict,test_y)
         
@@ -90,10 +90,10 @@ def EEMDIndustry(StartYear,EndYear,PreStartYear,PreEndYear,pretype,city="云南�
         return result
 
 if __name__ == '__main__':
-    pretype="电石用电量"
+    pretype="第一产业用电量"
     StartYear="2008"
     EndYear="2019"
     PreStartYear="2020"
-    PreEndYear="2021"
+    PreEndYear="2022"
     
     result=EEMDIndustry(StartYear,EndYear,PreStartYear,PreEndYear,pretype,city="云南省")
