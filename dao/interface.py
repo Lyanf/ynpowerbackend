@@ -781,6 +781,13 @@ def getAlgorithmArgs(method = None, filename = None):
 
                     if row.iloc[i - 1][j].startswith("预测数据类型"):
                         temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类")
+
+                    if row.iloc[i - 1][j].startswith("剔除数据名称列表"):
+                        temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类-行业")
+
+                    if row.iloc[i - 1][j].startswith("剔除数据名称列表"):
+                        temp["value"] = ['灰色滑动平均模型', '基于滚动机制的灰色预测模型', '生长函数外推', '一元线性外推', '对数函数外推', '模糊指数平滑模型', '模糊线性回归模型', '梯度提升模型', '支持向量机模型', '随机森林模型']
+                        
                     if row.iloc[i-1][j].find("计划值指示器") != -1:
                         temp["value"] = [0,1]
                     if header[j] in defaultValue.keys():
