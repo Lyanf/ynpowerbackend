@@ -5,9 +5,9 @@ Created on Thu Mar  4 11:16:09 2021
 @author: ZR_YL
 """
 
-from algorithms.interface import insertData
+
 from algorithms.evaluation import RMSE,MAPE
-from dao.interface import getData
+from algorithms.interface import getData, insertData
 import json 
 import pandas as pd
 import numpy as np
@@ -17,16 +17,16 @@ import matplotlib.pyplot as plt
 import math
 
 from algorithms.ExponentTime import ExponentTime
-from algorithms.FER import FER
-from algorithms.FLR import FLR
-from algorithms.GBDT import GBDT
+from algorithms.GrowthTime import GrowthTime
+from algorithms.UnarylinearTime import UnarylinearTime
+from algorithms.LogarithmTime import LogarithmTime
 from algorithms.GM import GM
 from algorithms.GPRM import GPRM
-from algorithms.GrowthTime import GrowthTime
-from algorithms.LogarithmTime import LogarithmTime
+from algorithms.GBDT import GBDT
 from algorithms.RandomForest import RandomForest
 from algorithms.SVM import SVM
-from algorithms.UnarylinearTime import UnarylinearTime
+from algorithms.FER import FER
+from algorithms.FLR import FLR
 
 def ForIndustry(StartYear,EndYear,PreStartYear,PreEndYear,rejectlsit,proposedata,Premethod):
 
@@ -34,7 +34,7 @@ def ForIndustry(StartYear,EndYear,PreStartYear,PreEndYear,rejectlsit,proposedata
     propose = pd.read_csv(proposedata, encoding="UTF-8")
     
     if len(propose.values) != int(PreEndYear)-int(PreStartYear)+1:
-        raise ValueError("上传数据的年限与预测年限不符")
+        raise ValueError("上传数据的年限与预测年限不符，请重新上传.")
     
     else:
         #读取年度数据
@@ -102,10 +102,9 @@ def ForIndustry(StartYear,EndYear,PreStartYear,PreEndYear,rejectlsit,proposedata
         elif Premethod == "随机森林模型":
             T=math.floor(len(forpredata)/3)
             result=RandomForest(StartYear,EndYear,PreStartYear,PreEndYear,T,pretype=savetype,n_estimators=50,city="云南省")
-        else:
-            result = None
-        if result == None or isinstance(result["preresult"],str):
-            raise RuntimeError("预测失败，请重新选择预测方法")
+            
+        if isinstance(result["preresult"],str):
+            raise RuntimeError("预测失败，请重新选择预测方法.")
         else:
             ypre=[]
             for k in range(len(propose.values)):
@@ -113,15 +112,13 @@ def ForIndustry(StartYear,EndYear,PreStartYear,PreEndYear,rejectlsit,proposedata
                 for n in range(len(rejectlsit)):
                     power=power+propose[rejectlsit[n]].values[k]
                 ypre.append(power)
-        result={
+        return {
             "prefromyear": PreStartYear,
             "pretoyear": PreEndYear,
             "preresult": ypre,
             "MAPE": 0,
             "RMSE": 0
         }
-        return result
-
 
 if __name__=="__main__":
     rejectlsit=["第一产业用电量","第二产业用电量"]
