@@ -85,14 +85,11 @@ def CombinationIndustry(PreStartYear,PreEndYear,pretype,singleresult,city="云�
         r=getAlgorithmResult(tag)
         data=json.loads(json.loads(r)["results"][0][1])
         if data["arg"]["PreStartYear"]!=int(PreStartYear):
-            result={"False":"%s 的预测起始年份与所选预测起始年份不符"%tag}
-            return result
+            raise ValueError("%s 的预测起始年份与所选预测起始年份不符" % tag)
         elif data["arg"]["PreEndYear"]!=int(PreEndYear):
-            result={"False":"%s 的预测终止年份与所选预测终止年份不符"%tag}
-            return result
+            raise ValueError("%s 的预测终止年份与所选预测终止年份不符" % tag)
         elif "trainresult" not in data["result"]:
-            result={"False":"%s 不适用于组合预测模型"%tag}
-            return result
+            raise TypeError("%s 不适用于组合预测模型" % tag)
     #读取各个模型的数据
     alldata=[]
     for tag in singleresult:
