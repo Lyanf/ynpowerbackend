@@ -68,7 +68,7 @@ class getAlgorithmResult(Resource):
         re = {
             "results": results
         }
-        return json.dumps(re)
+        return json.dumps(re, allow_nan=False)
 
 class GetDataJson(Resource):
     def post(self):

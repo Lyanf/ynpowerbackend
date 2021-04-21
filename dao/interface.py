@@ -776,11 +776,11 @@ def getAlgorithmArgs(method = None, filename = None):
                     if row.iloc[i - 1][j].startswith("电力变量列表") or row.iloc[i - 1][j].startswith("目标关联名称") or row.iloc[i - 1][j].startswith("关联变量列表"):
                         temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类")
 
-                    if row.iloc[i - 1][j].startswith("预测行业名称"):
-                        temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类-行业")
-
                     if row.iloc[i - 1][j].startswith("预测数据类型"):
-                        temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类")
+                        if method == 'Combination':
+                            temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类")
+                        elif method == 'CombinationIndustry':
+                            temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类-行业")
                     if row.iloc[i-1][j].find("计划值指示器") != -1:
                         temp["value"] = [0,1]
                     if header[j] in defaultValue.keys():
