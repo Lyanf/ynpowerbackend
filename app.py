@@ -1123,13 +1123,13 @@ class YearlyContinuousPayloadPredict(Resource):
         result = yearlyContinuousPayloadPredict(request.json)
         length = len(result['result'])
         payload = {
-            'xName': "时刻",
+            'xName': "小时数",
             'xData': list(range(0, length)),
             'yName': '单位：MW',
             'yData': [
                 {
                     'tag': '预测负荷',
-                    'data': result["result"]
+                    'data': sorted(result["result"], reverse=True)
                 }
             ]
         }
