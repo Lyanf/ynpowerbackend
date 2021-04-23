@@ -1033,7 +1033,7 @@ class SokuPayloadPredict(Resource):
             'yData': [
                 {
                     'tag': '预测负荷',
-                    'data': result["result"]
+                    'data': [int(v) for v in result["result"]]
                 }
             ]
         }
@@ -1069,7 +1069,7 @@ class ClampingPayloadPredict(Resource):
             'yData': [
                 {
                     'tag': '预测负荷',
-                    'data': result["result"]
+                    'data': [int(v) for v in result["result"]]
                 }
             ]
         }
@@ -1099,7 +1099,7 @@ class InterpolatingPayloadPredict(Resource):
             'yData': [
                 {
                     'tag': '预测负荷',
-                    'data': result["result"]
+                    'data': [int(v) for v in result["result"]]
                 }
             ]
         }
@@ -1129,7 +1129,7 @@ class YearlyContinuousPayloadPredict(Resource):
             'yData': [
                 {
                     'tag': '预测负荷',
-                    'data': sorted(result["result"], reverse=True)
+                    'data': [int(v) for v in sorted(result["result"], reverse=True)]
                 }
             ]
         }
