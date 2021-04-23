@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestRegressor
 import math
 from algorithms.train_test_set import generate_data,inverse_data
-from algorithms.interface import getData
+from dao.interface import getData
 import json 
 from sklearn.multioutput import MultiOutputRegressor
 from algorithms.evaluation import RMSE,MAPE
@@ -61,6 +61,8 @@ def RandomForest(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全
 
     if timestep > (int(EndYear)-int(StartYear)+1):
         raise ValueError("训练步长过大，请调整后重试")
+    elif int(EndYear)-int(StartYear)<(int(PreEndYear)-int(PreStartYear)+timestep):
+        raise ValueError("历史时间长度小于预测时间长度，请增加历史时间长度或减小预测时间长度")    
     else:
 
 
@@ -126,11 +128,11 @@ def RandomForest(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全
         return result
 
 if __name__=="__main__":
-    StartYear="1990"
+    StartYear="2010"
     EndYear="2019"
     PreStartYear="2020"
     PreEndYear="2021"
-    timestep=15
+    timestep=2
     pretype="全社会用电量"
     city="云南省"
     

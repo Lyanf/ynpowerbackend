@@ -27,7 +27,7 @@ import json
 
 
 
-"""BPNNindustry"""
+"""BPNNIndustry"""
 
 def BPNNIndustry(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype,city="云南省", hidden=[24,12], learningrate=0.005,epoch=1000):
     """
@@ -105,7 +105,9 @@ def BPNNIndustry(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype,city
 
 
     if timestep > (int(EndYear)-int(StartYear)+1)*0.5:
-        raise ValueError("timestep 设定过大，请重新设定。")
+        raise ValueError("训练步长过大，请调整后重试")
+    elif int(EndYear)-int(StartYear)<(int(PreEndYear)-int(PreStartYear)+timestep):
+        raise ValueError("历史时间长度小于预测时间长度与训练步长之和, 请调整后重试")    
     else:
         #读取数据，确定参数
         name=[pretype]
@@ -164,12 +166,12 @@ def BPNNIndustry(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype,city
         return result
 
 if __name__ == '__main__':
-    StartYear="2010"
+    StartYear="2008"
     EndYear="2019"
     PreStartYear="2020"
-    PreEndYear="2021"
-    timestep=7
-    pretype="采矿业用电量"
+    PreEndYear="2022"
+    timestep=1
+    pretype="第一产业用电量"
     city="云南省"
     
     result=BPNNIndustry(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype,city, hidden=[24,12], learningrate=0.005,epoch=1000)

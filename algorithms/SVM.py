@@ -25,7 +25,9 @@ import math
 def SVM(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会用电量",city="云南省"):
     #读取数据，确定参数
     if timestep > (int(EndYear)-int(StartYear)+1):
-        raise ValueError("训练步长过大，请调整后重试")
+        raise ValueError("训练步长过大，请调整后重试") 
+    elif int(EndYear)-int(StartYear)<(int(PreEndYear)-int(PreStartYear)+timestep):
+        raise ValueError("历史时间长度小于预测时间长度与训练步长之和，请调整后重试") 
     else:
         name=[pretype]
         finaldata=[]
@@ -85,11 +87,11 @@ def SVM(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会用
         return result
 
 if __name__=="__main__":
-    StartYear="1990"
+    StartYear="2010"
     EndYear="2019"
     PreStartYear="2020"
-    PreEndYear="2021"
-    timestep=10
+    PreEndYear="2025"
+    timestep=3
     pretype="全社会用电量"
     city="云南省"
     

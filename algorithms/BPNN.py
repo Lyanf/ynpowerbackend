@@ -96,67 +96,71 @@ def BPNN(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会�
             # saver.save(sess, "D:/lab/Yunnan_Pre/result/yunnan_shortterm_钢铁_BPNN/")
         return predictions,labels,y_pre,training
 
-
-    #读取数据，确定参数
-    name=[pretype]
-    finaldata=[]
-    outputlen=int(PreEndYear)-int(PreStartYear)+1
+    if timestep > (int(EndYear)-int(StartYear)+1)*0.5:
+        raise ValueError("训练步长过大，请调整后重试")
+    elif int(EndYear)-int(StartYear)<(int(PreEndYear)-int(PreStartYear)+timestep):
+        raise ValueError("历史时间长度小于预测时间长度与训练步长之和, 请调整后重试")    
+    else:
+        #读取数据，确定参数
+        name=[pretype]
+        finaldata=[]
+        outputlen=int(PreEndYear)-int(PreStartYear)+1
+        
+        datajson=getData("云南省_year_电力电量类", pretype, StartYear, EndYear)
+        data=json.loads(datajson)
+        finaldata.append(data)
+        final=pd.DataFrame(finaldata,index=name)
+        final=final.T
     
-    datajson=getData("云南省_year_电力电量类", pretype, StartYear, EndYear)
-    data=json.loads(datajson)
-    finaldata.append(data)
-    final=pd.DataFrame(finaldata,index=name)
-    final=final.T
-
-    
-    test_size=0#测试数据集应当取0才可以
-    X,y=generate_data(final,timestep,outputlen,test_size=test_size,if_norm="no")
-    testdata=final[pretype].values
-    testinput=[]
-    testoutput=[]
-    
-    num=len(X["train"])
-    selet=int(np.floor(num/2))
-    testinput=X["train"][selet:,:]
-    testoutput=y["train"][selet:,:]
-    
-    x_pre=np.array(np.flipud(testdata[-1:-(timestep+1):-1])).reshape(1,-1)
-    
-    test_pre,test_label,pre,training=bpnn(timestep,outputlen,X["train"][:-1,:],y["train"][:-1,:],testinput,testoutput,x_pre,hidden,learningrate,epoch)
-    
-    mape=MAPE(test_pre,test_label)
-    rmse=RMSE(test_pre,test_label)
-    
-    
-    #保存训练结果,年份上可能有问题
-    #trainingtrue=y["train"][:-1,:].flatten()
-    trainingtrue=y["train"][-1,:]
-    
-    trainyear=[]
-    for t in trainingtrue:
-        count=-1
-        for d in final[pretype]:
-            count+=1
-            
-            if t>d-5 and t<d+5:
-                # print("yes")
-                trainyear.append(final.index[count])
-                break
-    
-    ytrain=training[-1].tolist()
-    ypre=pre.flatten().tolist()
-    
-    #trainsave.to_csv("D:/lab/Yunnan_Pre/result/yunnan_shortterm_consumption_BPNN_training.csv")
-    result={"trainfromyear":trainyear[0],"traintoyear":trainyear[-1],"trainresult":ytrain,"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre,"MAPE":mape,"RMSE":rmse}
-    #保存
-    return result
+        
+        test_size=0#测试数据集应当取0才可以
+        X,y=generate_data(final,timestep,outputlen,test_size=test_size,if_norm="no")
+        testdata=final[pretype].values
+        testinput=[]
+        testoutput=[]
+        
+        num=len(X["train"])
+        selet=int(np.floor(num/2))
+        testinput=X["train"][selet:,:]
+        testoutput=y["train"][selet:,:]
+        
+        x_pre=np.array(np.flipud(testdata[-1:-(timestep+1):-1])).reshape(1,-1)
+        
+        test_pre,test_label,pre,training=bpnn(timestep,outputlen,X["train"][:-1,:],y["train"][:-1,:],testinput,testoutput,x_pre,hidden,learningrate,epoch)
+        
+        mape=MAPE(test_pre,test_label)
+        rmse=RMSE(test_pre,test_label)
+        
+        
+        #保存训练结果,年份上可能有问题
+        #trainingtrue=y["train"][:-1,:].flatten()
+        trainingtrue=y["train"][-1,:]
+        
+        trainyear=[]
+        for t in trainingtrue:
+            count=-1
+            for d in final[pretype]:
+                count+=1
+                
+                if t>d-5 and t<d+5:
+                    # print("yes")
+                    trainyear.append(final.index[count])
+                    break
+        
+        ytrain=training[-1].tolist()
+        ypre=pre.flatten().tolist()
+        
+        #trainsave.to_csv("D:/lab/Yunnan_Pre/result/yunnan_shortterm_consumption_BPNN_training.csv")
+        result={"trainfromyear":trainyear[0],"traintoyear":trainyear[-1],"trainresult":ytrain,"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre,"MAPE":mape,"RMSE":rmse}
+        #保存
+        return result
 
 if __name__ == '__main__':
-    StartYear="1990"
+    StartYear="2010"
     EndYear="2019"
     PreStartYear="2020"
-    PreEndYear="2021"
-    timestep=10
+    PreEndYear="2023"
+    timestep=7
     pretype="全社会用电量"
     city="云南省"
     

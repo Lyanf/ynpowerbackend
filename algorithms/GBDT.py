@@ -31,61 +31,66 @@ from algorithms.evaluation import RMSE,MAPE
 
 
 
-def GBDT(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会用电量",city="云南省",LearningRate=0.5, MaxDepth=20, NumberofEstimators=5000):
+def GBDT(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会用电量",city="云南省",LearningRate=0.1, MaxDepth=20, NumberofEstimators=500):
 
-    #读取数据，确定参数
-    name=[pretype]
-    finaldata=[]
-    outputlen=int(PreEndYear)-int(PreStartYear)+1
-
-    datajson=getData("云南省_year_电力电量类", pretype, StartYear, EndYear)
-    data=json.loads(datajson)
-    finaldata.append(data)
-    final=pd.DataFrame(finaldata,index=name)
-    final=final.T
-
-    test_size=0#测试数据集应当取0.3才可以
-    X,y=generate_data(final,timestep,outputlen,test_size=test_size,if_norm="no")
-
-    gbdt=xgb.XGBRegressor(max_depth=MaxDepth, learning_rate=LearningRate, n_estimators=NumberofEstimators, 
-                  silent=True, objective='reg:linear', booster='gblinear', n_jobs=50, 
-                  nthread=None, gamma=0, min_child_weight=1, max_delta_step=0, subsample=1, 
-                  colsample_bytree=1, colsample_bylevel=1, reg_alpha=0, reg_lambda=1,
-                  scale_pos_weight=1, base_score=0.5, random_state=0, seed=None,
-                  missing=None, importance_type='gain')#
-
-    multi_model = MultiOutputRegressor(gbdt)
-    multi_model.fit(X["train"],y["train"])
-
-    testdata=final.values
-    num=len(X["train"])
-    selet=int(np.floor(num/2))
-    testinput=X["train"][selet:,:]
-    testoutput=y["train"][selet:,:]
-
-    x_pre=np.array(np.flipud(testdata[-1:-(timestep+1):-1])).reshape(1,-1)
+    if timestep > (int(EndYear)-int(StartYear)+1):
+        raise ValueError("训练步长过大，请调整后重试")
+    elif int(EndYear)-int(StartYear)<(int(PreEndYear)-int(PreStartYear)+timestep):
+        raise ValueError("历史时间长度小于预测时间长度，请增加历史时间长度或减小预测时间长度")    
+    else:
+        #读取数据，确定参数
+        name=[pretype]
+        finaldata=[]
+        outputlen=int(PreEndYear)-int(PreStartYear)+1
     
-    y1_gbdt=multi_model.predict(testinput)
-    y1_gbdt_real=np.array(y1_gbdt).reshape(-1,1)
-    y1_real=np.array(testoutput).reshape(-1,1)
-
-    mape=MAPE(y1_gbdt_real,y1_real)
-    rmse=RMSE(y1_gbdt_real,y1_real)
-
-    ytrain=y1_gbdt[-1]
-    trainyear=[]
-    for t in testoutput[-1]:
-        count=-1
-        for d in final[pretype]:
-            count+=1
-            if t>d-1 and t<d+1:
-                trainyear.append(final.index[count])
-                break
-    pre=multi_model.predict(x_pre)
-    ypre=np.array(pre).flatten().tolist()
-    result={"trainfromyear":trainyear[0],"traintoyear":trainyear[-1],"trainresult":ytrain.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre,"MAPE":mape,"RMSE":rmse}
-    #保存
-    return result
+        datajson=getData("云南省_year_电力电量类", pretype, StartYear, EndYear)
+        data=json.loads(datajson)
+        finaldata.append(data)
+        final=pd.DataFrame(finaldata,index=name)
+        final=final.T
+    
+        test_size=0#测试数据集应当取0.3才可以
+        X,y=generate_data(final,timestep,outputlen,test_size=test_size,if_norm="no")
+    
+        gbdt=xgb.XGBRegressor(max_depth=MaxDepth, learning_rate=LearningRate, n_estimators=NumberofEstimators, 
+                      silent=True, objective='reg:linear', booster='gblinear', n_jobs=50, 
+                      nthread=None, gamma=0, min_child_weight=1, max_delta_step=0, subsample=1, 
+                      colsample_bytree=1, colsample_bylevel=1, reg_alpha=0, reg_lambda=1,
+                      scale_pos_weight=1, base_score=0.5, random_state=0, seed=None,
+                      missing=None, importance_type='gain')#
+    
+        multi_model = MultiOutputRegressor(gbdt)
+        multi_model.fit(X["train"],y["train"])
+    
+        testdata=final.values
+        num=len(X["train"])
+        selet=int(np.floor(num/2))
+        testinput=X["train"][selet:,:]
+        testoutput=y["train"][selet:,:]
+    
+        x_pre=np.array(np.flipud(testdata[-1:-(timestep+1):-1])).reshape(1,-1)
+        
+        y1_gbdt=multi_model.predict(testinput)
+        y1_gbdt_real=np.array(y1_gbdt).reshape(-1,1)
+        y1_real=np.array(testoutput).reshape(-1,1)
+    
+        mape=MAPE(y1_gbdt_real,y1_real)
+        rmse=RMSE(y1_gbdt_real,y1_real)
+    
+        ytrain=y1_gbdt[-1]
+        trainyear=[]
+        for t in testoutput[-1]:
+            count=-1
+            for d in final[pretype]:
+                count+=1
+                if t>d-1 and t<d+1:
+                    trainyear.append(final.index[count])
+                    break
+        pre=multi_model.predict(x_pre)
+        ypre=np.array(pre).flatten().tolist()
+        result={"trainfromyear":trainyear[0],"traintoyear":trainyear[-1],"trainresult":ytrain.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre,"MAPE":mape,"RMSE":rmse}
+        #保存
+        return result
 
 
 
@@ -93,11 +98,11 @@ def GBDT(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会�
 
 
 if __name__ == '__main__':
-    StartYear="1990"
+    StartYear="2013"
     EndYear="2019"
     PreStartYear="2020"
-    PreEndYear="2021"
-    timestep=10
+    PreEndYear="2026"
+    timestep=2
     pretype="全社会用电量"
     city="云南省"
 

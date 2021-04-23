@@ -62,69 +62,72 @@ def RFIndustry(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype,n_esti
     
     """
 
+    if timestep > (int(EndYear)-int(StartYear)+1):
+        raise ValueError("训练步长过大，请调整后重试")
+    elif int(EndYear)-int(StartYear)<(int(PreEndYear)-int(PreStartYear)+timestep):
+        raise ValueError("历史时间长度小于预测时间长度，请增加历史时间长度或减小预测时间长度")    
+    else:
 
-
-
-    name=[pretype]
-    finaldata=[]
-    
-    outputlen=int(PreEndYear)-int(PreStartYear)+1
-    
-    #读取历史负荷数据
-    datajson=getData("云南省_year_电力电量类-行业", pretype, StartYear, EndYear)
-    # print(datajson)
-    data=json.loads(datajson)
-    finaldata.append(data)
-    final=pd.DataFrame(finaldata,index=name)
-    final=final.T
-    test_size=0
-    
-    X,y=generate_data(final,timestep,outputlen,test_size=test_size,if_norm="no")
-    y["train"].ravel()    
-    #构建随机森林模型
-    rf=RandomForestRegressor(n_estimators)#n_estimators：森林个数
-    rf.fit(X["train"],y["train"])
-    
-    testdata=final[pretype].values
-    testinput=[]
-    testoutput=[]
-    num=len(X["train"])
-    selet=int(np.floor(num/2))
-    testinput=X["train"][selet:,:]
-    testoutput=y["train"][selet:,:]
-    
-    #训练结果
-    y_rf =rf.predict(testinput)
-    y_rf_real=np.array(y_rf).reshape(-1,1)#训练数据预测结果
-    y_real=np.array(testoutput).reshape(-1,1)
-    
-    
-    mape=MAPE(y_rf_real,y_real)
-    rmse=RMSE(y_rf_real,y_real)
-    
-    #目标结果,修正
-    pre_y_rf=rf.predict(np.array(np.flipud(testdata[-1:-(timestep+1):-1])).reshape(1,-1))+500
-    
-    #保存训练结果
-    
-    trainyear=[]
-    for t in y_real:
-        count=-1
-        for d in final[pretype]:
-            count+=1
-            
-            if t>d-5 and t<d+5:
-                # print("yes")
-                trainyear.append(final.index[count])
-                break
-    
-    ytrain=y_rf_real.flatten()
-    ypre=pre_y_rf.flatten()
-    
-    
-    result={"trainfromyear":trainyear[0],"traintoyear":trainyear[-1],"trainresult":ytrain.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
-    
-    return result
+        name=[pretype]
+        finaldata=[]
+        
+        outputlen=int(PreEndYear)-int(PreStartYear)+1
+        
+        #读取历史负荷数据
+        datajson=getData("云南省_year_电力电量类-行业", pretype, StartYear, EndYear)
+        # print(datajson)
+        data=json.loads(datajson)
+        finaldata.append(data)
+        final=pd.DataFrame(finaldata,index=name)
+        final=final.T
+        test_size=0
+        
+        X,y=generate_data(final,timestep,outputlen,test_size=test_size,if_norm="no")
+        y["train"].ravel()    
+        #构建随机森林模型
+        rf=RandomForestRegressor(n_estimators)#n_estimators：森林个数
+        rf.fit(X["train"],y["train"])
+        
+        testdata=final[pretype].values
+        testinput=[]
+        testoutput=[]
+        num=len(X["train"])
+        selet=int(np.floor(num/2))
+        testinput=X["train"][selet:,:]
+        testoutput=y["train"][selet:,:]
+        
+        #训练结果
+        y_rf =rf.predict(testinput)
+        y_rf_real=np.array(y_rf).reshape(-1,1)#训练数据预测结果
+        y_real=np.array(testoutput).reshape(-1,1)
+        
+        
+        mape=MAPE(y_rf_real,y_real)
+        rmse=RMSE(y_rf_real,y_real)
+        
+        #目标结果,修正
+        pre_y_rf=rf.predict(np.array(np.flipud(testdata[-1:-(timestep+1):-1])).reshape(1,-1))+500
+        
+        #保存训练结果
+        
+        trainyear=[]
+        for t in y_real:
+            count=-1
+            for d in final[pretype]:
+                count+=1
+                
+                if t>d-5 and t<d+5:
+                    # print("yes")
+                    trainyear.append(final.index[count])
+                    break
+        
+        ytrain=y_rf_real.flatten()
+        ypre=pre_y_rf.flatten()
+        
+        
+        result={"trainfromyear":trainyear[0],"traintoyear":trainyear[-1],"trainresult":ytrain.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
+        
+        return result
 
 if __name__ == '__main__':
     StartYear="2010"

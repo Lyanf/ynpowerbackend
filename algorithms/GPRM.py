@@ -64,6 +64,10 @@ def GPRM(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会�
 
     if timestep > (int(EndYear)-int(StartYear)+1):
         raise ValueError("训练步长过大，请调整后重试")
+    # elif int(PreEndYear)-int(PreStartYear)<1:
+    #     raise ValueError("该算法不支持一年及一年内的预测.")
+    elif timestep<(int(PreEndYear)-int(PreStartYear)+2):
+        raise ValueError("训练步长小于预测年份区间长度，请增加训练步长")
     else:
 
         """负荷预测"""
@@ -95,7 +99,9 @@ def GPRM(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会�
         trainy=y[num-testyear-1:].squeeze()
         #测试集
         testx=y[num-testyear-trainyear:num-testyear].squeeze()
-        testy=y[num-testyear:].squeeze()
+        testy=y[num-testyear:]
+        if len(testy)>1:
+            testy=testy.squeeze()
         #开始训练
         trainpre,a,b,assess=improve_GM(trainx,testyear)
         #获得测试结果
@@ -129,8 +135,8 @@ if __name__ == '__main__':
     StartYear="1990"
     EndYear="2019"
     PreStartYear="2020"
-    PreEndYear="2029"
-    timestep=15
+    PreEndYear="2020"
+    timestep=3
     pretype="全社会用电量"
     city="云南省"
     result=GPRM(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype,city)

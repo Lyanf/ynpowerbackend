@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import math
 from algorithms.train_test_set import generate_data,inverse_data
-import tensorflow as tf
 from algorithms.evaluation import RMSE,MAPE
 from dao.interface import getData
 import json 
@@ -20,6 +19,7 @@ import json
 """LSTM"""
 """不支持组合预测"""
 def LSTMpre(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会用电量",city="云南省", hidden_size=24,hidden_layer=1, learningrate=0.005,epoch=1000):
+
     #搭建LSTM模块
     def LSTM(x,y,outputlen,is_training,hidden_size,num_layers,lr,optimizer,keep_pro):
         cell=tf.nn.rnn_cell.BasicLSTMCell
@@ -82,75 +82,79 @@ def LSTMpre(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社�
 
 
     #设置参数
-
-    optimizer="Adam"
-    keep_pro=0.9
-    batch_size=16
-
+    if timestep > (int(EndYear)-int(StartYear)+1)*0.5:
+        raise ValueError("训练步长过大，请调整后重试")
+    elif int(EndYear)-int(StartYear)<(int(PreEndYear)-int(PreStartYear)+timestep):
+        raise ValueError("历史时间长度小于 预测时间长度与训练步长之和，请调整后重试")    
+    else:
+        optimizer="Adam"
+        keep_pro=0.9
+        batch_size=16
     
-    #读取数据，确定参数
-    name=[pretype]
-    finaldata=[]
-    outputlen=int(PreEndYear)-int(PreStartYear)+1
-    
-    datajson=getData("云南省_year_电力电量类", pretype, StartYear, EndYear)
-    data=json.loads(datajson)
-    finaldata.append(data)
-    final=pd.DataFrame(finaldata,index=name)
-    final=final.T
-
-    test_size=0#测试数据集应当取0才可以
-    X,y=generate_data(final,timestep,outputlen,test_size=test_size,if_norm="no")
-    testdata=final[pretype].values
-    testinput=[]
-    testoutput=[]
-    
-    num=len(X["train"])
-    selet=int(np.floor(num/2))
-    testinput=X["train"][selet:,:]
-    testoutput=y["train"][selet:,:]
-    
-    #最终预测需要的数据
-    x_pre=testdata[-1:-(timestep+1):-1].reshape(1,-1)
-    x_pre=np.array(x_pre, dtype = np.float32)
-
-    #训练模型并预测结果
-    tf.reset_default_graph()
-    with tf.Session() as sess:
         
-        with tf.variable_scope("LSTM"):
-            ytrain=trainmodel(sess,outputlen,X["train"][:-1,:],y["train"][:-1,:],hidden_size,hidden_layer,learningrate,optimizer,keep_pro,batch_size,epoch)
+        #读取数据，确定参数
+        name=[pretype]
+        finaldata=[]
+        outputlen=int(PreEndYear)-int(PreStartYear)+1
+        
+        datajson=getData("云南省_year_电力电量类", pretype, StartYear, EndYear)
+        data=json.loads(datajson)
+        finaldata.append(data)
+        final=pd.DataFrame(finaldata,index=name)
+        final=final.T
+    
+        test_size=0#测试数据集应当取0才可以
+        X,y=generate_data(final,timestep,outputlen,test_size=test_size,if_norm="no")
+        testdata=final[pretype].values
+        testinput=[]
+        testoutput=[]
+        
+        num=len(X["train"])
+        selet=int(np.floor(num/2))
+        testinput=X["train"][selet:,:]
+        testoutput=y["train"][selet:,:]
+        
+        #最终预测需要的数据
+        x_pre=testdata[-1:-(timestep+1):-1].reshape(1,-1)
+        x_pre=np.array(x_pre, dtype = np.float32)
+    
+        #训练模型并预测结果
+        tf.reset_default_graph()
+        with tf.Session() as sess:
             
-        with tf.variable_scope("LSTM",reuse=True):
-            test_pre,test_label=runmodel(sess,outputlen,testinput,testoutput,hidden_size,hidden_layer,learningrate,optimizer,keep_pro,batch_size,epoch)
-        with tf.variable_scope("LSTM",reuse=True):   
-            ypre=premodel(sess,outputlen,x_pre,x_pre,hidden_size,hidden_layer,learningrate,optimizer,keep_pro,batch_size,epoch)
+            with tf.variable_scope("LSTM"):
+                ytrain=trainmodel(sess,outputlen,X["train"][:-1,:],y["train"][:-1,:],hidden_size,hidden_layer,learningrate,optimizer,keep_pro,batch_size,epoch)
+                
+            with tf.variable_scope("LSTM",reuse=True):
+                test_pre,test_label=runmodel(sess,outputlen,testinput,testoutput,hidden_size,hidden_layer,learningrate,optimizer,keep_pro,batch_size,epoch)
+            with tf.variable_scope("LSTM",reuse=True):   
+                ypre=premodel(sess,outputlen,x_pre,x_pre,hidden_size,hidden_layer,learningrate,optimizer,keep_pro,batch_size,epoch)
+        
+        mape=MAPE(test_pre,test_label)
+        rmse=RMSE(test_pre,test_label)
+        
+        trainyear=[]
+        trainingtrue=y["train"][-1,:]
+        for t in trainingtrue:
+            count=-1
+            for d in final[pretype]:
+                count+=1
+                
+                if t>d-5 and t<d+5:
+                    # print("yes")
+                    trainyear.append(final.index[count])
+                    break
+        ypre=np.array(ypre).squeeze()
+        result={"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
     
-    mape=MAPE(test_pre,test_label)
-    rmse=RMSE(test_pre,test_label)
-    
-    trainyear=[]
-    trainingtrue=y["train"][-1,:]
-    for t in trainingtrue:
-        count=-1
-        for d in final[pretype]:
-            count+=1
-            
-            if t>d-5 and t<d+5:
-                # print("yes")
-                trainyear.append(final.index[count])
-                break
-    ypre=np.array(ypre).squeeze()
-    result={"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
-
-    
-    return result
+        
+        return result
 
 if __name__ == '__main__':
     StartYear="1990"
     EndYear="2019"
     PreStartYear="2020"
-    PreEndYear="2021"
+    PreEndYear="2029"
     timestep=10
     pretype="全社会用电量"
     city="云南省"
