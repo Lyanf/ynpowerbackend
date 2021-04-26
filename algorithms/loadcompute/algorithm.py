@@ -30,8 +30,8 @@ def pro_data(file,start,end):
     result = algorithm1(query,file,start,end)
     data = []
     for i in range(0,96,4):
-    	data.append(get_hdata(result,l[i])+get_hdata(result,l[i+1])+get_hdata(result,l[i+2])+
-    		get_hdata(result,l[i+3]))
+    	data.append((get_hdata(result,l[i])+get_hdata(result,l[i+1])+get_hdata(result,l[i+2])+
+    		get_hdata(result,l[i+3])) / 4)
     data = np.hstack(data)
     time = get_time(result,l[0])
     return data, time
