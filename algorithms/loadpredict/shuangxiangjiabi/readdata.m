@@ -17,7 +17,7 @@ for i = 1:numyear
 end
 % array(1:6,1)=["2013","2014","2015","2016","2017","2018"];
 % for i = 1:26
-%     data = loadjson(getData("yunnan_year_jiabi",columns(i),num2str(start),num2str(ending)));
+%     data = loadjson(getData("yunnan_year_loadchara_jiabi",columns(i),num2str(start),num2str(ending)));
 %     array(1,i+1) = data.("x0x32_013");
 %     array(2,i+1) = data.("x0x32_014");
 %     array(3,i+1) = data.("x0x32_015");
@@ -25,7 +25,7 @@ end
 %     array(5,i+1) = data.("x0x32_017");
 %     array(6,i+1) = data.("x0x32_018");
 % end
-s = getData("yunnan_year_jiabi",col,num2str(start),num2str(ending));
+s = getData("yunnan_year_loadchara_jiabi",col,num2str(start),num2str(ending));
 num = length(s);
 for i = 1:num
     a = s(i);
