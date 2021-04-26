@@ -13,6 +13,7 @@ function result = main(start, ending, premaxload, pretotal,pregamma,prebeta,file
         array(i,1) = start+i-1;
     end
     s = getData(file,col,num2str(start),num2str(ending));
+    disp(s);
     num = length(s);
     
     for i = 1:num

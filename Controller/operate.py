@@ -456,6 +456,7 @@ def sokuPayloadPredict(args):
     season = args["season"]
     t = args["type"]
     file = getFilenameOfLoadPre(season, t, "sk")
+    print('** soku **', start, ending, premaxload, pretotal,pregamma,prebeta, file)
     result = soukupre(start, ending, premaxload, pretotal,pregamma,prebeta, file=file)
     tag = args["tag"]
     tagType = args["tagType"]
@@ -688,6 +689,7 @@ def grainQuery():
     return re
 
 def getDatas(location, dataName, startTime, endTime):
+    print("*** get data ***", location, dataName, startTime, endTime)
     re = getData(location, dataName, startTime, endTime)
     print('get data returns:', re)
     return re
