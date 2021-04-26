@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration file="C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi\sxjb.prj" location="C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi" name="sxjb" target="target.ezdeploy.library" target-name="Library Compiler">
+  <configuration build-checksum="790427644" file="C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi\sxjb.prj" location="C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi" name="sxjb" preferred-package-location="C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi\sxjb\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.library" target-name="Library Compiler">
     <param.appname>sxjb</param.appname>
     <param.icon />
     <param.icons />
@@ -51,7 +51,7 @@ For details, see GettingStarted.html, distributed with this package, or the offi
     <param.net.tsa.namespace />
     <param.net.tsa.superclass>Class1</param.net.tsa.superclass>
     <param.net.tsa.metadata />
-    <param.net.tsa.metadata.assembly>C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi</param.net.tsa.metadata.assembly>
+    <param.net.tsa.metadata.assembly>C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi</param.net.tsa.metadata.assembly>
     <param.net.saved.interface />
     <param.cpp.api>option.cpp.all</param.cpp.api>
     <unset>
@@ -111,19 +111,19 @@ For details, see GettingStarted.html, distributed with this package, or the offi
     </fileset.classes>
     <fileset.resources />
     <fileset.depfun>
-      <file>${PROJECT_ROOT}\getData.m</file>
       <file>${PROJECT_ROOT}\seek32.m</file>
+      <file>C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\souku\getData.m</file>
     </fileset.depfun>
     <fileset.package />
     <fileset.examples />
     <fileset.documentation />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\sxjb\for_testing" name="sxjb" optional="false">C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi\sxjb\for_testing\sxjb</file>
-      <file location="${PROJECT_ROOT}\sxjb\for_testing" name="setup.py" optional="false">C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi\sxjb\for_testing\setup.py</file>
+      <file location="${PROJECT_ROOT}\sxjb\for_testing" name="setup.py" optional="false">C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi\sxjb\for_testing\setup.py</file>
+      <file location="${PROJECT_ROOT}\sxjb\for_testing" name="sxjb" optional="false">C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\shuangxiangjiabi\sxjb\for_testing\sxjb</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2019a</root>
+      <root>D:\Program Files\MATLAB\R2019a</root>
       <toolboxes />
     </matlab>
     <platform>
