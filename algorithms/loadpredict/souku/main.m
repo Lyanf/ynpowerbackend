@@ -8,7 +8,7 @@ pretotal=1300000;
 pregamma=0.9;
 prebeta=0.7;
 
-file = "yunnan_year_loadchara_souku";
+file = "yunnan_year_fengshui-souku-min";
 f = s_forecast(start, ending, premaxload, pretotal,pregamma,prebeta,file);
 
 
