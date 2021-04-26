@@ -1,18 +1,4 @@
-clc
-clear
-
-start = 2013;
-ending = 2018;
-premaxload=65000;
-pretotal=1300000;
-pregamma=0.9;
-prebeta=0.7;
-
-file = "yunnan_year_loadchara_souku";
-f = s_forecast(start, ending, premaxload, pretotal,pregamma,prebeta,file);
-
-
-function result = s_forecast(start, ending, premaxload, pretotal,pregamma,prebeta,file)
+function result = main(start, ending, premaxload, pretotal,pregamma,prebeta,file)
     global endyear startyear
     startyear = start;
     endyear = ending;
