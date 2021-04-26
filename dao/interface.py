@@ -781,8 +781,13 @@ def getAlgorithmArgs(method = None, filename = None):
                             temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类")
                         elif method == 'CombinationIndustry':
                             temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类-行业")
-
+                        else:
+                            temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类")
+                    
                     if row.iloc[i - 1][j].startswith("剔除数据名称列表"):
+                        temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类-行业")
+
+                    if row.iloc[i - 1][j].startswith("预测行业名称"):
                         temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类-行业")
 
                     if row.iloc[i - 1][j].startswith("预测方法名称") and method == 'ForIndustry':
