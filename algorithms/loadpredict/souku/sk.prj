@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="1663184271" file="C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\souku\sk.prj" location="C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\souku" name="sk" preferred-package-location="C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\souku\sk\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.library" target-name="Library Compiler">
+  <configuration build-checksum="4225056121" file="C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\souku\sk.prj" location="C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\souku" name="sk" preferred-package-location="C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\souku\sk\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.library" target-name="Library Compiler">
     <param.appname>sk</param.appname>
     <param.icon />
     <param.icons />
@@ -51,7 +51,7 @@ For details, see GettingStarted.html, distributed with this package, or the offi
     <param.net.tsa.namespace />
     <param.net.tsa.superclass>Class1</param.net.tsa.superclass>
     <param.net.tsa.metadata />
-    <param.net.tsa.metadata.assembly>${MATLAB_ROOT}</param.net.tsa.metadata.assembly>
+    <param.net.tsa.metadata.assembly>C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\souku</param.net.tsa.metadata.assembly>
     <param.net.saved.interface />
     <param.cpp.api>option.cpp.all</param.cpp.api>
     <unset>

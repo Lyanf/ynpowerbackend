@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration file="C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\zhishupinghua\zsph.prj" location="C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\zhishupinghua" name="zsph" target="target.ezdeploy.library" target-name="Library Compiler">
+  <configuration build-checksum="1143772129" file="C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\zhishupinghua\zsph.prj" location="C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\zhishupinghua" name="zsph" preferred-package-location="C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\zhishupinghua\zsph\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.library" target-name="Library Compiler">
     <param.appname>zsph</param.appname>
     <param.icon />
     <param.icons />
@@ -51,7 +51,7 @@ For details, see GettingStarted.html, distributed with this package, or the offi
     <param.net.tsa.namespace />
     <param.net.tsa.superclass>Class1</param.net.tsa.superclass>
     <param.net.tsa.metadata />
-    <param.net.tsa.metadata.assembly>C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\zhishupinghua</param.net.tsa.metadata.assembly>
+    <param.net.tsa.metadata.assembly>C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\zhishupinghua</param.net.tsa.metadata.assembly>
     <param.net.saved.interface />
     <param.cpp.api>option.cpp.all</param.cpp.api>
     <unset>
@@ -111,7 +111,7 @@ For details, see GettingStarted.html, distributed with this package, or the offi
     </fileset.classes>
     <fileset.resources />
     <fileset.depfun>
-      <file>${PROJECT_ROOT}\getData.m</file>
+      <file>C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\souku\getData.m</file>
       <file>${PROJECT_ROOT}\predict.m</file>
       <file>${PROJECT_ROOT}\seek41.m</file>
     </fileset.depfun>
@@ -119,12 +119,12 @@ For details, see GettingStarted.html, distributed with this package, or the offi
     <fileset.examples />
     <fileset.documentation />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\zsph\for_testing" name="setup.py" optional="false">C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\zhishupinghua\zsph\for_testing\setup.py</file>
-      <file location="${PROJECT_ROOT}\zsph\for_testing" name="zsph" optional="false">C:\ZHD\Project\dclab\ynpower\ynpowerbackend\algorithms\loadpredict\zhishupinghua\zsph\for_testing\zsph</file>
+      <file location="${PROJECT_ROOT}\zsph\for_testing" name="zsph" optional="false">C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\zhishupinghua\zsph\for_testing\zsph</file>
+      <file location="${PROJECT_ROOT}\zsph\for_testing" name="setup.py" optional="false">C:\Users\gujie\Desktop\devenv\ynpowerbackend\algorithms\loadpredict\zhishupinghua\zsph\for_testing\setup.py</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2019a</root>
+      <root>D:\Program Files\MATLAB\R2019a</root>
       <toolboxes />
     </matlab>
     <platform>
