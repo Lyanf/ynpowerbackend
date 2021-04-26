@@ -57,9 +57,9 @@ def GM(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会用�
 
 
     if timestep > (int(EndYear)-int(StartYear)+1):
-        raise ValueError("训练步长过大，请调整后重试")
-    elif timestep < 2:
-        raise ValueError("训练步长过小，请调整后重试")    
+        raise ValueError("训练步长过大，请调整后重试.")
+    elif timestep<(int(PreEndYear)-int(PreStartYear)+2):
+        raise ValueError("训练步长小于预测年份区间长度，请增加训练步长.") 
     else:
         """负荷预测"""
         name=[pretype]
@@ -122,11 +122,11 @@ def GM(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会用�
         return result
 
 if __name__ == '__main__':
-    StartYear="2004"
+    StartYear="1990"
     EndYear="2018"
     PreStartYear="2019"
-    PreEndYear="2020"
-    timestep=5
+    PreEndYear="2022"
+    timestep=2
     city="云南省"
     result=GM(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会用电量",city="云南省")
 
