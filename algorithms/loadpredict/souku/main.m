@@ -16,7 +16,7 @@ function result = s_forecast(start, ending, premaxload, pretotal,pregamma,prebet
     global endyear startyear
     startyear = start;
     endyear = ending;
-    year = ending-start;
+    year = ending-start+1;
     array = zeros(year,25);
     ga = zeros(year,1);
     
