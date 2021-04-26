@@ -21,7 +21,7 @@ for i = 1:year
     array(i,1) = start+i-1;
 end
 % for i = 1:24
-%     data = loadjson(getData("yunnan_year_loadchara_souku",columns(i),num2str(start),num2str(ending)));
+%     data = loadjson(getData("yunnan_year_souku",columns(i),num2str(start),num2str(ending)));
 %     array(1,i+1) = data.("x0x32_013");
 %     array(2,i+1) = data.("x0x32_014");
 %     array(3,i+1) = data.("x0x32_015");
@@ -29,7 +29,7 @@ end
 %     array(5,i+1) = data.("x0x32_017");
 %     array(6,i+1) = data.("x0x32_018");
 % end
-s = getData("yunnan_year_loadchara_souku",col,num2str(start),num2str(ending));
+s = getData("yunnan_year_souku",col,num2str(start),num2str(ending));
 num = length(s);
 for i = 1:num
     a = s(i);
@@ -44,7 +44,7 @@ for i = 1:num
 end
 
 
-% gamma = loadjson(getData("yunnan_year_loadchara_souku","gamma","2013","2018"));
+% gamma = loadjson(getData("yunnan_year_souku","gamma","2013","2018"));
 % ga(1,1) = gamma.("x0x32_013");
 % ga(2,1) = gamma.("x0x32_014");
 % ga(3,1) = gamma.("x0x32_015");

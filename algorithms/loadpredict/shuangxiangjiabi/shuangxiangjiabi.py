@@ -18,7 +18,7 @@ if __name__ == '__main__':
     ending = 2018
     premaxload = 65000
     pretotal = 1300000
-    file = "yunnan_year_loadchara_jiabi"
+    file = "yunnan_year_jiabi"
 
     f = shuangxiangjiabi(start, ending, premaxload, pretotal, file);
     print(f)
