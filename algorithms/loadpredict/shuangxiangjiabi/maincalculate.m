@@ -1,24 +1,24 @@
 clc;
 clear;
-%%»ù±¾ĞÅÏ¢ÊäÈë
+%%åŸºæœ¬ä¿¡æ¯è¾“å…¥
 global numyear
 % global season cityname startyear endyear Tyear info numyear
-% season=input('ÇëÊäÈësheetÃû³Æ£º','s');
-% cityname=input('ÇëÊäÈë³ÇÊĞÃû³Æ£º','s');
-% startyear=input('ÇëÊäÈëÊı¾İ¿âÆğÊ¼Äê·İ£º');
-% endyear=input('ÇëÊäÈëÊı¾İ¿â½ØÖ¹Äê·İ£º');
+% season=input('è¯·è¾“å…¥sheetåç§°ï¼š','s');
+% cityname=input('è¯·è¾“å…¥åŸå¸‚åç§°ï¼š','s');
+% startyear=input('è¯·è¾“å…¥æ•°æ®åº“èµ·å§‹å¹´ä»½ï¼š');
+% endyear=input('è¯·è¾“å…¥æ•°æ®åº“æˆªæ­¢å¹´ä»½ï¼š');
 % numyear=endyear-startyear+1;
-% Tyear=input('ÇëÊäÈë´ıÔ¤²âµÄÄê·İ£º');
-actress1='E:\ÏîÄ¿\ÔÆÄÏ\»ª¶«Ô¤²â³ÌĞòÊı¾İ£¨Matlab£©\Ë«Ïò¼Ğ±Æ·¨Êı¾İ\yunnan_year_loadchara_jiabi';
+% Tyear=input('è¯·è¾“å…¥å¾…é¢„æµ‹çš„å¹´ä»½ï¼š');
+actress1='E:\é¡¹ç›®\äº‘å—\åä¸œé¢„æµ‹ç¨‹åºæ•°æ®ï¼ˆMatlabï¼‰\åŒå‘å¤¹é€¼æ³•æ•°æ®\yunnan_year_jiabi';
 % path1=strcat(actress1,cityname);
-%%Êı¾İ¿âµÄÉú³É
+%%æ•°æ®åº“çš„ç”Ÿæˆ
 info=xlsread(actress1);
 info = info.';
 numyear=7;
-%%×î´ó¸ººÉ¡¢×îĞ¡¸ººÉ¡¢Ô¤²âÈÕµçÁ¿Ô¤²â%%
+%%æœ€å¤§è´Ÿè·ã€æœ€å°è´Ÿè·ã€é¢„æµ‹æ—¥ç”µé‡é¢„æµ‹%%
 premaxload=65000;
 pretotal=1300000;
-%%µ÷ÓÃº¯Êı¼ÆËã
+%%è°ƒç”¨å‡½æ•°è®¡ç®—
 load=seek32(info,premaxload,pretotal);
-%%Êä³öÊı¾İ
-% xlswrite('C:\Users\oodil\Desktop\ÏîÄ¿\ÔÆÄÏ\»ª¶«Ô¤²â³ÌĞòÊı¾İ£¨Matlab£©\Ë«Ïò¼Ğ±Æ·¨Êı¾İ\Êı¾İÔ¤²â_»ª¶«.xlsx',load,season,'A1:A24');
+%%è¾“å‡ºæ•°æ®
+% xlswrite('C:\Users\oodil\Desktop\é¡¹ç›®\äº‘å—\åä¸œé¢„æµ‹ç¨‹åºæ•°æ®ï¼ˆMatlabï¼‰\åŒå‘å¤¹é€¼æ³•æ•°æ®\æ•°æ®é¢„æµ‹_åä¸œ.xlsx',load,season,'A1:A24');

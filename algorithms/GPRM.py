@@ -31,8 +31,11 @@ def GPRM(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会�
         B = np.append(-z1,np.ones_like(z1),axis=1)  
         Y = x[1:].reshape((len(x) - 1,1))
         #a为发展系数 b为灰色作用量
-        [[a],[b]] = np.dot(np.dot(np.linalg.inv(np.dot(B.T, B)), B.T), Y)#计算参数  
-        result = (x[0]-b/a)*np.exp(-a*(n-1))-(x[0]-b/a)*np.exp(-a*(n-2))  
+        try:
+            [[a],[b]] = np.dot(np.dot(np.linalg.inv(np.dot(B.T, B)), B.T), Y)#计算参数  
+        except:
+            raise ValueError("中间矩阵不可逆，请重新调整历史数据时间或步长")
+        #result = (x[0]-b/a)*np.exp(-a*(n-1))-(x[0]-b/a)*np.exp(-a*(n-2))  
         S1_2 = x.var()#原序列方差
         e = list()#残差序列
         for index in range(1,x.shape[0]+1):
@@ -63,19 +66,19 @@ def GPRM(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会�
 
 
     if timestep > (int(EndYear)-int(StartYear)+1):
-        raise ValueError("训练步长过大，请调整后重试")
+        raise ValueError("训练步长过大，请调整后重试.")
     # elif int(PreEndYear)-int(PreStartYear)<1:
     #     raise ValueError("该算法不支持一年及一年内的预测.")
     elif timestep<(int(PreEndYear)-int(PreStartYear)+2):
-        raise ValueError("训练步长小于预测年份区间长度，请增加训练步长")
+        raise ValueError("训练步长小于预测年份区间长度，请增加训练步长.")
     else:
 
         """负荷预测"""
         name=[pretype]
         finaldata=[]
         
-        outputlen=int(PreEndYear)-int(PreStartYear)+1
-        
+        datayear=np.arange(int(StartYear),int(EndYear)+1)
+
         #读取历史负荷数据
         datajson=getData("云南省_year_电力电量类", pretype, StartYear, EndYear)
         # print(datajson)
@@ -96,7 +99,7 @@ def GPRM(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会�
         num=len(y)
         #训练集
         trainx=y[num-testyear-1-trainyear:num-testyear-1].squeeze()
-        trainy=y[num-testyear-1:].squeeze()
+        trainy=y[num-testyear-1:num-1].squeeze()
         #测试集
         testx=y[num-testyear-trainyear:num-testyear].squeeze()
         testy=y[num-testyear:]
@@ -117,26 +120,26 @@ def GPRM(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会�
         
         ypre=finalpre.reshape(1,-1).squeeze()
     
-        trainyear=[]
-        for t in testy:
-            count=-1
-            for d in final[pretype]:
-                count+=1
+        trainyear=datayear[num-testyear:]
+        # for t in testy:
+        #     count=-1
+        #     for d in final[pretype]:
+        #         count+=1
                 
-                if t>d-5 and t<d+5:
-                    # print("yes")
-                    trainyear.append(final.index[count])
-                    break
+        #         if t>d-5 and t<d+5:
+        #             # print("yes")
+        #             trainyear.append(final.index[count])
+        #             break
     
         result={"trainfromyear":trainyear[0],"traintoyear":trainyear[-1],"trainresult":trainpre.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
         #保存
         return result
 if __name__ == '__main__':
-    StartYear="1990"
-    EndYear="2019"
-    PreStartYear="2020"
+    StartYear="2004"
+    EndYear="2018"
+    PreStartYear="2019"
     PreEndYear="2020"
-    timestep=3
+    timestep=5
     pretype="全社会用电量"
     city="云南省"
     result=GPRM(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype,city)

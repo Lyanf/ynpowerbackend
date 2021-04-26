@@ -1,21 +1,21 @@
 clc;
 clear;
-%%»ù±¾ĞÅÏ¢ÊäÈë
+%%åŸºæœ¬ä¿¡æ¯è¾“å…¥
 % global season cityname startyear endyear Tyear
-% season=input('ÇëÊäÈësheetÃû³Æ£º','s');
-% cityname=input('ÇëÊäÈë³ÇÊĞÃû³Æ£º','s');
-% startyear=input('ÇëÊäÈëÊı¾İ¿âÆğÊ¼Äê·İ£º');
-% endyear=input('ÇëÊäÈëÊı¾İ¿â½ØÖ¹Äê·İ£º');
-% Tyear=input('ÇëÊäÈë´ıÔ¤²âµÄÄê·İ£º');
-%%×î´ó¸ººÉ¡¢×îĞ¡¸ººÉ¡¢Ô¤²âÈÕµçÁ¿Ô¤²â%%
+% season=input('è¯·è¾“å…¥sheetåç§°ï¼š','s');
+% cityname=input('è¯·è¾“å…¥åŸå¸‚åç§°ï¼š','s');
+% startyear=input('è¯·è¾“å…¥æ•°æ®åº“èµ·å§‹å¹´ä»½ï¼š');
+% endyear=input('è¯·è¾“å…¥æ•°æ®åº“æˆªæ­¢å¹´ä»½ï¼š');
+% Tyear=input('è¯·è¾“å…¥å¾…é¢„æµ‹çš„å¹´ä»½ï¼š');
+%%æœ€å¤§è´Ÿè·ã€æœ€å°è´Ÿè·ã€é¢„æµ‹æ—¥ç”µé‡é¢„æµ‹%%
 premaxload=65000;
 pretotal=1300000;
 pregamma=0.9;
 prebeta=0.7;
-%%Êı¾İ¿â¶ÁÈ¡
-actress1='E:\ÏîÄ¿\ÔÆÄÏ\»ª¶«Ô¤²â³ÌĞòÊı¾İ£¨Matlab£©\ËÑ¿â·¨Êı¾İ\yunnan_year_loadchara_souku';
+%%æ•°æ®åº“è¯»å–
+actress1='E:\é¡¹ç›®\äº‘å—\åä¸œé¢„æµ‹ç¨‹åºæ•°æ®ï¼ˆMatlabï¼‰\æœåº“æ³•æ•°æ®\yunnan_year_souku';
 % path1=strcat(actress1,cityname);
-%%½«µäĞÍÈÕĞÅÏ¢´æÈëinfoÖĞ
+%%å°†å…¸å‹æ—¥ä¿¡æ¯å­˜å…¥infoä¸­
 
 % info=xlsread(path1,season);
 info = xlsread(actress1);
@@ -28,7 +28,7 @@ Total=info(startyearNum:endyearNum,27).';
 gamma=info(startyearNum:endyearNum,28).';
 beta=info(startyearNum:endyearNum,29).';
 info=info(startyearNum:endyearNum,1:25).';
-%%µ÷ÓÃº¯Êı¼ÆËã
+%%è°ƒç”¨å‡½æ•°è®¡ç®—
 load=seek22(info,premaxload,gamma,pregamma,prebeta);
-%%Êä³öÊı¾İ
-% xlswrite('E:\ÏîÄ¿\ÔÆÄÏ\»ª¶«Ô¤²â³ÌĞòÊı¾İ£¨Matlab£©\ËÑ¿â·¨Êı¾İ\Êı¾İÔ¤²â_¸£½¨.xlsx',load,season,'A1:A24');
+%%è¾“å‡ºæ•°æ®
+% xlswrite('E:\é¡¹ç›®\äº‘å—\åä¸œé¢„æµ‹ç¨‹åºæ•°æ®ï¼ˆMatlabï¼‰\æœåº“æ³•æ•°æ®\æ•°æ®é¢„æµ‹_ç¦å»º.xlsx',load,season,'A1:A24');
