@@ -833,57 +833,16 @@ class ProvincialAndMunicipalPredict(Resource):
         args["File"] = request.files["file"]
         arg = {**args, **request.form}
         result = provincialAndMunicipalPredict(arg)
-        if result["cityname"] == None:
-            re = {
-                "msg":result["cooresults"],
-                "code":-1,
-                "data": None
-            }
-        else:
-            tableThreeData = []
-            for i in range(len(result["cityname"])):
-                temp = {}
-                temp["year"] = 1234 #year
-                temp["region"] = result["cityname"][i]
-                temp["predictvalue"] = result["cooresults"][i]
-                tableThreeData.append(temp)
 
-            payload = {
-                'tableThreeData': tableThreeData
+        return {
+            "msg": 'success',
+            "code": 200,
+            "data": {
+                'series': list(result),
+                'values': result.values.tolist()
             }
-            re = {
-                "msg": "success",
-                "code": 200,
-                "data": payload
-            }
-        # payload = {
-        #     'tableThreeData': [
-        #         {
-        #             'year': i + 2010,
-        #             'region': '某个地方',
-        #             'predictValueBefore': random() * randint(300, 500),
-        #             'predictErrorBefore': random() * randint(30, 50),
-        #             'predictValueAfter': random() * randint(300, 500),
-        #             'predictErrorAfter': random() * randint(20, 80)
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableFourData': [
-        #         {
-        #             'year': i + 2010,
-        #             'region': '地方 %d' % i,
-        #             'predictBefore': random() * randint(300, 500),
-        #             'predictAfter': random() * randint(300, 500),
-        #         } for i in range(17)
-        #     ]
-        # }
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
-
-
+        }
+       
 #大用户预测
 @register('predict', 'bigdata')
 class BigDataPredict(Resource):
