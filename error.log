@@ -1,11 +1,5 @@
-[2021-04-27 12:21:28 +0800] [25925] [INFO] Starting gunicorn 20.0.4
-[2021-04-27 12:21:28 +0800] [25925] [ERROR] Connection in use: ('', 18000)
-[2021-04-27 12:21:28 +0800] [25925] [ERROR] Retrying in 1 second.
-[2021-04-27 12:21:29 +0800] [25925] [ERROR] Connection in use: ('', 18000)
-[2021-04-27 12:21:29 +0800] [25925] [ERROR] Retrying in 1 second.
-[2021-04-27 12:21:30 +0800] [25925] [ERROR] Connection in use: ('', 18000)
-[2021-04-27 12:21:30 +0800] [25925] [ERROR] Retrying in 1 second.
-[2021-04-27 12:21:31 +0800] [25925] [INFO] Listening at: http://0.0.0.0:18000 (25925)
-[2021-04-27 12:21:31 +0800] [25925] [INFO] Using worker: sync
-[2021-04-27 12:21:31 +0800] [26015] [INFO] Booting worker with pid: 26015
-[2021-04-27 12:21:31 +0800] [26016] [INFO] Booting worker with pid: 26016
+[2021-04-27 12:35:25 +0800] [1885] [INFO] Starting gunicorn 20.0.4
+[2021-04-27 12:35:25 +0800] [1885] [INFO] Listening at: http://0.0.0.0:18000 (1885)
+[2021-04-27 12:35:25 +0800] [1885] [INFO] Using worker: sync
+[2021-04-27 12:35:25 +0800] [1888] [INFO] Booting worker with pid: 1888
+[2021-04-27 12:35:25 +0800] [1889] [INFO] Booting worker with pid: 1889
