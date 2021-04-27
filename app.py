@@ -1786,7 +1786,6 @@ api.add_resource(getDefaultOfLoadPre, "/api/get/default")
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
-    print("test")
     return render_template("index.html")
 
 
