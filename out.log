@@ -80,9 +80,205 @@ bind <class 'app.PayloadChartsDaily'> to /api/payload/charts/daily
 bind <class 'app.PayloadChartsDailyTypical'> to /api/payload/charts/daily/typical
 bind <class 'app.PayloadChartsMonthly'> to /api/payload/charts/monthly
 bind <class 'app.PayloadChartsYearly'> to /api/payload/charts/yearly
-** exec algorithm ** 省市总分协调算法 {'File': <FileStorage: 'cookie.plist' ('application/octet-stream')>, 'method': '省市总分协调算法'}
+** exec algorithm ** 省市总分协调算法 {'File': <FileStorage: '云南省各地市预测值.csv' ('text/csv')>, 'method': '省市总分协调算法'}
 CoordinationCityandProvince
 File = args["File"],
+   year         昆明市        楚雄州  ...        临沧市      西双版纳州       主旺网损
+0  2018  357.946025  49.941414  ...  33.972910  31.976003  64.900990
+1  2019  365.615843  58.066781  ...  36.025728  26.013420  72.102911
+
+[2 rows x 18 columns]
+** exec algorithm ** 关联规则分析算法 {'method': '关联规则分析算法', 'factors': ['能源消费总值', '人均GDP'], 'StartYear': 2013, 'EndYear': 2018, 'tag': '', 'tagType': 'MINING', 'city*': '云南省', 'pretype': '剔除大用户的社会用电量', 'econamelist': ['能源消费总值', '人均GDP']}
+Apriori
+StartYear = '2013',EndYear = '2018',pretype = '剔除大用户的社会用电量',city = '云南省',econamelist = ['能源消费总值', '人均GDP'],
+云南省 电力电量类 year
+[(58, '云南省', '电力电量类')]
+云南省 社会经济类 year
+[(60, '云南省', '社会经济类')]
+云南省 社会经济类 year
+[(60, '云南省', '社会经济类')]
+分析第2个因素
+分析第3个因素
+** exec algorithm ** 省市总分协调算法 {'File': <FileStorage: '云南省各地市预测值.csv' ('text/csv')>, 'method': '省市总分协调算法'}
+CoordinationCityandProvince
+File = args["File"],
+   year         昆明市        楚雄州  ...        临沧市      西双版纳州       主旺网损
+0  2018  357.946025  49.941414  ...  33.972910  31.976003  64.900990
+1  2019  365.615843  58.066781  ...  36.025728  26.013420  72.102911
+
+[2 rows x 18 columns]
+Combination
+request.files:  ImmutableMultiDict([])
+{'beginYear': '2020', 'endYear': '2022', 'method': '地区组合预测模型', 'tag': 'null', 'tagType': 'MIX', 'city*': '云南省', 'comtype*': '等权组合', 'singleresult': 'Y-一产-BPNN-2020-2022,Y-一产-EEMD-2020-2022,Y-一产-SARIMA-2020-2022,Y-一产-EEMD-2020-2021', 'pretype': '剔除大用户的社会用电量', 'PreStartYear': '2020', 'PreEndYear': '2022', 'StartYear': '2020', 'EndYear': '2022'}
+** exec algorithm ** 地区组合预测模型 {'beginYear': '2020', 'endYear': '2022', 'method': '地区组合预测模型', 'tag': 'null', 'tagType': 'MIX', 'city*': '云南省', 'comtype*': '等权组合', 'singleresult': 'Y-一产-BPNN-2020-2022,Y-一产-EEMD-2020-2022,Y-一产-SARIMA-2020-2022,Y-一产-EEMD-2020-2021', 'pretype': '剔除大用户的社会用电量', 'PreStartYear': '2020', 'PreEndYear': '2022', 'StartYear': '2020', 'EndYear': '2022'}
+Combination
+PreStartYear = '2020',PreEndYear = '2022',pretype = '剔除大用户的社会用电量',singleresult = ['Y-一产-BPNN-2020-2022', 'Y-一产-EEMD-2020-2022', 'Y-一产-SARIMA-2020-2022', 'Y-一产-EEMD-2020-2021'],city = '云南省',comtype = '等权组合',
+{'industry': '', 'method': '基于神经网络的行业用电量预测', 'beginYear': 2020, 'endYear': 2021, 'historyBeginYear': 2010, 'historyEndYear': 2019, 'tag': 'Y-一产-BPNN-2020-2022', 'tagType': 'DYNAMIC_INDUSTRIAL', 'city*': '云南省', 'hidden*': '24,12', 'learningrate*': 0.005, 'epoch*': 1000, 'timestep': '5', 'pretype': '第一产业用电量', 'StartYear': 2010, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2021}
+request.files:  ImmutableMultiDict([])
+{'beginYear': '2020', 'endYear': '2022', 'method': '地区组合预测模型', 'tag': 'null', 'tagType': 'MIX', 'city*': '云南省', 'comtype*': '等权组合', 'singleresult': 'Y-一产-EEMD-2020-2022,Y-一产-SARIMA-2020-2022', 'pretype': '剔除大用户的社会用电量', 'PreStartYear': '2020', 'PreEndYear': '2022', 'StartYear': '2020', 'EndYear': '2022'}
+** exec algorithm ** 地区组合预测模型 {'beginYear': '2020', 'endYear': '2022', 'method': '地区组合预测模型', 'tag': 'null', 'tagType': 'MIX', 'city*': '云南省', 'comtype*': '等权组合', 'singleresult': 'Y-一产-EEMD-2020-2022,Y-一产-SARIMA-2020-2022', 'pretype': '剔除大用户的社会用电量', 'PreStartYear': '2020', 'PreEndYear': '2022', 'StartYear': '2020', 'EndYear': '2022'}
+Combination
+PreStartYear = '2020',PreEndYear = '2022',pretype = '剔除大用户的社会用电量',singleresult = ['Y-一产-EEMD-2020-2022', 'Y-一产-SARIMA-2020-2022'],city = '云南省',comtype = '等权组合',
+{'industry': '', 'method': '基于EEMD的行业用电量预测', 'beginYear': 2020, 'endYear': 2022, 'historyBeginYear': 2008, 'historyEndYear': 2019, 'tag': 'Y-一产-EEMD-2020-2022', 'tagType': 'DYNAMIC_INDUSTRIAL', 'city*': '云南省', 'pretype': '第一产业用电量', 'StartYear': 2008, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'econamelist': []}
+{'industry': '', 'method': '基于ARIMA季节分解的行业电量预测', 'beginYear': 2020, 'endYear': 2022, 'historyBeginYear': 2010, 'historyEndYear': 2019, 'tag': 'Y-一产-SARIMA-2020-2022', 'tagType': 'DYNAMIC_INDUSTRIAL', 'city*': '云南省', 'pretype': '第一产业用电量', 'StartYear': 2010, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022}
+** algorithm exec result ** {'name': ['Y-一产-EEMD-2020-2022', 'Y-一产-SARIMA-2020-2022', '等权组合'], 'prefromyear': '2020', 'pretoyear': '2022', 'preresult': [[148668.21875, 158703.5625, 170159.09375], [140031.54780849774, 141626.6719875893, 144280.57960948983], [144349.88327924887, 150165.11724379467, 157219.8366797449]], 'MAPE': [14.343339623740118, 18.71383581001519, 96.93073572671804], 'RMSE': [21322.62217106323, 27950.88873534796, 4720147.045575517]}
+method is 地区组合预测模型
+request.files:  ImmutableMultiDict([])
+{'beginYear': '2020', 'endYear': '2022', 'method': '地区组合预测模型', 'tag': 'null', 'tagType': 'MIX', 'city*': '云南省', 'comtype*': '等权组合', 'singleresult': 'Y-云南用电量-灰色滑动-2020-2022,Y-云南用电量-滚动灰色-2020-2022,Y-云南用电量-模糊平滑-2020-2022,Y-云南用电量-GBDT-2020-2022,Y-云南用电量-SVM-2020-2022,Y-云南用电量-RF-2020-2022,Y-云南电量-生长函数-2020-2022,Y-云南电量-二元一次-2020-2022,Y-云南电量-指数-2020-2022,Y-云南电量-一元线性-2020-2022,Y-云南用电量-BPNN-2020-2022,Y-云南电量-一元外推-2020-2022,Y-云南电量-生长外推-2020-2022,Y-云南电量-指数外推-2020-2022,Y-云南电量-对数外推-2020-2022', 'pretype': '剔除大用户的社会用电量', 'PreStartYear': '2020', 'PreEndYear': '2022', 'StartYear': '2020', 'EndYear': '2022'}
+** exec algorithm ** 地区组合预测模型 {'beginYear': '2020', 'endYear': '2022', 'method': '地区组合预测模型', 'tag': 'null', 'tagType': 'MIX', 'city*': '云南省', 'comtype*': '等权组合', 'singleresult': 'Y-云南用电量-灰色滑动-2020-2022,Y-云南用电量-滚动灰色-2020-2022,Y-云南用电量-模糊平滑-2020-2022,Y-云南用电量-GBDT-2020-2022,Y-云南用电量-SVM-2020-2022,Y-云南用电量-RF-2020-2022,Y-云南电量-生长函数-2020-2022,Y-云南电量-二元一次-2020-2022,Y-云南电量-指数-2020-2022,Y-云南电量-一元线性-2020-2022,Y-云南用电量-BPNN-2020-2022,Y-云南电量-一元外推-2020-2022,Y-云南电量-生长外推-2020-2022,Y-云南电量-指数外推-2020-2022,Y-云南电量-对数外推-2020-2022', 'pretype': '剔除大用户的社会用电量', 'PreStartYear': '2020', 'PreEndYear': '2022', 'StartYear': '2020', 'EndYear': '2022'}
+Combination
+PreStartYear = '2020',PreEndYear = '2022',pretype = '剔除大用户的社会用电量',singleresult = ['Y-云南用电量-灰色滑动-2020-2022', 'Y-云南用电量-滚动灰色-2020-2022', 'Y-云南用电量-模糊平滑-2020-2022', 'Y-云南用电量-GBDT-2020-2022', 'Y-云南用电量-SVM-2020-2022', 'Y-云南用电量-RF-2020-2022', 'Y-云南电量-生长函数-2020-2022', 'Y-云南电量-二元一次-2020-2022', 'Y-云南电量-指数-2020-2022', 'Y-云南电量-一元线性-2020-2022', 'Y-云南用电量-BPNN-2020-2022', 'Y-云南电量-一元外推-2020-2022', 'Y-云南电量-生长外推-2020-2022', 'Y-云南电量-指数外推-2020-2022', 'Y-云南电量-对数外推-2020-2022'],city = '云南省',comtype = '等权组合',
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '灰色滑动平均模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-灰色滑动-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '基于滚动机制的灰色预测模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-滚动灰色-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '模糊指数平滑模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-模糊平滑-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '梯度提升模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-GBDT-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'LearningRate*': '0.1', 'NumberofEstimators*': '500', 'timestep': '15', 'MaxDepth*': '10'}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '支持向量机模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-SVM-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'LearningRate*': '0.1', 'NumberofEstimators*': '500', 'timestep': '10', 'MaxDepth*': '10'}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '随机森林模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-RF-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'LearningRate*': '0.1', 'NumberofEstimators*': '500', 'timestep': '10', 'MaxDepth*': '10', 'n_estimators*': 50}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '生长函数', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南电量-生长函数-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'hidden_size*': 24, 'hidden_layer*': 1, 'learningrate*': 0.005, 'epoch*': 1000, 'econamelist*': '人均GDP', 'quatile': '0.9', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'planflag*': '0', 'plan*': '0'}yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+60943.64000000013 1198606.650666669 0.8165653141333316 0.6097688702666701
+bind <class 'app.Login'> to /api/login
+bind <class 'app.Logout'> to /api/logout
+bind <class 'app.LoadRecent'> to /api/recent
+bind <class 'app.GetMetadata'> to /api/db/metadata
+bind <class 'app.CreateMetadata'> to /api/db/metadata/create
+bind <class 'app.RenameMetadata'> to /api/db/metadata/rename
+bind <class 'app.DeleteMetadata'> to /api/db/metadata/delete
+bind <class 'app.UploadMetadata'> to /api/db/metadata/upload
+bind <class 'app.PerformQuery'> to /api/db/query
+bind <class 'app.PerformCreate'> to /api/db/create
+bind <class 'app.PerformUpdate'> to /api/db/update
+bind <class 'app.PerformDelete'> to /api/db/delete
+bind <class 'app.ExceptionQuery'> to /api/db/except/query
+bind <class 'app.ExceptionResolve'> to /api/db/except/resolve
+bind <class 'app.ExceptionAccept'> to /api/db/except/accept
+bind <class 'app.TagsQuery'> to /api/tags/query
+bind <class 'app.TagsDetail'> to /api/tags/detail
+bind <class 'app.TagsRename'> to /api/tags/rename
+bind <class 'app.TagsDelete'> to /api/tags/delete
+bind <class 'app.MiningRequest'> to /api/mining/request
+bind <class 'app.MiningKMeansSuggestCategoryCount'> to /api/mining/factor/kmeans/suggest
+bind <class 'app.MiningResults'> to /api/mining/results
+bind <class 'app.RegionQuery'> to /api/region/query
+bind <class 'app.IndustryQuery'> to /api/industry/query
+bind <class 'app.IndustrialMethodQuery'> to /api/method/industry/query
+bind <class 'app.RegionalMethodQuery'> to /api/method/region/query
+bind <class 'app.GrainQuery'> to /api/grain/query
+bind <class 'app.MiningFactorQuery'> to /api/factor/query
+bind <class 'app.RegionSinglePredict'> to /api/predict/region/single
+bind <class 'app.RegionMixModelValidate'> to /api/predict/region/mix/validate
+bind <class 'app.RegionMixPredict'> to /api/predict/region/mix
+bind <class 'app.IndustrySinglePredict'> to /api/predict/industry/single
+bind <class 'app.IndustryMixModelValidate'> to /api/predict/industry/mix/validate
+bind <class 'app.IndustryMixPredict'> to /api/predict/industry/mix
+bind <class 'app.SaturationCurvePredict'> to /api/predict/saturation
+bind <class 'app.PayloadDensityPredict'> to /api/predict/payload
+bind <class 'app.MunicipalDataUpload'> to /api/predict/munidata/upload
+bind <class 'app.MunicipalDataQuery'> to /api/predict/munidata/files
+bind <class 'app.ProvincialAndMunicipalPredict'> to /api/predict/provmuni
+bind <class 'app.BigDataPredict'> to /api/predict/bigdata
+bind <class 'app.BigDataMethodQuery'> to /api/method/bigdata/query
+bind <class 'app.DailyPayloadTraits'> to /api/payload/traits/daily
+bind <class 'app.MonthlyPayloadTraits'> to /api/payload/traits/monthly
+bind <class 'app.YearlyPayloadTraits'> to /api/payload/traits/yearly
+bind <class 'app.SokuPayloadPredict'> to /api/payload/predict/dbquery
+bind <class 'app.ClampingPayloadPredict'> to /api/payload/predict/clamping
+bind <class 'app.InterpolatingPayloadPredict'> to /api/payload/predict/interp
+bind <class 'app.YearlyContinuousPayloadPredict'> to /api/payload/predict/yearly
+bind <class 'app.DataMiningParameters'> to /api/params/mining
+bind <class 'app.StaticRegionalPredictionParameters'> to /api/params/predict/static/region
+bind <class 'app.DynamicIndustrialPredictionParameters'> to /api/params/predict/dynamic/industry
+bind <class 'app.MixPredictionParameters'> to /api/params/predict/mix
+bind <class 'app.LongTermPredictionParameters'> to /api/params/predict/dynamic/region
+bind <class 'app.BigUserPredictionParameters'> to /api/params/predict/biguser
+bind <class 'app.SokuPayloadPredictionParameters'> to /api/params/predict/soku
+bind <class 'app.ClampingPayloadPredictionParameters'> to /api/params/predict/clamping
+bind <class 'app.InterpolatingPayloadPredictionParameters'> to /api/params/predict/interp
+bind <class 'app.YearlyContinuousPayloadPredictionParameters'> to /api/params/predict/yearcont
+bind <class 'app.PredictionResultsQuery'> to /api/predict/results/query
+bind <class 'app.PredictionResultDetail'> to /api/predict/results/detail
+bind <class 'app.PredictionResultComparison'> to /api/predict/results/compare
+bind <class 'app.PayloadChartsDaily'> to /api/payload/charts/daily
+bind <class 'app.PayloadChartsDailyTypical'> to /api/payload/charts/daily/typical
+bind <class 'app.PayloadChartsMonthly'> to /api/payload/charts/monthly
+bind <class 'app.PayloadChartsYearly'> to /api/payload/charts/yearly
+Apriori
+*** get data *** 云南省_year_电力电量类 剔除大用户的社会用电量 2017 2017
+云南省 电力电量类 year
+[(58, '云南省', '电力电量类')]
+get data returns: {"2017": 4869608.1899999995}
+request.files:  ImmutableMultiDict([])
+{'beginYear': '2020', 'endYear': '2022', 'method': '地区组合预测模型', 'tag': 'null', 'tagType': 'MIX', 'city*': '云南省', 'comtype*': '等权组合', 'singleresult': 'Y-云南用电量-灰色滑动-2020-2022,Y-云南用电量-滚动灰色-2020-2022,Y-云南用电量-模糊平滑-2020-2022,Y-云南用电量-GBDT-2020-2022,Y-云南用电量-SVM-2020-2022,Y-云南用电量-RF-2020-2022,Y-云南电量-二元一次-2020-2022,Y-云南电量-指数-2020-2022,Y-云南电量-一元线性-2020-2022,Y-云南用电量-BPNN-2020-2022,Y-云南电量-一元外推-2020-2022,Y-云南电量-生长外推-2020-2022,Y-云南电量-指数外推-2020-2022,Y-云南电量-对数外推-2020-2022', 'pretype': '剔除大用户的社会用电量', 'PreStartYear': '2020', 'PreEndYear': '2022', 'StartYear': '2020', 'EndYear': '2022'}
+** exec algorithm ** 地区组合预测模型 {'beginYear': '2020', 'endYear': '2022', 'method': '地区组合预测模型', 'tag': 'null', 'tagType': 'MIX', 'city*': '云南省', 'comtype*': '等权组合', 'singleresult': 'Y-云南用电量-灰色滑动-2020-2022,Y-云南用电量-滚动灰色-2020-2022,Y-云南用电量-模糊平滑-2020-2022,Y-云南用电量-GBDT-2020-2022,Y-云南用电量-SVM-2020-2022,Y-云南用电量-RF-2020-2022,Y-云南电量-二元一次-2020-2022,Y-云南电量-指数-2020-2022,Y-云南电量-一元线性-2020-2022,Y-云南用电量-BPNN-2020-2022,Y-云南电量-一元外推-2020-2022,Y-云南电量-生长外推-2020-2022,Y-云南电量-指数外推-2020-2022,Y-云南电量-对数外推-2020-2022', 'pretype': '剔除大用户的社会用电量', 'PreStartYear': '2020', 'PreEndYear': '2022', 'StartYear': '2020', 'EndYear': '2022'}
+Combination
+PreStartYear = '2020',PreEndYear = '2022',pretype = '剔除大用户的社会用电量',singleresult = ['Y-云南用电量-灰色滑动-2020-2022', 'Y-云南用电量-滚动灰色-2020-2022', 'Y-云南用电量-模糊平滑-2020-2022', 'Y-云南用电量-GBDT-2020-2022', 'Y-云南用电量-SVM-2020-2022', 'Y-云南用电量-RF-2020-2022', 'Y-云南电量-二元一次-2020-2022', 'Y-云南电量-指数-2020-2022', 'Y-云南电量-一元线性-2020-2022', 'Y-云南用电量-BPNN-2020-2022', 'Y-云南电量-一元外推-2020-2022', 'Y-云南电量-生长外推-2020-2022', 'Y-云南电量-指数外推-2020-2022', 'Y-云南电量-对数外推-2020-2022'],city = '云南省',comtype = '等权组合',
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '灰色滑动平均模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-灰色滑动-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '基于滚动机制的灰色预测模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-滚动灰色-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '模糊指数平滑模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-模糊平滑-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '梯度提升模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-GBDT-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'LearningRate*': '0.1', 'NumberofEstimators*': '500', 'timestep': '15', 'MaxDepth*': '10'}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '支持向量机模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-SVM-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'LearningRate*': '0.1', 'NumberofEstimators*': '500', 'timestep': '10', 'MaxDepth*': '10'}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '随机森林模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-RF-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'LearningRate*': '0.1', 'NumberofEstimators*': '500', 'timestep': '10', 'MaxDepth*': '10', 'n_estimators*': 50}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '二元一次函数', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南电量-二元一次-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'econamelist*': ['GDP', '能源生产总值'], 'city*': '云南省', 'quatile': '0.9', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'timestep': '5', 'planflag*': '0', 'plan*': '0', 'planflag1*': '0', 'plan1*': '0', 'planflag2*': '0', 'plan2*': '0'}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '指数函数', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南电量-指数-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'econamelist*': 'GDP', 'city*': '云南省', 'quatile': '0.9', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'timestep': '5', 'planflag*': '0', 'plan*': '0', 'planflag1*': '0', 'plan1*': '0', 'planflag2*': '0', 'plan2*': '0'}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '一元线性函数', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南电量-一元线性-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'hidden_size*': 24, 'hidden_layer*': 1, 'learningrate*': 0.005, 'epoch*': 1000, 'econamelist*': 'GDP', 'quatile': '0.9', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'planflag*': '0', 'plan*': '0'}
+request.files:  ImmutableMultiDict([])
+{'beginYear': '2020', 'endYear': '2022', 'method': '地区组合预测模型', 'tag': 'null', 'tagType': 'MIX', 'city*': '云南省', 'comtype*': '等权组合', 'singleresult': 'Y-云南用电量-灰色滑动-2020-2022,Y-云南用电量-滚动灰色-2020-2022,Y-云南用电量-模糊平滑-2020-2022,Y-云南用电量-GBDT-2020-2022,Y-云南用电量-SVM-2020-2022,Y-云南用电量-RF-2020-2022,Y-云南电量-二元一次-2020-2022,Y-云南电量-指数-2020-2022,Y-云南用电量-BPNN-2020-2022,Y-云南电量-一元外推-2020-2022,Y-云南电量-生长外推-2020-2022,Y-云南电量-指数外推-2020-2022,Y-云南电量-对数外推-2020-2022', 'pretype': '剔除大用户的社会用电量', 'PreStartYear': '2020', 'PreEndYear': '2022', 'StartYear': '2020', 'EndYear': '2022'}
+** exec algorithm ** 地区组合预测模型 {'beginYear': '2020', 'endYear': '2022', 'method': '地区组合预测模型', 'tag': 'null', 'tagType': 'MIX', 'city*': '云南省', 'comtype*': '等权组合', 'singleresult': 'Y-云南用电量-灰色滑动-2020-2022,Y-云南用电量-滚动灰色-2020-2022,Y-云南用电量-模糊平滑-2020-2022,Y-云南用电量-GBDT-2020-2022,Y-云南用电量-SVM-2020-2022,Y-云南用电量-RF-2020-2022,Y-云南电量-二元一次-2020-2022,Y-云南电量-指数-2020-2022,Y-云南用电量-BPNN-2020-2022,Y-云南电量-一元外推-2020-2022,Y-云南电量-生长外推-2020-2022,Y-云南电量-指数外推-2020-2022,Y-云南电量-对数外推-2020-2022', 'pretype': '剔除大用户的社会用电量', 'PreStartYear': '2020', 'PreEndYear': '2022', 'StartYear': '2020', 'EndYear': '2022'}
+Combination
+PreStartYear = '2020',PreEndYear = '2022',pretype = '剔除大用户的社会用电量',singleresult = ['Y-云南用电量-灰色滑动-2020-2022', 'Y-云南用电量-滚动灰色-2020-2022', 'Y-云南用电量-模糊平滑-2020-2022', 'Y-云南用电量-GBDT-2020-2022', 'Y-云南用电量-SVM-2020-2022', 'Y-云南用电量-RF-2020-2022', 'Y-云南电量-二元一次-2020-2022', 'Y-云南电量-指数-2020-2022', 'Y-云南用电量-BPNN-2020-2022', 'Y-云南电量-一元外推-2020-2022', 'Y-云南电量-生长外推-2020-2022', 'Y-云南电量-指数外推-2020-2022', 'Y-云南电量-对数外推-2020-2022'],city = '云南省',comtype = '等权组合',
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '灰色滑动平均模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-灰色滑动-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '基于滚动机制的灰色预测模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-滚动灰色-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '模糊指数平滑模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-模糊平滑-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '梯度提升模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-GBDT-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'LearningRate*': '0.1', 'NumberofEstimators*': '500', 'timestep': '15', 'MaxDepth*': '10'}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '支持向量机模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-SVM-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'LearningRate*': '0.1', 'NumberofEstimators*': '500', 'timestep': '10', 'MaxDepth*': '10'}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '随机森林模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-RF-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'LearningRate*': '0.1', 'NumberofEstimators*': '500', 'timestep': '10', 'MaxDepth*': '10', 'n_estimators*': 50}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '二元一次函数', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南电量-二元一次-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'econamelist*': ['GDP', '能源生产总值'], 'city*': '云南省', 'quatile': '0.9', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'timestep': '5', 'planflag*': '0', 'plan*': '0', 'planflag1*': '0', 'plan1*': '0', 'planflag2*': '0', 'plan2*': '0'}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '指数函数', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南电量-指数-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'econamelist*': 'GDP', 'city*': '云南省', 'quatile': '0.9', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'timestep': '5', 'planflag*': '0', 'plan*': '0', 'planflag1*': '0', 'plan1*': '0', 'planflag2*': '0', 'plan2*': '0'}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': 'BP神经网络模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-BPNN-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'econamelist*': ['第一产业GDP'], 'city*': '云南省', 'planflag*': 0, 'plan*': '0', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'planflag1*': 0, 'plan1*': '0', 'planflag2*': 0, 'plan2*': '0', 'rate': '0.1', 'hidden*': '24,12', 'learningrate*': 0.005, 'epoch*': 1000, 'timestep': '5'}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '一元线性外推', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南电量-一元外推-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'econamelist*': 'GDP', 'city*': '云南省', 'quatile': '0.9', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'timestep': '5', 'planflag*': '0', 'plan*': '0', 'planflag1*': '0', 'plan1*': '0', 'planflag2*': '0', 'plan2*': '0'}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '生长函数外推', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南电量-生长外推-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'econamelist*': 'GDP', 'city*': '云南省', 'quatile': '0.9', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'timestep': '5', 'planflag*': '0', 'plan*': '0', 'planflag1*': '0', 'plan1*': '0', 'planflag2*': '0', 'plan2*': '0'}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '指数函数外推', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南电量-指数外推-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'econamelist*': 'GDP', 'city*': '云南省', 'quatile': '0.9', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'timestep': '5', 'planflag*': '0', 'plan*': '0', 'planflag1*': '0', 'plan1*': '0', 'planflag2*': '0', 'plan2*': '0'}
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '对数函数外推', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南电量-对数外推-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'econamelist*': 'GDP', 'city*': '云南省', 'quatile': '0.9', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022, 'timestep': '5', 'planflag*': '0', 'plan*': '0', 'planflag1*': '0', 'plan1*': '0', 'planflag2*': '0', 'plan2*': '0'}
+request.files:  ImmutableMultiDict([])
+{'beginYear': '2020', 'endYear': '2022', 'method': '地区组合预测模型', 'tag': 'null', 'tagType': 'MIX', 'city*': '云南省', 'comtype*': '等权组合', 'singleresult': 'Y-云南用电量-灰色滑动-2020-2022,Y-云南用电量-滚动灰色-2020-2022,Y-云南用电量-模糊平滑-2020-2022,Y-云南用电量-GBDT-2020-2022,Y-云南用电量-SVM-2020-2022,Y-云南用电量-RF-2020-2022,Y-云南电量-二元一次-2020-2022,Y-云南用电量-BPNN-2020-2022,Y-云南电量-一元外推-2020-2022,Y-云南电量-生长外推-2020-2022', 'pretype': '剔除大用户的社会用电量', 'PreStartYear': '2020', 'PreEndYear': '2022', 'StartYear': '2020', 'EndYear': '2022'}
+** exec algorithm ** 地区组合预测模型 {'beginYear': '2020', 'endYear': '2022', 'method': '地区组合预测模型', 'tag': 'null', 'tagType': 'MIX', 'city*': '云南省', 'comtype*': '等权组合', 'singleresult': 'Y-云南用电量-灰色滑动-2020-2022,Y-云南用电量-滚动灰色-2020-2022,Y-云南用电量-模糊平滑-2020-2022,Y-云南用电量-GBDT-2020-2022,Y-云南用电量-SVM-2020-2022,Y-云南用电量-RF-2020-2022,Y-云南电量-二元一次-2020-2022,Y-云南用电量-BPNN-2020-2022,Y-云南电量-一元外推-2020-2022,Y-云南电量-生长外推-2020-2022', 'pretype': '剔除大用户的社会用电量', 'PreStartYear': '2020', 'PreEndYear': '2022', 'StartYear': '2020', 'EndYear': '2022'}
+Combination
+PreStartYear = '2020',PreEndYear = '2022',pretype = '剔除大用户的社会用电量',singleresult = ['Y-云南用电量-灰色滑动-2020-2022', 'Y-云南用电量-滚动灰色-2020-2022', 'Y-云南用电量-模糊平滑-2020-2022', 'Y-云南用电量-GBDT-2020-2022', 'Y-云南用电量-SVM-2020-2022', 'Y-云南用电量-RF-2020-2022', 'Y-云南电量-二元一次-2020-2022', 'Y-云南用电量-BPNN-2020-2022', 'Y-云南电量-一元外推-2020-2022', 'Y-云南电量-生长外推-2020-2022'],city = '云南省',comtype = '等权组合',
+{'historyBeginYear': 1990, 'historyEndYear': 2019, 'beginYear': 2020, 'endYear': 2022, 'region': '', 'industry': '', 'method': '灰色滑动平均模型', 'factor1': {'name': '', 'hasValue': True, 'value': 0.5}, 'factor2': {'name': '', 'hasValue': True, 'value': 0.5}, 'tag': 'Y-云南用电量-灰色滑动-2020-2022', 'tagType': 'STATIC_REGIONAL', 'pretype*': '全社会用电量', 'city*': '云南省', 'timestep*': '10', 'StartYear': 1990, 'EndYear': 2019, 'PreStartYear': 2020, 'PreEndYear': 2022}
+*** get data *** 云南省_year_电力电量类 剔除大用户的社会用电量 2017 2019
+云南省 电力电量类 year
+[(58, '云南省', '电力电量类')]
+get data returns: {"2017": 4869608.1899999995, "2018": 5490081.092699999, "2019": 5710393.815599998}
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
+yunnan fengshui-souku-max year
+[(39, 'yunnan', 'fengshui-souku-max')]
 yunnan fengshui-souku-max year
 [(39, 'yunnan', 'fengshui-souku-max')]
 yunnan fengshui-souku-max year
@@ -165,11 +361,3 @@ bind <class 'app.PayloadChartsDaily'> to /api/payload/charts/daily
 bind <class 'app.PayloadChartsDailyTypical'> to /api/payload/charts/daily/typical
 bind <class 'app.PayloadChartsMonthly'> to /api/payload/charts/monthly
 bind <class 'app.PayloadChartsYearly'> to /api/payload/charts/yearly
-** exec algorithm ** 省市总分协调算法 {'File': <FileStorage: '云南省各地市预测值.csv' ('text/csv')>, 'method': '省市总分协调算法'}
-CoordinationCityandProvince
-File = args["File"],
-   year         昆明市        楚雄州  ...        临沧市      西双版纳州       主旺网损
-0  2018  357.946025  49.941414  ...  33.972910  31.976003  64.900990
-1  2019  365.615843  58.066781  ...  36.025728  26.013420  72.102911
-
-[2 rows x 18 columns]

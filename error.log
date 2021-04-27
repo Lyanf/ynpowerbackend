@@ -1,78 +1,170 @@
-[2021-04-27 12:35:25 +0800] [1885] [INFO] Starting gunicorn 20.0.4
-[2021-04-27 12:35:25 +0800] [1885] [INFO] Listening at: http://0.0.0.0:18000 (1885)
-[2021-04-27 12:35:25 +0800] [1885] [INFO] Using worker: sync
-[2021-04-27 12:35:25 +0800] [1888] [INFO] Booting worker with pid: 1888
-[2021-04-27 12:35:25 +0800] [1889] [INFO] Booting worker with pid: 1889
-[2021-04-27 12:36:38,063] ERROR in app: Exception on /api/predict/provmuni [POST]
+[2021-04-27 16:38:52 +0800] [9520] [INFO] Starting gunicorn 20.0.4
+[2021-04-27 16:38:52 +0800] [9520] [INFO] Listening at: http://0.0.0.0:18000 (9520)
+[2021-04-27 16:38:52 +0800] [9520] [INFO] Using worker: sync
+[2021-04-27 16:38:52 +0800] [9611] [INFO] Booting worker with pid: 9611
+[2021-04-27 16:38:52 +0800] [9612] [INFO] Booting worker with pid: 9612
+[2021-04-27 16:54:23 +0800] [9520] [CRITICAL] WORKER TIMEOUT (pid:9612)
+
+--------------------------------------------------------------------------------
+              abort() detected at 二 4月 27 16:54:23 2021 +0800
+--------------------------------------------------------------------------------
+
+Configuration:
+  Crash Decoding           : Disabled - No sandbox or build area path
+  Crash Mode               : continue (default)
+  Default Encoding         : UTF-8
+  Deployed                 : true
+  GNU C Library            : 2.27 stable
+  Graphics Driver          : Unknown software 
+  Graphics card 1          : 0x10de ( 0x10de ) 0x1048 Version 0.0.0.0 (0-0-0)
+  Java Version             : Java 1.8.0_181-b13 with Oracle Corporation Java HotSpot(TM) 64-Bit Server VM mixed mode
+  MATLAB Architecture      : glnxa64
+  MATLAB Entitlement ID    : Unknown
+  MATLAB Root              : /usr/local/MATLAB/MATLAB_Runtime/v96
+  MATLAB Version           : 9.6.0.1472908 (R2019a) Update 9
+  OpenGL                   : software
+  Operating System         : Ubuntu 18.04.2 LTS
+  Process ID               : 9612
+  Processor ID             : x86 Family 6 Model 58 Stepping 9, GenuineIntel
+  Session Key              : 5314077b-4403-41fd-aa0e-46ff61ad700f
+  Static TLS mitigation    : Disabled: Unable to open display
+  Window System            : No active display
+
+Fault Count: 1
+
+
+Abnormal termination:
+abort()
+
+Register State (from fault):
+  RAX = fffffffffffffffc  RBX = 000055713577fee0
+  RCX = 00007f881455a065  RDX = 0000000000000000
+  RSP = 00007fff2431ab10  RBP = 0000000000000000
+  RSI = 0000000000000189  RDI = 000055713577ff08
+
+   R8 = 0000000000000000   R9 = 00000000ffffffff
+  R10 = 00007fff2431ac40  R11 = 0000000000000246
+  R12 = 000055713577feb8  R13 = 000055713577ff08
+  R14 = 00007fff2431ac40  R15 = 000055713577ff04
+
+  RIP = 00007f881455a065  EFL = 0000000000000246
+
+   CS = 0033   FS = 0000   GS = 0000
+
+Stack Trace (from fault):
+[  0] 0x00007f881455a065              /lib/x86_64-linux-gnu/libpthread.so.0+00057445 pthread_cond_timedwait+00000821
+[  1] 0x00007f87b224e3e6 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwpysdk_runtime.so+00234470 _ZN7mwboost6detail17shared_state_base16timed_wait_untilERKNS_10posix_time5ptimeE+00000550
+[  2] 0x00007f87b2246c77 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwpysdk_runtime.so+00203895 _ZN13pysdk_runtime9waitFEvalEPKSt10shared_ptrIN3mvm6FutureISt6vectorIN6mclmcr17mcr_bound_mxarrayESaIS5_EEEEEd+00001111
+[  3] 0x00007f87b3ae5fe1 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/matlabruntimeforpython3_7.so+00270305 _ZN17PySDKCppExtension12waitForFEvalEP7_objectS1_+00000129
+[  4] 0x0000557130ac5840        /home/dclab/miniconda3/envs/test/bin/python+01464384 _PyMethodDef_RawFastCallKeywords+00000496
+[  5] 0x0000557130ac59d1        /home/dclab/miniconda3/envs/test/bin/python+01464785 _PyCFunction_FastCallKeywords+00000033
+[  6] 0x0000557130b31e5a        /home/dclab/miniconda3/envs/test/bin/python+01908314 _PyEval_EvalFrameDefault+00019978
+[  7] 0x0000557130a74d09        /home/dclab/miniconda3/envs/test/bin/python+01133833 _PyEval_EvalCodeWithName+00000761
+[  8] 0x0000557130ac5055        /home/dclab/miniconda3/envs/test/bin/python+01462357 _PyFunction_FastCallKeywords+00000805
+[  9] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 10] 0x0000557130a74d09        /home/dclab/miniconda3/envs/test/bin/python+01133833 _PyEval_EvalCodeWithName+00000761
+[ 11] 0x0000557130a75df5        /home/dclab/miniconda3/envs/test/bin/python+01138165 _PyFunction_FastCallDict+00000469
+[ 12] 0x0000557130a9481e        /home/dclab/miniconda3/envs/test/bin/python+01263646 _PyObject_Call_Prepend+00000222
+[ 13] 0x0000557130acbdea        /home/dclab/miniconda3/envs/test/bin/python+01490410
+[ 14] 0x0000557130accc9b        /home/dclab/miniconda3/envs/test/bin/python+01494171 _PyObject_FastCallKeywords+00001163
+[ 15] 0x0000557130b3227e        /home/dclab/miniconda3/envs/test/bin/python+01909374 _PyEval_EvalFrameDefault+00021038
+[ 16] 0x0000557130a74d09        /home/dclab/miniconda3/envs/test/bin/python+01133833 _PyEval_EvalCodeWithName+00000761
+[ 17] 0x0000557130ac50b7        /home/dclab/miniconda3/envs/test/bin/python+01462455 _PyFunction_FastCallKeywords+00000903
+[ 18] 0x0000557130b2e539        /home/dclab/miniconda3/envs/test/bin/python+01893689 _PyEval_EvalFrameDefault+00005353
+[ 19] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 20] 0x0000557130b2d466        /home/dclab/miniconda3/envs/test/bin/python+01889382 _PyEval_EvalFrameDefault+00001046
+[ 21] 0x0000557130a75d2b        /home/dclab/miniconda3/envs/test/bin/python+01137963 _PyFunction_FastCallDict+00000267
+[ 22] 0x0000557130a947a3        /home/dclab/miniconda3/envs/test/bin/python+01263523 _PyObject_Call_Prepend+00000099
+[ 23] 0x0000557130a873ae        /home/dclab/miniconda3/envs/test/bin/python+01209262 PyObject_Call+00000110
+[ 24] 0x0000557130b2ee97        /home/dclab/miniconda3/envs/test/bin/python+01896087 _PyEval_EvalFrameDefault+00007751
+[ 25] 0x0000557130a74d09        /home/dclab/miniconda3/envs/test/bin/python+01133833 _PyEval_EvalCodeWithName+00000761
+[ 26] 0x0000557130a75df5        /home/dclab/miniconda3/envs/test/bin/python+01138165 _PyFunction_FastCallDict+00000469
+[ 27] 0x0000557130a947a3        /home/dclab/miniconda3/envs/test/bin/python+01263523 _PyObject_Call_Prepend+00000099
+[ 28] 0x0000557130a873ae        /home/dclab/miniconda3/envs/test/bin/python+01209262 PyObject_Call+00000110
+[ 29] 0x0000557130b2ee97        /home/dclab/miniconda3/envs/test/bin/python+01896087 _PyEval_EvalFrameDefault+00007751
+[ 30] 0x0000557130a75640        /home/dclab/miniconda3/envs/test/bin/python+01136192 _PyEval_EvalCodeWithName+00003120
+[ 31] 0x0000557130a75df5        /home/dclab/miniconda3/envs/test/bin/python+01138165 _PyFunction_FastCallDict+00000469
+[ 32] 0x0000557130b2ee97        /home/dclab/miniconda3/envs/test/bin/python+01896087 _PyEval_EvalFrameDefault+00007751
+[ 33] 0x0000557130a75640        /home/dclab/miniconda3/envs/test/bin/python+01136192 _PyEval_EvalCodeWithName+00003120
+[ 34] 0x0000557130a75df5        /home/dclab/miniconda3/envs/test/bin/python+01138165 _PyFunction_FastCallDict+00000469
+[ 35] 0x0000557130b2ee97        /home/dclab/miniconda3/envs/test/bin/python+01896087 _PyEval_EvalFrameDefault+00007751
+[ 36] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 37] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 38] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 39] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 40] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 41] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 42] 0x0000557130a75d2b        /home/dclab/miniconda3/envs/test/bin/python+01137963 _PyFunction_FastCallDict+00000267
+[ 43] 0x0000557130a947a3        /home/dclab/miniconda3/envs/test/bin/python+01263523 _PyObject_Call_Prepend+00000099
+[ 44] 0x0000557130acbdea        /home/dclab/miniconda3/envs/test/bin/python+01490410
+[ 45] 0x0000557130accc9b        /home/dclab/miniconda3/envs/test/bin/python+01494171 _PyObject_FastCallKeywords+00001163
+[ 46] 0x0000557130b3227e        /home/dclab/miniconda3/envs/test/bin/python+01909374 _PyEval_EvalFrameDefault+00021038
+[ 47] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 48] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 49] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 50] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 51] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 52] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 53] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 54] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 55] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 56] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 57] 0x0000557130a75640        /home/dclab/miniconda3/envs/test/bin/python+01136192 _PyEval_EvalCodeWithName+00003120
+[ 58] 0x0000557130ac50b7        /home/dclab/miniconda3/envs/test/bin/python+01462455 _PyFunction_FastCallKeywords+00000903
+[ 59] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 60] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 61] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 62] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 63] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 64] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 65] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 66] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 67] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 68] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 69] 0x0000557130b31ae9        /home/dclab/miniconda3/envs/test/bin/python+01907433 _PyEval_EvalFrameDefault+00019097
+[ 70] 0x0000557130a74fea        /home/dclab/miniconda3/envs/test/bin/python+01134570 _PyEval_EvalCodeWithName+00001498
+[ 71] 0x0000557130ac50b7        /home/dclab/miniconda3/envs/test/bin/python+01462455 _PyFunction_FastCallKeywords+00000903
+[ 72] 0x0000557130b2d6f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
+[ 73] 0x0000557130ac4e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
+[ 74] 0x0000557130b2d466        /home/dclab/miniconda3/envs/test/bin/python+01889382 _PyEval_EvalFrameDefault+00001046
+[ 75] 0x0000557130a74d09        /home/dclab/miniconda3/envs/test/bin/python+01133833 _PyEval_EvalCodeWithName+00000761
+[ 76] 0x0000557130a75be4        /home/dclab/miniconda3/envs/test/bin/python+01137636 PyEval_EvalCodeEx+00000068
+[ 77] 0x0000557130a75c0c        /home/dclab/miniconda3/envs/test/bin/python+01137676 PyEval_EvalCode+00000028
+[ 78] 0x0000557130b8ca74        /home/dclab/miniconda3/envs/test/bin/python+02280052
+[ 79] 0x0000557130b96de1        /home/dclab/miniconda3/envs/test/bin/python+02321889 PyRun_FileExFlags+00000161
+[ 80] 0x0000557130b96fd3        /home/dclab/miniconda3/envs/test/bin/python+02322387 PyRun_SimpleFileExFlags+00000451
+[ 81] 0x0000557130b98105        /home/dclab/miniconda3/envs/test/bin/python+02326789
+[ 82] 0x0000557130b9822c        /home/dclab/miniconda3/envs/test/bin/python+02327084 _Py_UnixMain+00000060
+[ 83] 0x00007f881417cbf7                    /lib/x86_64-linux-gnu/libc.so.6+00138231 __libc_start_main+00000231
+[ 84] 0x0000557130b3ce90        /home/dclab/miniconda3/envs/test/bin/python+01953424
+
+** This crash report has been saved to disk as /home/dclab/matlab_crash_dump.9612-1 **
+
+
+
+MATLAB is exiting because of fatal error
+[2021-04-27 16:54:23 +0800] [18733] [INFO] Booting worker with pid: 18733
+[2021-04-27 16:58:01 +0800] [9520] [CRITICAL] WORKER TIMEOUT (pid:9611)
+[2021-04-27 16:58:01 +0800] [9520] [CRITICAL] WORKER TIMEOUT (pid:18733)
 Traceback (most recent call last):
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 468, in wrapper
-    resp = resource(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/views.py", line 89, in view
-    return self.dispatch_request(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
-    resp = meth(*args, **kwargs)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 836, in post
-    result = provincialAndMunicipalPredict(arg)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 314, in provincialAndMunicipalPredict
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
     result = executeAlgorithm(method, args)
   File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
     result = eval("f("+argstr+")")
   File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/CoordinationCityandProvince.py", line 23, in CoordinationCityandProvince
-    data=pd.read_csv(File)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/pandas/io/parsers.py", line 610, in read_csv
-    return _read(filepath_or_buffer, kwds)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/pandas/io/parsers.py", line 462, in _read
-    parser = TextFileReader(filepath_or_buffer, **kwds)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/pandas/io/parsers.py", line 819, in __init__
-    self._engine = self._make_engine(self.engine)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/pandas/io/parsers.py", line 1050, in _make_engine
-    return mapping[engine](self.f, **self.options)  # type: ignore[call-arg]
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/pandas/io/parsers.py", line 1898, in __init__
-    self._reader = parsers.TextReader(self.handles.handle, **kwds)
-  File "pandas/_libs/parsers.pyx", line 518, in pandas._libs.parsers.TextReader.__cinit__
-  File "pandas/_libs/parsers.pyx", line 620, in pandas._libs.parsers.TextReader._get_header
-  File "pandas/_libs/parsers.pyx", line 814, in pandas._libs.parsers.TextReader._tokenize_rows
-  File "pandas/_libs/parsers.pyx", line 1943, in pandas._libs.parsers.raise_parser_error
-UnicodeDecodeError: 'utf-8' codec can't decode byte 0xd4 in position 8: invalid continuation byte
-[2021-04-27 12:38:04 +0800] [1885] [CRITICAL] WORKER TIMEOUT (pid:1888)
-[2021-04-27 12:38:04 +0800] [1888] [INFO] Worker exiting (pid: 1888)
-[2021-04-27 12:38:04 +0800] [3801] [INFO] Booting worker with pid: 3801
-[2021-04-27 12:38:04 +0800] [3801] [ERROR] Exception in worker process
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Combination.py", line 92, in Combination
+    raise ValueError("%s 的预测终止年份与所选预测终止年份不符" % tag)
+ValueError: Y-一产-BPNN-2020-2022 的预测终止年份与所选预测终止年份不符
 Traceback (most recent call last):
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
-    worker.init_process()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/workers/base.py", line 119, in init_process
-    self.load_wsgi()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/workers/base.py", line 144, in load_wsgi
-    self.wsgi = self.app.wsgi()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
-    self.callable = self.load()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/wsgiapp.py", line 49, in load
-    return self.load_wsgiapp()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/wsgiapp.py", line 39, in load_wsgiapp
-    return util.import_app(self.app_uri)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/util.py", line 358, in import_app
-    mod = importlib.import_module(module)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/importlib/__init__.py", line 127, in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
-  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
-  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
-  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
-  File "<frozen importlib._bootstrap_external>", line 724, in exec_module
-  File "<frozen importlib._bootstrap_external>", line 860, in get_code
-  File "<frozen importlib._bootstrap_external>", line 791, in source_to_code
-  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 11
-    <<<<<<< HEAD
-     ^
-SyntaxError: invalid syntax
-[2021-04-27 12:38:04 +0800] [3801] [INFO] Worker exiting (pid: 3801)
-[2021-04-27 12:38:04 +0800] [1889] [INFO] Worker exiting (pid: 1889)
-[2021-04-27 12:38:05 +0800] [1885] [INFO] Shutting down: Master
-[2021-04-27 12:38:05 +0800] [1885] [INFO] Reason: Worker failed to boot.
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
+    result = executeAlgorithm(method, args)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
+    result = eval("f("+argstr+")")
+  File "<string>", line 1, in <module>
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Combination.py", line 94, in Combination
+    raise LookupError("%s 不适用于组合预测模型" % tag)
+LookupError: Y-云南电量-生长函数-2020-2022 不适用于组合预测模型
+[2021-04-27 16:58:01 +0800] [9611] [INFO] Worker exiting (pid: 9611)
+[2021-04-27 16:58:01 +0800] [18733] [INFO] Worker exiting (pid: 18733)
+[2021-04-27 16:58:01 +0800] [20805] [INFO] Booting worker with pid: 20805
+[2021-04-27 16:58:01 +0800] [20808] [INFO] Booting worker with pid: 20808
