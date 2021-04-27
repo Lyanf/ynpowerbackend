@@ -8,10 +8,9 @@ from Controller import *
 # if not os.path.exists(_dir):
 #     os.makedirs(_dir)
 
-<<<<<<< HEAD
 app = Flask(__name__, static_folder = "./dist", template_folder = "./dist", static_url_path="")
 
-CORS(app, supports_credentials=True)
+CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
 api = Api(app)
 filename = os.path.join(app.root_path, 'algorithms', 'args.xls')
 
