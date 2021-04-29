@@ -3,7 +3,8 @@ from flask_cors import CORS
 from flask_restful import Resource, Api
 from pprint import pprint, pformat
 from Controller import *
-
+from utils import methodNameZhToEn
+from math import isnan
 # _dir = './apis'
 # if not os.path.exists(_dir):
 #     os.makedirs(_dir)
@@ -1705,12 +1706,41 @@ fore-end related http apis
 END
 """
 
+def _parse_limits():
+    limits_filename = os.path.join(app.root_path, 'algorithms', 'limits.csv')
+    titles = ['算法名', '参数名', '类型', '最小值', '最大值', '最少选择', '最多选择', '依赖于']
+    data = pd.read_csv(limits_filename).values.tolist()
+
+    limits = dict()
+    for method_name, args_name, type, min_value, max_value, min_choice, max_choice, depends in data:
+        limits.update({
+            (method_name, args_name, type): (min_value, max_value, min_choice, max_choice, depends)
+        })
+    return limits
+
 class getAlgorithmArg(Resource):
     def get(self):
         method = request.args["method"]
         filename = os.path.join(app.root_path, 'algorithms', 'args.xls')
 
-        args = getAlgorithmArgs(method= method, filename=filename)
+        args = getAlgorithmArgs(method=method, filename=filename)
+        method_eng_name = methodNameZhToEn(method, None)
+
+        limits = _parse_limits()
+        
+        for arg in args['para']:
+            chunk = (method_eng_name, arg['key'], arg['kind'])
+            if chunk in limits:
+                min_value, max_value, min_choice, max_choice, depends = limits[chunk]
+                arg.update({
+                    'limits': {
+                        'min_value': min_value if isnan(min_value) else None,
+                        'max_value': max_value if isnan(max_value) else None,
+                        'min_choice': min_choice if isnan(min_choice) else None,
+                        'max_choice': max_choice if isnan(max_choice) else None,
+                        'depends': depends if isnan(depends) else None
+                    }
+                })
         re = {
             "msg":"success",
             "code":200,
