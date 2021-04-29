@@ -18,7 +18,7 @@ from dao.interface import getData
 import json 
 import math
 
-def ExponentTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype = "全社会用电量", city="云南省",planflag=1,plan=1):
+def ExponentTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype = "全社会用电量", city="云南省",planflag=0,plan=0):
 
     
     """指数函数"""
@@ -31,7 +31,7 @@ def ExponentTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype = "全社会�
     
     def slovePara4(x,y):
         p0 = [0.002,1,0]
-        Para = leastsq(error4, p0, args=(x, y),maxfev=500000)
+        Para = leastsq(error4, p0, args=(x, y),maxfev=500000)#500000
         return Para    
 
     
@@ -66,82 +66,79 @@ def ExponentTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype = "全社会�
 
 
         #区分训练数据和预测数据
-        num=len(x)
-        testyear=math.floor(num/5)
-        trainx=x[:num-testyear].squeeze()
-        trainy=y[:num-testyear].squeeze()
-        
-        testx=x[num-testyear:].squeeze()
-        testy=y[num-testyear:].squeeze()
-        
-        # print(trainx,trainy)
-        # print(testx,testy)
-        
-        # print(x)
-        # print(testx)
-        
-        Para = slovePara4(trainx,trainy)
-        a, b, c = Para[0]
-        
-        testp = ic.getpred(testx,testyear,planflag,plan)
-
-        testp = np.array(testp).T
-        testpm = []
-        for i in range(51):
-            testpm.append(np.mean(testp[i]))
-        testpmm = testpm.index(np.median(testpm))
-        testpredx = testp[testpmm]
-        testpredx = [k * testx[-1] for k in testpredx]
-        testpredy = [np.exp (a * x + b ) + c for x in testpredx]
-
-
-        trainyear=[]
-        for t in testy:
-            count=-1
-            for d in final[pretype]:
-                count+=1
-                
-                if t>d-5 and t<d+5:
-                    # print("yes")
-                    trainyear.append(final.index[count])
-                    break
-       
-        mape=MAPE(testpredy,testy)
-        rmse=RMSE(testpredy,testy)    
-        
-
-        x=x.squeeze()
-        y=y.squeeze()
-        Parapre = slovePara4(x,y)
-        ap, bp, cp = Parapre[0]
-        
-        
         preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)
         year=len(preyear)
-        p = ic.getpred(x,year,planflag,plan)
-        p = np.array(p).T
-        pm = []
-        for i in range(51):
-            pm.append(np.mean(p[i]))
-        pmm = pm.index(np.median(pm))
-        predx = p[pmm]
-        predx = [k * x[-1] for k in predx]
+        #区分训练数据和预测数据
+        num=len(x)
+        if num<3+year:
+            raise ValueError("历史数据过少或预测年份过长，请重新选择")
+        elif year<2:
+            raise ValueError("该算法不支持两年以下的预测")
+        else:
+            trainx=x[num-2-year-1:num-2].squeeze()
+            trainy=y[num-2-year-1:num-2].squeeze()
             
-        predy = [np.exp (ap * x0 + bp ) + cp for x0 in predx]
-        predy=np.array(predy).squeeze()
+            testx=x[num-1-year:num].squeeze()
+            testy=y[num-1-year:num].squeeze()
+            
         
-        #存储
-        ytrain=np.array(testpredy).squeeze()
-        ypre=np.array(predy).squeeze()
-        result={"trainfromyear":trainyear[0],"traintoyear":trainyear[-1],"trainresult":ytrain.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
-        return result
-        
+            # print(trainx,trainy)
+            # print(testx,testy)
+            
+            # print(x)
+            # print(testx)
+            
+            Para = slovePara4(trainx,trainy)
+            a, b, c = Para[0]
+            
+            testp = ic.getpred(testx,year+1,planflag,plan)
+    
+            testp = np.array(testp).T
+            testpm = []
+            for i in range(51):
+                testpm.append(np.mean(testp[i]))
+            testpmm = testpm.index(np.median(testpm))
+            testpredx = testp[testpmm]
+            testpredx = [k * testx[-1] for k in testpredx]
+            testpredy = [np.exp (a * x + b ) + c for x in testpredx]
+    
+    
+            trainyear=realyear[num-1-year:num]   
+           
+            mape=MAPE(testpredy,testy)
+            rmse=RMSE(testpredy,testy)    
+            
+    
+            x=x.squeeze()
+            y=y.squeeze()
+            Parapre = slovePara4(x,y)
+            ap, bp, cp = Parapre[0]
+            
+            
+            p = ic.getpred(preyear,year,planflag,plan)
+            p = np.array(p).T
+            pm = []
+            for i in range(51):
+                pm.append(np.mean(p[i]))
+            pmm = pm.index(np.median(pm))
+            predx = p[pmm]
+            predx = [k * x[-1] for k in predx]
+                
+            predy = [np.exp (ap * x0 + bp ) + cp for x0 in predx]
+            predy=np.array(predy).squeeze()
+            
+            #存储
+            ytrain=np.array(testpredy).squeeze()
+            ypre=np.array(predy).squeeze()
+            result={"trainfromyear":trainyear[0],"traintoyear":trainyear[-1],"trainresult":ytrain.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
+            return result
+            
 
 if __name__ == '__main__':
     StartYear="1990"
     EndYear="2019"
     PreStartYear="2020"
-    PreEndYear="2022"
+    PreEndYear="2025"
     pretype="全社会用电量"
     city="云南省"
     

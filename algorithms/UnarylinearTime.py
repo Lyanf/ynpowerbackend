@@ -17,7 +17,7 @@ from dao.interface import getData
 import json 
 import math
 
-def UnarylinearTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",city="云南省",planflag=1,plan=1):
+def UnarylinearTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",city="云南省",planflag=0,plan=0):
 
     
     """一元一次外推"""
@@ -41,6 +41,8 @@ def UnarylinearTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会
         realyear = np.arange(int(StartYear),int(EndYear)+1)     
 
         final["time"]=realyear
+        
+       
 
         x = final["time"].values
         y = final[pretype].values        #load
@@ -48,70 +50,66 @@ def UnarylinearTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会
 
         x = x.reshape(-1,1)
         y = y.reshape(-1,1)
-    
-        #区分训练数据和预测数据
-        num=len(x)
-        testyear=math.floor(num/5)
-        trainx=x[:num-testyear]
-        trainy=y[:num-testyear]
-        
-        testx=x[num-testyear:]
-        testy=y[num-testyear:]
-        
-        reg = LinearRegression().fit(trainx, trainy)
-        
-        # reg = LinearRegression().fit(x, y)
-        
-        testp = ic.getpred(testx,testyear,planflag,plan)
-        testp = np.array(testp).T
-        testpm = []
-        for i in range(51):
-            testpm.append(np.mean(testp[i]))
-        testpmm = testpm.index(np.median(testpm))
-        testpredx = testp[testpmm]
-        testpredx = [k * testx[-1] for k in testpredx]
-        testpredy = [testx * reg.coef_[0][0] + reg.intercept_[0] for testx in testpredx]
-        
-        # loadp = reg.predict(testx)#趋势外推
-        
-        mape=MAPE(testpredy,testy)
-        rmse=RMSE(testpredy,testy)
-
-
-
-        trainyear=[]
-        for t in testy:
-            count=-1
-            for d in final[pretype]:
-                count+=1
-                
-                if t>d-5 and t<d+5:
-                    # print("yes")
-                    trainyear.append(final.index[count])
-                    break
-        
-        
-        
         
         preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)
         year=len(preyear)
-        p = ic.getpred(x,year,planflag,plan)
-        p = np.array(p).T
-        pm = []
-        for i in range(51):
-            pm.append(np.mean(p[i]))
-        pmm = pm.index(np.median(pm))
-        predx = p[pmm]
-        predx = [k * x[-1] for k in predx]
+        #区分训练数据和预测数据
+        num=len(x)
+        if num<2+year:
+            raise ValueError("历史数据过少或预测年份过长，请重新选择")
+        elif year<2:
+            raise ValueError("该算法不支持两年以下的预测")
+        else:
+            trainx=x[num-2-year:num-2]
+            trainy=y[num-2-year:num-2]
             
-        predy = [x * reg.coef_[0][0] + reg.intercept_[0] for x in predx]
-        predy=np.array(predy).squeeze()        
-        
-        #存储
-        ytrain=np.array(testpredy).squeeze()
-        ypre=np.array(predy).squeeze()
-        result={"trainfromyear":trainyear[0],"traintoyear":trainyear[-1],"trainresult":ytrain.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
-        return result
+            testx=x[num-1-year:num-1]
+            testy=y[num-1-year:num-1]
+            
+            reg = LinearRegression().fit(trainx, trainy)
+            
+            # reg = LinearRegression().fit(x, y)
+            
+            testp = ic.getpred(testx,year,planflag,plan)
+            testp = np.array(testp).T
+            testpm = []
+            for i in range(51):
+                testpm.append(np.mean(testp[i]))
+            testpmm = testpm.index(np.median(testpm))
+            testpredx = testp[testpmm]
+            testpredx = [k * testx[-1] for k in testpredx]
+            testpredy = [testx * reg.coef_[0][0] + reg.intercept_[0] for testx in testpredx]
+            
+            # loadp = reg.predict(testx)#趋势外推
+            
+            mape=MAPE(testpredy,testy)
+            rmse=RMSE(testpredy,testy)
+    
+    
+    
+            trainyear=realyear[num-1-year:num-1]
+    
+            
+            preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)
+            
+            p = ic.getpred(preyear,year,planflag,plan)
+            p = np.array(p).T
+            pm = []
+            for i in range(51):
+                pm.append(np.mean(p[i]))
+            pmm = pm.index(np.median(pm))
+            predx = p[pmm]
+            predx = [k * x[-1] for k in predx]
+                
+            predy = [x * reg.coef_[0][0] + reg.intercept_[0] for x in predx]
+            predy=np.array(predy).squeeze()  
+    
+            
+            #存储
+            ytrain=np.array(testpredy).squeeze()
+            ypre=np.array(predy).squeeze()
+            result={"trainfromyear":trainyear[0],"traintoyear":trainyear[-1],"trainresult":ytrain.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
+            return result
 if __name__ == '__main__':
     StartYear="1990"
     EndYear="2019"
