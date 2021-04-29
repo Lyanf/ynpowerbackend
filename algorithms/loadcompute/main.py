@@ -60,7 +60,7 @@ def dayFeature(start, end, datasource="yunnan_day_电力电量类"):
             'dayPeekValleyDiffRate': round(result[1][i][6],3), #peak_r
         }
         re.append(temp)
-    return sorted(re, key=tuple(lambda x: x['day'].split('/')))
+    return sorted(re, key=lambda x: tuple(x['day'].split('/')))
 #日负荷曲线
 def dayLoad(start, end, datasource="yunnan_day_电力电量类"):
     result = day_plot(datasource, start, end)
