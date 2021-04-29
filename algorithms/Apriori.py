@@ -7,7 +7,7 @@ Created on Wed Feb 24 13:46:59 2021
 
 
 import algorithms.predict_economic as preeco
-from algorithms.interface import getData
+from dao.interface import getData
 import json 
 
 import numpy as np
@@ -112,16 +112,24 @@ def Apriori(StartYear,EndYear,pretype,econamelist,city="云南省"):
         print("分析第"+str(i+1)+"个因素")
         factor=frecount(len(final.T), data2[0],data2[i],4)
         factorname.append(name[i])
-        factorconfi.append(factor[1])
+        factorconfi.append(factor[1]-0.05)
         factorscore.append(factor[0])
     factorscore=np.round(factorscore,2).tolist()
     factorconfi=np.round(factorconfi,2).tolist()
-    return {"FactorsName":factorname,"Score":factorscore,"Confidence":factorconfi}
+    print(factorscore)
+    print(factorconfi)
+    if sum(factorscore)==0:
+        if period<15:
+            raise ValueError("历史数据年份过短，因素集未显示明显的关联关系，建议选择15年以上数据")
+        else:
+            raise ValueError("未发现所选因素与关联目标间的关联关系")
+    else:
+        return {"FactorsName":factorname,"Score":factorscore,"Confidence":factorconfi}
 
 if __name__ == '__main__':
-    StartYear="1995"
-    EndYear="2015"
+    StartYear="2015"
+    EndYear="2019"
     pretype="全社会用电量"
-    econamelist=["人均GDP","能源消费总值","第一产业GDP","第二产业GDP","GDP","人口"]
+    econamelist=["能源消费总值","人口","第一产业GDP","第二产业GDP","GDP"]#["人均GDP","能源消费总值","第一产业GDP","第二产业GDP","GDP","人口"]
     
     result=Apriori(StartYear,EndYear,pretype,econamelist)
