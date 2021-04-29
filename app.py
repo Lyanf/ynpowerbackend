@@ -361,6 +361,7 @@ class ExceptionQuery(Resource):
             startTime = request.json['beginYear']
             endTime = request.json['endYear']
             area = request.json['region'].strip()
+            print('category, grain, area is', category, grain, area)
             result = exceptQuery(category, str(startTime), str(endTime), grain, area)
             re = {
                 "msg": "success",
