@@ -841,7 +841,7 @@ class ProvincialAndMunicipalPredict(Resource):
             "code": 200,
             "data": {
                 'series': list(result),
-                'values': result.values.tolist()
+                'values': [[round(i, 2) for i in x] for x in result.values.tolist()]
             }
         }
        
