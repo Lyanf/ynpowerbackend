@@ -3,6 +3,7 @@ from .algorithm import y_character, typical_day, y_load, y_load_cons, multi_y_ch
 from .day import d_character, day_plot, multi_d_character
 from .month import m_character, multi_m_character
 
+from datetime import datetime
 
 #年负荷特性
 def yearfeature(start, end, datasource="yunnan_day_电力电量类"):
@@ -61,7 +62,7 @@ def dayFeature(start, end, datasource="yunnan_day_电力电量类"):
             'dayPeekValleyDiffRate': round(result[1][i][6],3), #peak_r
         }
         re.append(temp)
-    return re
+    return sorted(re, key=lambda x: datetime.strptime(x['day'], r'%y/%m/%d'))
 #日负荷曲线
 def dayLoad(start, end, datasource="yunnan_day_电力电量类"):
     result = day_plot(datasource, start, end)
