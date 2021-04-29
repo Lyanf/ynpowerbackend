@@ -38,7 +38,7 @@ def exceptQuery(category, startTime, endTime, grain, area):
                 temp["suggest"] = out["correction"]
                 datalist.append(temp)
     else:
-        return None
+        raise ValueError('输入数据为空值')
     result = datalist
     return result
 

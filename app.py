@@ -349,54 +349,32 @@ class PerformDelete(Resource):
 @register('db', 'except', 'query')
 class ExceptionQuery(Resource):
     def post(self):
-        # try_print_json()
-        grain1 = ['年', '月', '日', '时']
-        grain2 = ["year", "month", "day", "hour"]
-        grain = request.json['grain'].strip()
-        for i in range(len(grain1)):
-            if grain1[i] == grain:
-                grain = grain2[i]
-                break
-        category = request.json['category']
-        startTime = request.json['beginYear']
-        endTime = request.json['endYear']
-        area = request.json['region'].strip()
-        result = exceptQuery(category, str(startTime), str(endTime), grain, area)
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": result
-        }
-        return re
+        try:
+            grain1 = ['年', '月', '日', '时']
+            grain2 = ["year", "month", "day", "hour"]
+            grain = request.json['grain'].strip()
+            for i in range(len(grain1)):
+                if grain1[i] == grain:
+                    grain = grain2[i]
+                    break
+            category = request.json['category']
+            startTime = request.json['beginYear']
+            endTime = request.json['endYear']
+            area = request.json['region'].strip()
+            result = exceptQuery(category, str(startTime), str(endTime), grain, area)
+            re = {
+                "msg": "success",
+                "code": 200,
+                "data": result
+            }
+            return re
+        except Exception as e:
+            return {
+                "msg": '%s' % repr(e),
+                "code": -1,
+                "data": None
+            }
 
-    # {
-    #     "key": "2021-1-8",
-    #     "category": ['三', '1', 'iv'],
-    #     "grain": "天",
-    #     "value": 10,
-    #     "suggest": 42
-    # },
-    # {
-    #     "key": "2021-1-7",
-    #     "category": ['三', '1', 'i'],
-    #     "grain": "年",
-    #     "value": "杨咏曼",
-    #     "suggest": "蔡翠菊"
-    # },
-    # {
-    #     "key": "2021-1-5",
-    #     "category": ['三', '2', 'iii'],
-    #     "grain": "秒",
-    #     "value": 3.141592653589,
-    #     "suggest": 2.718281828
-    # },
-    # {
-    #     "key": "2021-1-3",
-    #     "category": ['四', '2', 'ii'],
-    #     "grain": "年",
-    #     "value": True,
-    #     "suggest": False
-    # }
 
 @register('db', 'except', 'resolve')
 class ExceptionResolve(Resource):
