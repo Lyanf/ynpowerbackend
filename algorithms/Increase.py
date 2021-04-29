@@ -23,7 +23,7 @@ def Increase(StartYear,EndYear,PreStartYear,PreEndYear,rate,pretype="全社会�
     if city == "云南省":
         name=[pretype]
         finaldata=[]
-        
+        rate=rate/100
         #读取历史负荷数据
         datajson=getData("云南省_year_电力电量类", pretype, StartYear, EndYear)
         # print(datajson)
