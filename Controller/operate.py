@@ -30,12 +30,12 @@ def exceptQuery(category, startTime, endTime, grain, area):
         print(out, flush=True)
         for i in range(len(out['outlier'])):
             datalist.append({
-                'key': out['year'][i],
+                'key': int(out['year'][i]),
                 'category': category,
                 'region': area,
                 'grain': grain,
-                'value': out['outlier'][i],
-                'suggesst': out["correction"][i]
+                'value': round(out['outlier'][i], 2),
+                'suggest': round(out["correction"][i], 2)
             })
     return datalist
 
