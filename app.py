@@ -10,7 +10,8 @@ from Controller import *
 
 app = Flask(__name__, static_folder = "./dist", template_folder = "./dist", static_url_path="")
 
-cors = CORS(app, origins='yuxiqian.github.io', supports_credentials=True, send_wildcard=True)
+cors = CORS(app, resources='*', supports_credentials=True, send_wildcard=True)
+
 api = Api(app)
 filename = os.path.join(app.root_path, 'algorithms', 'args.xls')
 

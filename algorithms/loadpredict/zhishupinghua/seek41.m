@@ -29,7 +29,7 @@ if(flage)
     mm=0.015;
 end
 if(flagf)
-    kk=1.5;
+    kk=1.0;
     mm=0.015;
 end
 for ii=1:numyear
