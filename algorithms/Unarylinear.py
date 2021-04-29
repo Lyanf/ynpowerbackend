@@ -17,7 +17,7 @@ from dao.interface import getData
 import json 
 import math
 """一元一次，已修改，未联调"""
-def Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",econamelist=["GDP"],city="云南省",planflag=1,plan=1):
+def Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",econamelist="GDP",city="云南省",planflag=1,plan=1):
     """
     
 
@@ -47,6 +47,7 @@ def Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用�
     None.
 
     """
+    econamelist=[econamelist]
     if len(econamelist) !=1:
         raise ValueError("仅支持选择一个因素变量") 
     
@@ -155,12 +156,12 @@ def Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用�
             return result
 if __name__ == '__main__':
     StartYear="1990"
-    EndYear="2019"
-    PreStartYear="2020"
-    PreEndYear="2025"
+    EndYear="2018"
+    PreStartYear="2021"
+    PreEndYear="2023"
     pretype="全社会用电量"
     city="云南省"
     
-    result=Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype,["能源生产总值"],city,1,5)
+    result=Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype,"能源生产总值",city,1,5)
 
      

@@ -54,6 +54,7 @@ def PCA(StartYear,EndYear,pretype,econamelist,pmin = 0.9,city="云南省"):
         final=pd.DataFrame(finaldata,index=name)
         final=final
         
+        
         data=final.values
     
         data2 = []
@@ -69,7 +70,7 @@ def PCA(StartYear,EndYear,pretype,econamelist,pmin = 0.9,city="云南省"):
                 data2 = np.r_[data2,data[i]]
             else:
                 zerofactor.append(i)
-
+        
         if len(data2)==0:
             raise ValueError("皮尔逊系数过大或历史数据时间过短,无法进行分析")
         else:
@@ -92,12 +93,15 @@ def PCA(StartYear,EndYear,pretype,econamelist,pmin = 0.9,city="云南省"):
             s = sum(eig_val.real)
             p = [x / s for x in eig_val.real]
             
+            
             vector=[]
             variance_ratio=[]
             for i in range(len(p)):
                 if p[i]>0.1:
                     if len(zerofactor)==0:
-                        pass
+                        v=np.round(eig_vec[i].real,2).tolist()
+                        vector.append(v)
+                        variance_ratio.append(np.round(np.array(p[i]),2).tolist())
                     else:
                         v=np.round(eig_vec[i].real,2).tolist()
                         for k in zerofactor: 
@@ -105,7 +109,7 @@ def PCA(StartYear,EndYear,pretype,econamelist,pmin = 0.9,city="云南省"):
                         vector.append(v)
                         variance_ratio.append(np.round(np.array(p[i]),2).tolist())
 
-                    
+            
             n_components=[i for i in range(1,len(variance_ratio)+1)]
 
             name= final.index[1:].tolist()
@@ -120,9 +124,9 @@ def PCA(StartYear,EndYear,pretype,econamelist,pmin = 0.9,city="云南省"):
             return {"N_components":n_components,"ComponetRatio":variance_ratio,"FactorName":name,"Vectors":vector}
 
 if __name__ == '__main__':
-    StartYear="2013"
+    StartYear="2000"
     EndYear="2018"
-    pretype="年最大负荷"
+    pretype="全社会用电量"
     econamelist=['第三产业GDP', '能源消费总值', '第二产业产值', '人均GDP', '人口', 'GDP', '第一产业GDP', '第二产业GDP', '能源生产总值']
     
-    result=PCA(StartYear,EndYear,pretype,econamelist,0.5)
+    result=PCA(StartYear,EndYear,pretype,econamelist,0.9)

@@ -22,7 +22,7 @@ import math
 
 
 
-def Growth(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",econamelist=["GDP"],city="云南省",planflag=1,plan=1):
+def Growth(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",econamelist="GDP",city="云南省",planflag=1,plan=1):
     """
     
 
@@ -68,8 +68,7 @@ def Growth(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量
     
 
 
-
-
+    econamelist=[econamelist]
     if len(econamelist) !=1:
         raise ValueError("仅支持选择一个因素变量") 
     
@@ -175,4 +174,4 @@ if __name__ == '__main__':
     pretype="全社会用电量"
     city="云南省"
     
-    result=Growth(StartYear,EndYear,PreStartYear,PreEndYear,pretype,["GDP"],city)      
+    result=Growth(StartYear,EndYear,PreStartYear,PreEndYear,pretype,"GDP",city)      

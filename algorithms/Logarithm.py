@@ -21,7 +21,7 @@ import math
 
 
 
-def Logarithm(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",econamelist=["GDP"],city="云南省",planflag=0,plan=0):
+def Logarithm(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",econamelist="GDP",city="云南省",planflag=1,plan=1):
 
     
     """对数函数"""
@@ -39,8 +39,9 @@ def Logarithm(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电
         return Para
     
     
+    econamelist=[econamelist]
     if len(econamelist) !=1:
-        raise ValueError("请重新选择*一个*经济变量")
+        raise ValueError("仅支持选择一个因素变量") 
     
     elif city=="云南省":
         name=[pretype]
@@ -146,6 +147,6 @@ if __name__ == '__main__':
     city="云南省"
     
     
-    result=Logarithm(StartYear,EndYear,PreStartYear,PreEndYear,pretype,["第一产业GDP"],city)
+    result=Logarithm(StartYear,EndYear,PreStartYear,PreEndYear,pretype,"第一产业GDP",city)
 
   
