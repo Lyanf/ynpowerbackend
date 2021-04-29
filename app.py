@@ -350,6 +350,7 @@ class PerformDelete(Resource):
 class ExceptionQuery(Resource):
     def post(self):
         try:
+            try_print_json()
             grain1 = ['年', '月', '日', '时']
             grain2 = ["year", "month", "day", "hour"]
             grain = request.json['grain'].strip()
@@ -372,8 +373,7 @@ class ExceptionQuery(Resource):
         except Exception as e:
             return {
                 "msg": '%s' % repr(e),
-                "code": -1,
-                "data": None
+                "code": -1
             }
 
 
