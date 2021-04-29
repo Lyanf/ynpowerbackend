@@ -1725,8 +1725,9 @@ class getAlgorithmArg(Resource):
         filename = os.path.join(app.root_path, 'algorithms', 'args.xls')
 
         args = getAlgorithmArgs(method=method, filename=filename)
-        method_eng_name = methodNameZhToEn(method, None)
 
+        a, b = getAlgorithmName(filename)
+        method_eng_name = methodNameZhToEn(a, b, method)
         limits = _parse_limits()
         
         for arg in args['para']:
