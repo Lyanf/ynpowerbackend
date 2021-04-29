@@ -60,17 +60,16 @@ def PCA(StartYear,EndYear,pretype,econamelist,pmin = 0.9,city="云南省"):
         dstd = []
         data3 = []
         
-
+        
         zerofactor=[]
         for i in range(1,len(data)):
             pccs = pearsonr(data[i], data[0])
-            if pccs[0] > pmin:
+            if pccs[0] > pmin:       
                 data2 = np.r_[data2,data[i]]
             else:
                 zerofactor.append(i)
-        
 
-        if data2==[] or len(data2)==0:
+        if len(data2)==0:
             raise ValueError("皮尔逊系数过大或历史数据时间过短,无法进行分析")
         else:
             data2 = np.array(data2).reshape(-1,period)
@@ -87,9 +86,10 @@ def PCA(StartYear,EndYear,pretype,econamelist,pmin = 0.9,city="云南省"):
             
             cov = np.cov(data3)
             
+            
             eig_val, eig_vec = np.linalg.eig(cov)
-            s = sum(eig_val)
-            p = [x / s for x in eig_val]
+            s = sum(eig_val.real)
+            p = [x / s for x in eig_val.real]
             
             vector=[]
             variance_ratio=[]
@@ -98,7 +98,7 @@ def PCA(StartYear,EndYear,pretype,econamelist,pmin = 0.9,city="云南省"):
                     if len(zerofactor)==0:
                         pass
                     else:
-                        v=np.round(eig_vec[i],2).tolist()
+                        v=np.round(eig_vec[i].real,2).tolist()
                         for k in zerofactor: 
                             v.insert(k,0)
                         vector.append(v)
@@ -121,7 +121,7 @@ def PCA(StartYear,EndYear,pretype,econamelist,pmin = 0.9,city="云南省"):
 if __name__ == '__main__':
     StartYear="2013"
     EndYear="2018"
-    pretype=["全社会用电量"]
+    pretype=["年最大负荷"]
     econamelist=["GDP","第一产业GDP","第二产业GDP","人口","人均GDP","能源生产总值","能源消费总值","第二产业产值","第三产业GDP"]
     
-    result=PCA(StartYear,EndYear,pretype,econamelist,0.9)
+    result=PCA(StartYear,EndYear,pretype,econamelist,0.5)
