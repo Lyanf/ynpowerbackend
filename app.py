@@ -1744,6 +1744,9 @@ class getAlgorithmArg(Resource):
                     }
                 })
             else:
+                arg.update({
+                    'limits': dict()
+                })
                 print('not hit!', chunk)
         re = {
             "msg":"success",
