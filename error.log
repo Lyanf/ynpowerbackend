@@ -1,982 +1,110 @@
-[2021-04-27 17:21:33 +0800] [2273] [INFO] Starting gunicorn 20.0.4
-[2021-04-27 17:21:33 +0800] [2273] [INFO] Listening at: http://0.0.0.0:18000 (2273)
-[2021-04-27 17:21:33 +0800] [2273] [INFO] Using worker: sync
-[2021-04-27 17:21:33 +0800] [2276] [INFO] Booting worker with pid: 2276
-[2021-04-27 17:21:33 +0800] [2277] [INFO] Booting worker with pid: 2277
-[2021-04-27 17:23:44 +0800] [2273] [CRITICAL] WORKER TIMEOUT (pid:2276)
-[2021-04-27 17:23:44 +0800] [2276] [INFO] Worker exiting (pid: 2276)
-[2021-04-27 17:23:44 +0800] [3861] [INFO] Booting worker with pid: 3861
-[2021-04-28 08:44:14 +0800] [2273] [CRITICAL] WORKER TIMEOUT (pid:2277)
-[2021-04-28 08:44:14 +0800] [2277] [INFO] Worker exiting (pid: 2277)
-[2021-04-28 08:44:14 +0800] [25433] [INFO] Booting worker with pid: 25433
+[2021-04-29 09:35:32 +0800] [23026] [INFO] Starting gunicorn 20.0.4
+[2021-04-29 09:35:32 +0800] [23026] [INFO] Listening at: http://0.0.0.0:18000 (23026)
+[2021-04-29 09:35:32 +0800] [23026] [INFO] Using worker: sync
+[2021-04-29 09:35:32 +0800] [23029] [INFO] Booting worker with pid: 23029
+[2021-04-29 09:35:32 +0800] [23030] [INFO] Booting worker with pid: 23030
+[2021-04-29 09:35:34 +0800] [23030] [ERROR] Exception in worker process
 Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 142, in miningRequest
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Apriori.py", line 89, in Apriori
-    dd = [ int((x - m) / d * 4 ) for x in data[i]] #归一化
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Apriori.py", line 89, in <listcomp>
-    dd = [ int((x - m) / d * 4 ) for x in data[i]] #归一化
-ValueError: cannot convert float NaN to integer
-[2021-04-28 10:54:01,262] ERROR in app: Exception on /api/mining/request [POST]
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/workers/base.py", line 119, in init_process
+    self.load_wsgi()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/workers/base.py", line 144, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/wsgiapp.py", line 49, in load
+    return self.load_wsgiapp()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/wsgiapp.py", line 39, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/util.py", line 358, in import_app
+    mod = importlib.import_module(module)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 13, in <module>
+    cors = CORS(app, resources='*', supports_credentials=True, send_wildcard=True)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_cors/extension.py", line 133, in __init__
+    self.init_app(app, **kwargs)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_cors/extension.py", line 138, in init_app
+    options = get_cors_options(app, self._options, kwargs)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_cors/core.py", line 300, in get_cors_options
+    return serialize_options(options)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_cors/core.py", line 371, in serialize_options
+    raise ValueError("Cannot use supports_credentials in conjunction with"
+ValueError: Cannot use supports_credentials in conjunction withan origin string of '*'. See: http://www.w3.org/TR/cors/#resource-requests
+[2021-04-29 09:35:34 +0800] [23029] [ERROR] Exception in worker process
 Traceback (most recent call last):
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 472, in wrapper
-    return self.make_response(data, code, headers=headers)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 501, in make_response
-    resp = self.representations[mediatype](data, *args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/representations/json.py", line 21, in output_json
-    dumped = dumps(data, **settings) + "\n"
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/json/__init__.py", line 231, in dumps
-    return _default_encoder.encode(obj)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/json/encoder.py", line 199, in encode
-    chunks = self.iterencode(o, _one_shot=True)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/json/encoder.py", line 257, in iterencode
-    return _iterencode(o, 0)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/json/encoder.py", line 179, in default
-    raise TypeError(f'Object of type {o.__class__.__name__} '
-TypeError: Object of type complex128 is not JSON serializable
-[2021-04-28 10:54:08,318] ERROR in app: Exception on /api/mining/request [POST]
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/workers/base.py", line 119, in init_process
+    self.load_wsgi()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/workers/base.py", line 144, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/wsgiapp.py", line 49, in load
+    return self.load_wsgiapp()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/wsgiapp.py", line 39, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/util.py", line 358, in import_app
+    mod = importlib.import_module(module)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 13, in <module>
+    cors = CORS(app, resources='*', supports_credentials=True, send_wildcard=True)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_cors/extension.py", line 133, in __init__
+    self.init_app(app, **kwargs)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_cors/extension.py", line 138, in init_app
+    options = get_cors_options(app, self._options, kwargs)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_cors/core.py", line 300, in get_cors_options
+    return serialize_options(options)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_cors/core.py", line 371, in serialize_options
+    raise ValueError("Cannot use supports_credentials in conjunction with"
+ValueError: Cannot use supports_credentials in conjunction withan origin string of '*'. See: http://www.w3.org/TR/cors/#resource-requests
+[2021-04-29 09:35:34 +0800] [23030] [INFO] Worker exiting (pid: 23030)
+[2021-04-29 09:35:34 +0800] [23029] [INFO] Worker exiting (pid: 23029)
 Traceback (most recent call last):
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 472, in wrapper
-    return self.make_response(data, code, headers=headers)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 501, in make_response
-    resp = self.representations[mediatype](data, *args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/representations/json.py", line 21, in output_json
-    dumped = dumps(data, **settings) + "\n"
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/json/__init__.py", line 231, in dumps
-    return _default_encoder.encode(obj)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/json/encoder.py", line 199, in encode
-    chunks = self.iterencode(o, _one_shot=True)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/json/encoder.py", line 257, in iterencode
-    return _iterencode(o, 0)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/json/encoder.py", line 179, in default
-    raise TypeError(f'Object of type {o.__class__.__name__} '
-TypeError: Object of type complex128 is not JSON serializable
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 142, in miningRequest
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/PCA.py", line 82, in PCA
-    eig_val, eig_vec = np.linalg.eig(cov)
-  File "<__array_function__ internals>", line 6, in eig
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/linalg/linalg.py", line 1316, in eig
-    _assert_stacked_2d(a)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/linalg/linalg.py", line 198, in _assert_stacked_2d
-    'at least two-dimensional' % a.ndim)
-numpy.linalg.LinAlgError: 0-dimensional array given. Array must be at least two-dimensional
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 142, in miningRequest
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/PCA.py", line 82, in PCA
-    eig_val, eig_vec = np.linalg.eig(cov)
-  File "<__array_function__ internals>", line 6, in eig
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/linalg/linalg.py", line 1316, in eig
-    _assert_stacked_2d(a)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/linalg/linalg.py", line 198, in _assert_stacked_2d
-    'at least two-dimensional' % a.ndim)
-numpy.linalg.LinAlgError: 0-dimensional array given. Array must be at least two-dimensional
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/GM.py", line 65, in GM
-    raise ValueError("训练步长小于预测年份区间长度，请增加训练步长.")
-ValueError: 训练步长小于预测年份区间长度，请增加训练步长.
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/GM.py", line 65, in GM
-    raise ValueError("训练步长小于预测年份区间长度，请增加训练步长.")
-ValueError: 训练步长小于预测年份区间长度，请增加训练步长.
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 856, in executeAlgorithm
-    argstr += "{} = {},".format(k, args[key])
-KeyError: 'timestep'
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 856, in executeAlgorithm
-    argstr += "{} = {},".format(k, args[key])
-KeyError: 'timestep'
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/GM.py", line 34, in RGM
-    [[a],[b]] = np.dot(np.dot(np.linalg.inv(np.dot(B.T, B)), B.T), Y)#计算参数
-  File "<__array_function__ internals>", line 6, in inv
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/linalg/linalg.py", line 546, in inv
-    ainv = _umath_linalg.inv(a, signature=signature, extobj=extobj)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/linalg/linalg.py", line 88, in _raise_linalgerror_singular
-    raise LinAlgError("Singular matrix")
-numpy.linalg.LinAlgError: Singular matrix
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/arbiter.py", line 209, in run
+    self.sleep()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/arbiter.py", line 357, in sleep
+    ready = select.select([self.PIPE[0]], [], [], 1.0)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/arbiter.py", line 525, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/GM.py", line 100, in GM
-    trainpre,a,b=RGM(trainx,testyear)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/GM.py", line 36, in RGM
-    raise ValueError("中间矩阵不可逆，请重新调整历史数据时间或步长")
-ValueError: 中间矩阵不可逆，请重新调整历史数据时间或步长
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/GM.py", line 34, in RGM
-    [[a],[b]] = np.dot(np.dot(np.linalg.inv(np.dot(B.T, B)), B.T), Y)#计算参数
-  File "<__array_function__ internals>", line 6, in inv
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/linalg/linalg.py", line 546, in inv
-    ainv = _umath_linalg.inv(a, signature=signature, extobj=extobj)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/linalg/linalg.py", line 88, in _raise_linalgerror_singular
-    raise LinAlgError("Singular matrix")
-numpy.linalg.LinAlgError: Singular matrix
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/GM.py", line 100, in GM
-    trainpre,a,b=RGM(trainx,testyear)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/GM.py", line 36, in RGM
-    raise ValueError("中间矩阵不可逆，请重新调整历史数据时间或步长")
-ValueError: 中间矩阵不可逆，请重新调整历史数据时间或步长
-/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/statsmodels/regression/quantile_regression.py:191: IterationLimitWarning: Maximum number of iterations (1000) reached.
-  ") reached.", IterationLimitWarning)
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Unarylinear.py", line 51, in Unarylinear
-    raise ValueError("请重新选择*一个*经济变量.")
-ValueError: 请重新选择*一个*经济变量.
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Unarylinear.py", line 51, in Unarylinear
-    raise ValueError("请重新选择*一个*经济变量.")
-ValueError: 请重新选择*一个*经济变量.
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Growth.py", line 74, in Growth
-    raise ValueError("请重新选择*一个*经济变量")
-ValueError: 请重新选择*一个*经济变量
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Growth.py", line 74, in Growth
-    raise ValueError("请重新选择*一个*经济变量")
-ValueError: 请重新选择*一个*经济变量
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Growth.py", line 74, in Growth
-    raise ValueError("请重新选择*一个*经济变量")
-ValueError: 请重新选择*一个*经济变量
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Unarylinear.py", line 51, in Unarylinear
-    raise ValueError("请重新选择*一个*经济变量.")
-ValueError: 请重新选择*一个*经济变量.
-[2021-04-28 12:47:25,664] ERROR in app: Exception on /api/get/default [GET]
-Traceback (most recent call last):
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 468, in wrapper
-    resp = resource(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/views.py", line 89, in view
-    return self.dispatch_request(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
-    resp = meth(*args, **kwargs)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 1767, in get
-    result = getDefault(start, end)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 703, in getDefault
-    loadmax, electricity = default_jiabi(file, start, end)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadcompute/default.py", line 33, in default_jiabi
-    load_max = default_value("loadmax",file,start,end)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadcompute/default.py", line 16, in default_value
-    y.append(data[str(i)])
-KeyError: '2019'
-Undefined function or variable 'linprog'.
-
-Error in seek32 (line 45)
-
-Error in j_forecast (line 30)
-
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/GM.py", line 65, in GM
-    raise ValueError("训练步长小于预测年份区间长度，请增加训练步长.")
-ValueError: 训练步长小于预测年份区间长度，请增加训练步长.
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/GM.py", line 65, in GM
-    raise ValueError("训练步长小于预测年份区间长度，请增加训练步长.")
-ValueError: 训练步长小于预测年份区间长度，请增加训练步长.
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/GM.py", line 34, in RGM
-    [[a],[b]] = np.dot(np.dot(np.linalg.inv(np.dot(B.T, B)), B.T), Y)#计算参数
-  File "<__array_function__ internals>", line 6, in inv
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/linalg/linalg.py", line 546, in inv
-    ainv = _umath_linalg.inv(a, signature=signature, extobj=extobj)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/linalg/linalg.py", line 88, in _raise_linalgerror_singular
-    raise LinAlgError("Singular matrix")
-numpy.linalg.LinAlgError: Singular matrix
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/GM.py", line 100, in GM
-    trainpre,a,b=RGM(trainx,testyear)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/GM.py", line 36, in RGM
-    raise ValueError("中间矩阵不可逆，请重新调整历史数据时间或步长")
-ValueError: 中间矩阵不可逆，请重新调整历史数据时间或步长
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/ESQRM.py", line 100, in ESQRM
-    raise ValueError("经济因素选取不应超出 5 个,请删去 %s 个,再重新预测"%delnum)
-ValueError: 经济因素选取不应超出 5 个,请删去 4 个,再重新预测
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/ESQRM.py", line 100, in ESQRM
-    raise ValueError("经济因素选取不应超出 5 个,请删去 %s 个,再重新预测"%delnum)
-ValueError: 经济因素选取不应超出 5 个,请删去 1 个,再重新预测
-/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/statsmodels/regression/quantile_regression.py:191: IterationLimitWarning: Maximum number of iterations (1000) reached.
-  ") reached.", IterationLimitWarning)
-/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/statsmodels/regression/quantile_regression.py:191: IterationLimitWarning: Maximum number of iterations (1000) reached.
-  ") reached.", IterationLimitWarning)
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Unarylinear.py", line 51, in Unarylinear
-    raise ValueError("请重新选择*一个*经济变量.")
-ValueError: 请重新选择*一个*经济变量.
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Unarylinear.py", line 51, in Unarylinear
-    raise ValueError("请重新选择*一个*经济变量.")
-ValueError: 请重新选择*一个*经济变量.
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Growth.py", line 74, in Growth
-    raise ValueError("请重新选择*一个*经济变量")
-ValueError: 请重新选择*一个*经济变量
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Growth.py", line 74, in Growth
-    raise ValueError("请重新选择*一个*经济变量")
-ValueError: 请重新选择*一个*经济变量
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Growth.py", line 74, in Growth
-    raise ValueError("请重新选择*一个*经济变量")
-ValueError: 请重新选择*一个*经济变量
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Unarylinear.py", line 51, in Unarylinear
-    raise ValueError("请重新选择*一个*经济变量.")
-ValueError: 请重新选择*一个*经济变量.
-[2021-04-28 12:52:39,008] ERROR in app: Exception on /api/payload/predict/clamping [POST]
-Traceback (most recent call last):
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 468, in wrapper
-    resp = resource(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/views.py", line 89, in view
-    return self.dispatch_request(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
-    resp = meth(*args, **kwargs)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 1023, in post
-    result = clampingPayloadPredict(request.json)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 483, in clampingPayloadPredict
-    result = shuangxiangjiabi(start, ending, premaxload, pretotal,file=file)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/shuangxiangjiabi.py", line 10, in shuangxiangjiabi
-    re = sx.j_forecast(start, ending, premaxload, pretotal, file)
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/deployablefunc.py", line 80, in __call__
-    nlhsWasSpecified, stdoutObj, stderrObj).result()
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 135, in result
-    raise e
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 123, in result
-    raise e
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 113, in result
-    self._nlhs, out=self._out, err=self._err)
-matlab_pysdk.runtime.MatlabRuntimeError: An error occurred when evaluating the result from a function. Details: 
-  File /home/dclab/.mcrCache9.6/sxjb_D0/Users/gujie/Desktop/devenv/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/seek32.m, line 45, in seek32
-
-  File /home/dclab/.mcrCache9.6/sxjb_D0/Users/gujie/Desktop/devenv/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/j_forecast.m, line 30, in j_forecast
-Undefined function 'linprog' for input arguments of type 'double'.
-
-Undefined function or variable 'linprog'.
-
-Error in seek32 (line 45)
-
-Error in j_forecast (line 30)
-
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Unarylinear.py", line 51, in Unarylinear
-    raise ValueError("请重新选择*一个*经济变量.")
-ValueError: 请重新选择*一个*经济变量.
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/Unarylinear.py", line 51, in Unarylinear
-    raise ValueError("请重新选择*一个*经济变量.")
-ValueError: 请重新选择*一个*经济变量.
-[2021-04-28 12:52:53,100] ERROR in app: Exception on /api/payload/predict/clamping [POST]
-Traceback (most recent call last):
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 468, in wrapper
-    resp = resource(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/views.py", line 89, in view
-    return self.dispatch_request(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
-    resp = meth(*args, **kwargs)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 1023, in post
-    result = clampingPayloadPredict(request.json)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 483, in clampingPayloadPredict
-    result = shuangxiangjiabi(start, ending, premaxload, pretotal,file=file)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/shuangxiangjiabi.py", line 10, in shuangxiangjiabi
-    re = sx.j_forecast(start, ending, premaxload, pretotal, file)
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/deployablefunc.py", line 80, in __call__
-    nlhsWasSpecified, stdoutObj, stderrObj).result()
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 135, in result
-    raise e
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 123, in result
-    raise e
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 113, in result
-    self._nlhs, out=self._out, err=self._err)
-matlab_pysdk.runtime.MatlabRuntimeError: An error occurred when evaluating the result from a function. Details: 
-  File /home/dclab/.mcrCache9.6/sxjb_D0/Users/gujie/Desktop/devenv/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/seek32.m, line 45, in seek32
-
-  File /home/dclab/.mcrCache9.6/sxjb_D0/Users/gujie/Desktop/devenv/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/j_forecast.m, line 30, in j_forecast
-Undefined function 'linprog' for input arguments of type 'double'.
-
-Undefined function or variable 'linprog'.
-
-Error in seek32 (line 45)
-
-Error in j_forecast (line 30)
-
-[2021-04-28 12:53:05,100] ERROR in app: Exception on /api/payload/predict/clamping [POST]
-Traceback (most recent call last):
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 468, in wrapper
-    resp = resource(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/views.py", line 89, in view
-    return self.dispatch_request(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
-    resp = meth(*args, **kwargs)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 1023, in post
-    result = clampingPayloadPredict(request.json)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 483, in clampingPayloadPredict
-    result = shuangxiangjiabi(start, ending, premaxload, pretotal,file=file)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/shuangxiangjiabi.py", line 10, in shuangxiangjiabi
-    re = sx.j_forecast(start, ending, premaxload, pretotal, file)
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/deployablefunc.py", line 80, in __call__
-    nlhsWasSpecified, stdoutObj, stderrObj).result()
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 135, in result
-    raise e
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 123, in result
-    raise e
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 113, in result
-    self._nlhs, out=self._out, err=self._err)
-matlab_pysdk.runtime.MatlabRuntimeError: An error occurred when evaluating the result from a function. Details: 
-  File /home/dclab/.mcrCache9.6/sxjb_D0/Users/gujie/Desktop/devenv/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/seek32.m, line 45, in seek32
-
-  File /home/dclab/.mcrCache9.6/sxjb_D0/Users/gujie/Desktop/devenv/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/j_forecast.m, line 30, in j_forecast
-Undefined function 'linprog' for input arguments of type 'double'.
-
-Undefined function or variable 'linprog'.
-
-Error in seek32 (line 45)
-
-Error in j_forecast (line 30)
-
-[2021-04-28 12:53:14,369] ERROR in app: Exception on /api/payload/predict/clamping [POST]
-Traceback (most recent call last):
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 468, in wrapper
-    resp = resource(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/views.py", line 89, in view
-    return self.dispatch_request(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
-    resp = meth(*args, **kwargs)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 1023, in post
-    result = clampingPayloadPredict(request.json)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 483, in clampingPayloadPredict
-    result = shuangxiangjiabi(start, ending, premaxload, pretotal,file=file)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/shuangxiangjiabi.py", line 10, in shuangxiangjiabi
-    re = sx.j_forecast(start, ending, premaxload, pretotal, file)
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/deployablefunc.py", line 80, in __call__
-    nlhsWasSpecified, stdoutObj, stderrObj).result()
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 135, in result
-    raise e
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 123, in result
-    raise e
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 113, in result
-    self._nlhs, out=self._out, err=self._err)
-matlab_pysdk.runtime.MatlabRuntimeError: An error occurred when evaluating the result from a function. Details: 
-  File /home/dclab/.mcrCache9.6/sxjb_D0/Users/gujie/Desktop/devenv/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/seek32.m, line 45, in seek32
-
-  File /home/dclab/.mcrCache9.6/sxjb_D0/Users/gujie/Desktop/devenv/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/j_forecast.m, line 30, in j_forecast
-Undefined function 'linprog' for input arguments of type 'double'.
-
-Undefined function or variable 'linprog'.
-
-Error in seek32 (line 45)
-
-Error in j_forecast (line 30)
-
-[2021-04-28 12:53:23,487] ERROR in app: Exception on /api/payload/predict/clamping [POST]
-Traceback (most recent call last):
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 468, in wrapper
-    resp = resource(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/views.py", line 89, in view
-    return self.dispatch_request(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
-    resp = meth(*args, **kwargs)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 1023, in post
-    result = clampingPayloadPredict(request.json)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 483, in clampingPayloadPredict
-    result = shuangxiangjiabi(start, ending, premaxload, pretotal,file=file)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/shuangxiangjiabi.py", line 10, in shuangxiangjiabi
-    re = sx.j_forecast(start, ending, premaxload, pretotal, file)
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/deployablefunc.py", line 80, in __call__
-    nlhsWasSpecified, stdoutObj, stderrObj).result()
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 135, in result
-    raise e
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 123, in result
-    raise e
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 113, in result
-    self._nlhs, out=self._out, err=self._err)
-matlab_pysdk.runtime.MatlabRuntimeError: An error occurred when evaluating the result from a function. Details: 
-  File /home/dclab/.mcrCache9.6/sxjb_D0/Users/gujie/Desktop/devenv/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/seek32.m, line 45, in seek32
-
-  File /home/dclab/.mcrCache9.6/sxjb_D0/Users/gujie/Desktop/devenv/ynpowerbackend/algorithms/loadpredict/shuangxiangjiabi/j_forecast.m, line 30, in j_forecast
-Undefined function 'linprog' for input arguments of type 'double'.
-
-
---------------------------------------------------------------------------------
-       Segmentation violation detected at 三 4月 28 12:55:35 2021 +0800
---------------------------------------------------------------------------------
-
-Configuration:
-  Crash Decoding           : Disabled - No sandbox or build area path
-  Crash Mode               : continue (default)
-  Default Encoding         : UTF-8
-  Deployed                 : true
-  GNU C Library            : 2.27 stable
-  Graphics Driver          : Unknown software 
-  Graphics card 1          : 0x10de ( 0x10de ) 0x1048 Version 0.0.0.0 (0-0-0)
-  Java Version             : Java 1.8.0_181-b13 with Oracle Corporation Java HotSpot(TM) 64-Bit Server VM mixed mode
-  MATLAB Architecture      : glnxa64
-  MATLAB Entitlement ID    : Unknown
-  MATLAB Root              : /usr/local/MATLAB/MATLAB_Runtime/v96
-  MATLAB Version           : 9.6.0.1472908 (R2019a) Update 9
-  OpenGL                   : software
-  Operating System         : Ubuntu 18.04.2 LTS
-  Process ID               : 25433
-  Processor ID             : x86 Family 6 Model 58 Stepping 9, GenuineIntel
-  Session Key              : 3991babd-90ed-41c0-a799-1cb529405bde
-  Static TLS mitigation    : Disabled: Unable to open display
-  Window System            : No active display
-
-Fault Count: 1
-
-
-Abnormal termination:
-Segmentation violation
-
-Register State (from fault):
-  RAX = 0000000000000000  RBX = 0000000000000002
-  RCX = 00007f9b8c7de510  RDX = 00007faad6cfbe20
-  RSP = 00007f9bef47a4a0  RBP = 00007f9bef47a530
-  RSI = 0000000000000000  RDI = 00005652a52a2448
-
-   R8 = 0000000000000002   R9 = 00005652a525f9a0
-  R10 = 00007f9b8c010240  R11 = 0000000000000000
-  R12 = 00007f9ad6cfbe20  R13 = 00007f9bef47aac8
-  R14 = 00007f9ad6ce89e0  R15 = 0000000000000080
-
-  RIP = 00007f9ba7aca6fd  EFL = 0000000000010246
-
-   CS = 0033   FS = 0000   GS = 0000
-
-Stack Trace (from fault):
-[  0] 0x00007f9ba7aca6fd /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwmathlinalg.so+01648381
-[  1] 0x00007f9ba7ac8b5c /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwmathlinalg.so+01641308
-[  2] 0x00007f9bb16a1a90 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_dispatcher.so+00645776
-[  3] 0x00007f9bb168de16 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_dispatcher.so+00564758
-[  4] 0x00007f9bb168e161 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_dispatcher.so+00565601 _ZN18Mfh_MATLAB_fn_impl8dispatchEiPSt10unique_ptrI11mxArray_tagN6matrix6detail17mxDestroy_deleterEEiPPS1_+00000033
-[  5] 0x00007f9bab92f9ea /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+13859306
-[  6] 0x00007f9bab93537f /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+13882239
-[  7] 0x00007f9baba2d971 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+14899569
-[  8] 0x00007f9bab99a044 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+14295108
-[  9] 0x00007f9bab9c0a3d /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+14453309
-[ 10] 0x00007f9bab1561eb /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+05628395
-[ 11] 0x00007f9bab158284 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+05636740
-[ 12] 0x00007f9bab1551cd /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+05624269
-[ 13] 0x00007f9bab149d71 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+05578097
-[ 14] 0x00007f9bab149fa9 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+05578665
-[ 15] 0x00007f9bab1549d6 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+05622230
-[ 16] 0x00007f9bab154ad6 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+05622486
-[ 17] 0x00007f9bab28c839 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+06899769
-[ 18] 0x00007f9bab28ff73 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+06913907
-[ 19] 0x00007f9bab7ef571 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+12547441
-[ 20] 0x00007f9bab91df97 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+13787031
-[ 21] 0x00007f9bab91e3d5 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+13788117
-[ 22] 0x00007f9bb170c57f /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_dispatcher.so+01082751 _ZN8Mfh_file20dispatch_file_commonEMS_FviPP11mxArray_tagiS2_EiS2_iS2_+00000207
-[ 23] 0x00007f9bb170e713 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_dispatcher.so+01091347 _ZN8Mfh_file19dispatch_with_reuseEiPP11mxArray_tagiS2_+00000323
-[ 24] 0x00007f9baba5cf2e /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+15093550
-[ 25] 0x00007f9bab79b8d6 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+12204246
-[ 26] 0x00007f9bab79ba4c /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+12204620
-[ 27] 0x00007f9bab83be48 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+12861000
-[ 28] 0x00007f9bab83ce78 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+12865144
-[ 29] 0x00007f9bb1b9cc60 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_interpreter.so+01289312 _Z44inCallFcnWithTrapInDesiredWSAndPublishEventsiPP11mxArray_tagiS1_PKcbP15inWorkSpace_tag+00000080
-[ 30] 0x00007f9bad537e7d /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwiqm.so+00712317 _ZN3iqm15BaseFEvalPlugin7executeEP15inWorkSpace_tag+00000525
-[ 31] 0x00007f9bb1e08749 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwmcr.so+00943945
-[ 32] 0x00007f9bad52cf2d /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwiqm.so+00667437
-[ 33] 0x00007f9bad50feba /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwiqm.so+00548538
-[ 34] 0x00007f9bad510b2f /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwiqm.so+00551727
-[ 35] 0x00007f9bb1debe8e /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwmcr.so+00827022
-[ 36] 0x00007f9bb1dec648 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwmcr.so+00829000
-[ 37] 0x00007f9bb1de5d92 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwmcr.so+00802194
-[ 38] 0x00007f9c182a96db              /lib/x86_64-linux-gnu/libpthread.so.0+00030427
-[ 39] 0x00007f9c17fd271f                    /lib/x86_64-linux-gnu/libc.so.6+01185567 clone+00000063
-[ 40] 0x0000000000000000                                   <unknown-module>+00000000
-
-** This crash report has been saved to disk as /home/dclab/matlab_crash_dump.25433-1 **
-
-
-
-MATLAB is exiting because of fatal error
-[2021-04-28 12:55:35 +0800] [11432] [INFO] Booting worker with pid: 11432
-
---------------------------------------------------------------------------------
-       Segmentation violation detected at 三 4月 28 12:55:45 2021 +0800
---------------------------------------------------------------------------------
-
-Configuration:
-  Crash Decoding           : Disabled - No sandbox or build area path
-  Crash Mode               : continue (default)
-  Default Encoding         : UTF-8
-  Deployed                 : true
-  GNU C Library            : 2.27 stable
-  Graphics Driver          : Unknown software 
-  Graphics card 1          : 0x10de ( 0x10de ) 0x1048 Version 0.0.0.0 (0-0-0)
-  Java Version             : Java 1.8.0_181-b13 with Oracle Corporation Java HotSpot(TM) 64-Bit Server VM mixed mode
-  MATLAB Architecture      : glnxa64
-  MATLAB Entitlement ID    : Unknown
-  MATLAB Root              : /usr/local/MATLAB/MATLAB_Runtime/v96
-  MATLAB Version           : 9.6.0.1472908 (R2019a) Update 9
-  OpenGL                   : software
-  Operating System         : Ubuntu 18.04.2 LTS
-  Process ID               : 11432
-  Processor ID             : x86 Family 6 Model 58 Stepping 9, GenuineIntel
-  Session Key              : 8ac4bb1c-39e2-4d1e-9e76-c42113932c30
-  Static TLS mitigation    : Disabled: Unable to open display
-  Window System            : No active display
-
-Fault Count: 1
-
-
-Abnormal termination:
-Segmentation violation
-
-Register State (from fault):
-  RAX = 0000000000000000  RBX = 0000000000000002
-  RCX = 00007f9ba07de510  RDX = 00007fab0b9c4de0
-  RSP = 00007f9bef47a4a0  RBP = 00007f9bef47a530
-  RSI = 0000000000000000  RDI = 00005652a4841008
-
-   R8 = 0000000000000002   R9 = 00005652a479a3e0
-  R10 = 00007f9ba0010240  R11 = 0000000000000000
-  R12 = 00007f9b0b9c4de0  R13 = 00007f9bef47aac8
-  R14 = 00007f9b0b9c1cc0  R15 = 0000000000000080
-
-  RIP = 00007f9ba7aca6fd  EFL = 0000000000010246
-
-   CS = 0033   FS = 0000   GS = 0000
-
-Stack Trace (from fault):
-[  0] 0x00007f9ba7aca6fd /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwmathlinalg.so+01648381
-[  1] 0x00007f9ba7ac8b5c /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwmathlinalg.so+01641308
-[  2] 0x00007f9bb16a1a90 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_dispatcher.so+00645776
-[  3] 0x00007f9bb168de16 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_dispatcher.so+00564758
-[  4] 0x00007f9bb168e161 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_dispatcher.so+00565601 _ZN18Mfh_MATLAB_fn_impl8dispatchEiPSt10unique_ptrI11mxArray_tagN6matrix6detail17mxDestroy_deleterEEiPPS1_+00000033
-[  5] 0x00007f9bab92f9ea /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+13859306
-[  6] 0x00007f9bab93537f /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+13882239
-[  7] 0x00007f9baba2d971 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+14899569
-[  8] 0x00007f9bab99a044 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+14295108
-[  9] 0x00007f9bab9c0a3d /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+14453309
-[ 10] 0x00007f9bab1561eb /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+05628395
-[ 11] 0x00007f9bab158284 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+05636740
-[ 12] 0x00007f9bab1551cd /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+05624269
-[ 13] 0x00007f9bab149d71 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+05578097
-[ 14] 0x00007f9bab149fa9 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+05578665
-[ 15] 0x00007f9bab1549d6 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+05622230
-[ 16] 0x00007f9bab154ad6 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+05622486
-[ 17] 0x00007f9bab28c839 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+06899769
-[ 18] 0x00007f9bab28ff73 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+06913907
-[ 19] 0x00007f9bab7ef571 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+12547441
-[ 20] 0x00007f9bab91df97 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+13787031
-[ 21] 0x00007f9bab91e3d5 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+13788117
-[ 22] 0x00007f9bb170c57f /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_dispatcher.so+01082751 _ZN8Mfh_file20dispatch_file_commonEMS_FviPP11mxArray_tagiS2_EiS2_iS2_+00000207
-[ 23] 0x00007f9bb170e713 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_dispatcher.so+01091347 _ZN8Mfh_file19dispatch_with_reuseEiPP11mxArray_tagiS2_+00000323
-[ 24] 0x00007f9baba5cf2e /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+15093550
-[ 25] 0x00007f9bab79b8d6 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+12204246
-[ 26] 0x00007f9bab79ba4c /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+12204620
-[ 27] 0x00007f9bab83be48 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+12861000
-[ 28] 0x00007f9bab83ce78 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_lxe.so+12865144
-[ 29] 0x00007f9bb1b9cc60 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwm_interpreter.so+01289312 _Z44inCallFcnWithTrapInDesiredWSAndPublishEventsiPP11mxArray_tagiS1_PKcbP15inWorkSpace_tag+00000080
-[ 30] 0x00007f9bad537e7d /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwiqm.so+00712317 _ZN3iqm15BaseFEvalPlugin7executeEP15inWorkSpace_tag+00000525
-[ 31] 0x00007f9bb1e08749 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwmcr.so+00943945
-[ 32] 0x00007f9bad52cf2d /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwiqm.so+00667437
-[ 33] 0x00007f9bad50feba /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwiqm.so+00548538
-[ 34] 0x00007f9bad510b2f /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwiqm.so+00551727
-[ 35] 0x00007f9bb1debe8e /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwmcr.so+00827022
-[ 36] 0x00007f9bb1dec648 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwmcr.so+00829000
-[ 37] 0x00007f9bb1de5d92 /usr/local/MATLAB/MATLAB_Runtime/v96/bin/glnxa64/libmwmcr.so+00802194
-[ 38] 0x00007f9c182a96db              /lib/x86_64-linux-gnu/libpthread.so.0+00030427
-[ 39] 0x00007f9c17fd271f                    /lib/x86_64-linux-gnu/libc.so.6+01185567 clone+00000063
-[ 40] 0x0000000000000000                                   <unknown-module>+00000000
-
-** This crash report has been saved to disk as /home/dclab/matlab_crash_dump.11432-1 **
-
-
-
-MATLAB is exiting because of fatal error
-[2021-04-28 12:55:45 +0800] [11616] [INFO] Booting worker with pid: 11616
-Error using horzcat
-Dimensions of arrays being concatenated are not consistent.
-
-Error in z_forecast (line 25)
-
-[2021-04-28 12:56:44,506] ERROR in app: Exception on /api/payload/predict/yearly [POST]
-Traceback (most recent call last):
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 468, in wrapper
-    resp = resource(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/views.py", line 89, in view
-    return self.dispatch_request(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
-    resp = meth(*args, **kwargs)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 1083, in post
-    result = yearlyContinuousPayloadPredict(request.json)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 525, in yearlyContinuousPayloadPredict
-    result = zhishupinghua(start, end, Tyear = Tyear, premaxload = premaxload)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadpredict/zhishupinghua/zhishupinghua.py", line 10, in zhishupinghua
-    re = zs.z_forecast(start, ending, Tyear, premaxload, file)
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/deployablefunc.py", line 80, in __call__
-    nlhsWasSpecified, stdoutObj, stderrObj).result()
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 135, in result
-    raise e
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 123, in result
-    raise e
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 113, in result
-    self._nlhs, out=self._out, err=self._err)
-matlab_pysdk.runtime.MatlabRuntimeError: An error occurred when evaluating the result from a function. Details: 
-  File /home/dclab/.mcrCache9.6/zsph_20/Users/gujie/Desktop/devenv/ynpowerbackend/algorithms/loadpredict/zhishupinghua/z_forecast.m, line 25, in z_forecast
-Dimensions of arrays being concatenated are not consistent.
-
-Error using horzcat
-Dimensions of arrays being concatenated are not consistent.
-
-Error in z_forecast (line 25)
-
-[2021-04-28 12:57:01,527] ERROR in app: Exception on /api/payload/predict/yearly [POST]
-Traceback (most recent call last):
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 468, in wrapper
-    resp = resource(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask/views.py", line 89, in view
-    return self.dispatch_request(*args, **kwargs)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/flask_restful/__init__.py", line 583, in dispatch_request
-    resp = meth(*args, **kwargs)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 1083, in post
-    result = yearlyContinuousPayloadPredict(request.json)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 525, in yearlyContinuousPayloadPredict
-    result = zhishupinghua(start, end, Tyear = Tyear, premaxload = premaxload)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadpredict/zhishupinghua/zhishupinghua.py", line 10, in zhishupinghua
-    re = zs.z_forecast(start, ending, Tyear, premaxload, file)
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/deployablefunc.py", line 80, in __call__
-    nlhsWasSpecified, stdoutObj, stderrObj).result()
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 135, in result
-    raise e
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 123, in result
-    raise e
-  File "/usr/local/MATLAB/MATLAB_Runtime/v96/toolbox/compiler_sdk/pysdk_py/matlab_pysdk/runtime/futureresult.py", line 113, in result
-    self._nlhs, out=self._out, err=self._err)
-matlab_pysdk.runtime.MatlabRuntimeError: An error occurred when evaluating the result from a function. Details: 
-  File /home/dclab/.mcrCache9.6/zsph_20/Users/gujie/Desktop/devenv/ynpowerbackend/algorithms/loadpredict/zhishupinghua/z_forecast.m, line 25, in z_forecast
-Dimensions of arrays being concatenated are not consistent.
-
-[2021-04-28 20:43:42 +0800] [2273] [CRITICAL] WORKER TIMEOUT (pid:3861)
-[2021-04-28 20:43:42 +0800] [2273] [CRITICAL] WORKER TIMEOUT (pid:11616)
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 142, in miningRequest
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/PCA.py", line 63, in PCA
-    pccs = pearsonr(data[i], data[0])
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/scipy/stats/stats.py", line 3936, in pearsonr
-    normym = linalg.norm(ym)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/scipy/linalg/misc.py", line 140, in norm
-    a = np.asarray_chkfinite(a)
-  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/lib/function_base.py", line 486, in asarray_chkfinite
-    "array must not contain infs or NaNs")
-ValueError: array must not contain infs or NaNs
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/SaturationCurve.py", line 72, in SaturationCurve
-    raise ValueError("预测目标年限过短，本方法适用于 5 年以上的负荷预测")
-ValueError: 预测目标年限过短，本方法适用于 5 年以上的负荷预测
-/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/core/_methods.py:234: RuntimeWarning: Degrees of freedom <= 0 for slice
-  keepdims=keepdims)
-/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/core/_methods.py:195: RuntimeWarning: invalid value encountered in true_divide
-  arrmean, rcount, out=arrmean, casting='unsafe', subok=False)
-/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/core/_methods.py:226: RuntimeWarning: invalid value encountered in double_scalars
-  ret = ret.dtype.type(ret / rcount)
-/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/core/fromnumeric.py:3373: RuntimeWarning: Mean of empty slice.
-  out=out, **kwargs)
-/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/numpy/core/_methods.py:170: RuntimeWarning: invalid value encountered in double_scalars
-  ret = ret.dtype.type(ret / rcount)
-Traceback (most recent call last):
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 163, in regionSinglePredict
-    result = executeAlgorithm(method, args)
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 863, in executeAlgorithm
-    result = eval("f("+argstr+")")
-  File "<string>", line 1, in <module>
-  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/SaturationCurve.py", line 119, in SaturationCurve
-    testpmm = testpm.index(np.median(testpm))
-ValueError: nan is not in list
-[2021-04-28 20:43:42 +0800] [11616] [INFO] Worker exiting (pid: 11616)
-
---------------------------------------------------------------------------------
-              abort() detected at 三 4月 28 20:43:42 2021 +0800
---------------------------------------------------------------------------------
-
-Configuration:
-  Crash Decoding           : Disabled - No sandbox or build area path
-  Crash Mode               : continue (default)
-  Default Encoding         : UTF-8
-  Deployed                 : true
-  GNU C Library            : 2.27 stable
-  Graphics Driver          : Unknown software 
-  Graphics card 1          : 0x10de ( 0x10de ) 0x1048 Version 0.0.0.0 (0-0-0)
-  Java Version             : Java 1.8.0_181-b13 with Oracle Corporation Java HotSpot(TM) 64-Bit Server VM mixed mode
-  MATLAB Architecture      : glnxa64
-  MATLAB Entitlement ID    : Unknown
-  MATLAB Root              : /usr/local/MATLAB/MATLAB_Runtime/v96
-  MATLAB Version           : 9.6.0.1472908 (R2019a) Update 9
-  OpenGL                   : software
-  Operating System         : Ubuntu 18.04.2 LTS
-  Process ID               : 3861
-  Processor ID             : x86 Family 6 Model 58 Stepping 9, GenuineIntel
-  Session Key              : df3c0cfb-25bd-4b08-bcc4-ea4cbede4948
-  Static TLS mitigation    : Disabled: Unable to open display
-  Window System            : No active display
-
-Fault Count: 1
-
-
-Abnormal termination:
-abort()
-
-Register State (from fault):
-  RAX = 0000000000001970  RBX = 000000000000000a
-  RCX = 00007f9c182b3a9e  RDX = 0000000000002000
-  RSP = 00007fff087c4950  RBP = 0000000000000000
-  RSI = 00005652a52fb970  RDI = 000000000000000a
-
-   R8 = 0000000000000000   R9 = 0000000000000000
-  R10 = 0000000000000000  R11 = 0000000000000246
-  R12 = 00005652a52fb970  R13 = 0000000000002000
-  R14 = 0000000000000000  R15 = ffffffffc4653600
-
-  RIP = 00007f9c182b3a9e  EFL = 0000000000000246
-
-   CS = 0033   FS = 0000   GS = 0000
-
-Stack Trace (from fault):
-[  0] 0x00007f9c182b3a9e              /lib/x86_64-linux-gnu/libpthread.so.0+00072350 send+00000094
-[  1] 0x00007f9c16a5847c /home/dclab/miniconda3/envs/test/lib/python3.7/lib-dynload/_socket.cpython-37m-x86_64-linux-gnu.so+00054396
-[  2] 0x00005652a2381840        /home/dclab/miniconda3/envs/test/bin/python+01464384 _PyMethodDef_RawFastCallKeywords+00000496
-[  3] 0x00005652a238877f        /home/dclab/miniconda3/envs/test/bin/python+01492863 _PyMethodDescr_FastCallKeywords+00000079
-[  4] 0x00005652a23edc3c        /home/dclab/miniconda3/envs/test/bin/python+01907772 _PyEval_EvalFrameDefault+00019436
-[  5] 0x00005652a2330d09        /home/dclab/miniconda3/envs/test/bin/python+01133833 _PyEval_EvalCodeWithName+00000761
-[  6] 0x00005652a2381055        /home/dclab/miniconda3/envs/test/bin/python+01462357 _PyFunction_FastCallKeywords+00000805
-[  7] 0x00005652a23edae9        /home/dclab/miniconda3/envs/test/bin/python+01907433 _PyEval_EvalFrameDefault+00019097
-[  8] 0x00005652a2380e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
-[  9] 0x00005652a23e96f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
-[ 10] 0x00005652a2380e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
-[ 11] 0x00005652a23e96f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
-[ 12] 0x00005652a2380e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
-[ 13] 0x00005652a23e96f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
-[ 14] 0x00005652a2380e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
-[ 15] 0x00005652a23e96f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
-[ 16] 0x00005652a2380e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
-[ 17] 0x00005652a23e96f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
-[ 18] 0x00005652a2380e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
-[ 19] 0x00005652a23e96f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
-[ 20] 0x00005652a2331640        /home/dclab/miniconda3/envs/test/bin/python+01136192 _PyEval_EvalCodeWithName+00003120
-[ 21] 0x00005652a23810b7        /home/dclab/miniconda3/envs/test/bin/python+01462455 _PyFunction_FastCallKeywords+00000903
-[ 22] 0x00005652a23e96f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
-[ 23] 0x00005652a2380e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
-[ 24] 0x00005652a23e96f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
-[ 25] 0x00005652a2380e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
-[ 26] 0x00005652a23e96f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
-[ 27] 0x00005652a2380e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
-[ 28] 0x00005652a23e96f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
-[ 29] 0x00005652a2380e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
-[ 30] 0x00005652a23e96f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
-[ 31] 0x00005652a2380e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
-[ 32] 0x00005652a23edae9        /home/dclab/miniconda3/envs/test/bin/python+01907433 _PyEval_EvalFrameDefault+00019097
-[ 33] 0x00005652a2330fea        /home/dclab/miniconda3/envs/test/bin/python+01134570 _PyEval_EvalCodeWithName+00001498
-[ 34] 0x00005652a23810b7        /home/dclab/miniconda3/envs/test/bin/python+01462455 _PyFunction_FastCallKeywords+00000903
-[ 35] 0x00005652a23e96f0        /home/dclab/miniconda3/envs/test/bin/python+01890032 _PyEval_EvalFrameDefault+00001696
-[ 36] 0x00005652a2380e2b        /home/dclab/miniconda3/envs/test/bin/python+01461803 _PyFunction_FastCallKeywords+00000251
-[ 37] 0x00005652a23e9466        /home/dclab/miniconda3/envs/test/bin/python+01889382 _PyEval_EvalFrameDefault+00001046
-[ 38] 0x00005652a2330d09        /home/dclab/miniconda3/envs/test/bin/python+01133833 _PyEval_EvalCodeWithName+00000761
-[ 39] 0x00005652a2331be4        /home/dclab/miniconda3/envs/test/bin/python+01137636 PyEval_EvalCodeEx+00000068
-[ 40] 0x00005652a2331c0c        /home/dclab/miniconda3/envs/test/bin/python+01137676 PyEval_EvalCode+00000028
-[ 41] 0x00005652a2448a74        /home/dclab/miniconda3/envs/test/bin/python+02280052
-[ 42] 0x00005652a2452de1        /home/dclab/miniconda3/envs/test/bin/python+02321889 PyRun_FileExFlags+00000161
-[ 43] 0x00005652a2452fd3        /home/dclab/miniconda3/envs/test/bin/python+02322387 PyRun_SimpleFileExFlags+00000451
-[ 44] 0x00005652a2454105        /home/dclab/miniconda3/envs/test/bin/python+02326789
-[ 45] 0x00005652a245422c        /home/dclab/miniconda3/envs/test/bin/python+02327084 _Py_UnixMain+00000060
-[ 46] 0x00007f9c17ed2bf7                    /lib/x86_64-linux-gnu/libc.so.6+00138231 __libc_start_main+00000231
-[ 47] 0x00005652a23f8e90        /home/dclab/miniconda3/envs/test/bin/python+01953424
-
-** This crash report has been saved to disk as /home/dclab/matlab_crash_dump.3861-1 **
-
-
-
-MATLAB is exiting because of fatal error
-[2021-04-28 20:43:42 +0800] [24813] [INFO] Booting worker with pid: 24813
-[2021-04-28 20:43:42 +0800] [24818] [INFO] Booting worker with pid: 24818
+  File "/home/dclab/miniconda3/envs/test/bin/gunicorn", line 11, in <module>
+    sys.exit(run())
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/wsgiapp.py", line 58, in run
+    WSGIApplication("%(prog)s [OPTIONS] [APP_MODULE]").run()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/base.py", line 228, in run
+    super().run()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/base.py", line 72, in run
+    Arbiter(self).run()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/arbiter.py", line 229, in run
+    self.halt(reason=inst.reason, exit_status=inst.exit_status)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/arbiter.py", line 342, in halt
+    self.stop()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/arbiter.py", line 393, in stop
+    time.sleep(0.1)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/arbiter.py", line 242, in handle_chld
+    self.reap_workers()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/arbiter.py", line 525, in reap_workers
+    raise HaltServer(reason, self.WORKER_BOOT_ERROR)
+gunicorn.errors.HaltServer: <HaltServer 'Worker failed to boot.' 3>
