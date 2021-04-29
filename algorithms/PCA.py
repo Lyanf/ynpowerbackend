@@ -26,6 +26,7 @@ def PCA(StartYear,EndYear,pretype,econamelist,pmin = 0.9,city="云南省"):
     elif len(econamelist)<2:
         raise ValueError ("至少选择2个影响因素")
     else:
+        pretype=[pretype]
         period=int(EndYear)-int(StartYear)+1
         #读取历史负荷数据
         finaldata=[]
@@ -121,7 +122,7 @@ def PCA(StartYear,EndYear,pretype,econamelist,pmin = 0.9,city="云南省"):
 if __name__ == '__main__':
     StartYear="2013"
     EndYear="2018"
-    pretype=["年最大负荷"]
-    econamelist=["GDP","第一产业GDP","第二产业GDP","人口","人均GDP","能源生产总值","能源消费总值","第二产业产值","第三产业GDP"]
+    pretype="年最大负荷"
+    econamelist=['第三产业GDP', '能源消费总值', '第二产业产值', '人均GDP', '人口', 'GDP', '第一产业GDP', '第二产业GDP', '能源生产总值']
     
     result=PCA(StartYear,EndYear,pretype,econamelist,0.5)
