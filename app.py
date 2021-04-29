@@ -1736,11 +1736,11 @@ class getAlgorithmArg(Resource):
                 min_value, max_value, min_choice, max_choice, depends = limits[chunk]
                 arg.update({
                     'limits': {
-                        'min_value': min_value if isnan(min_value) else None,
-                        'max_value': max_value if isnan(max_value) else None,
-                        'min_choice': min_choice if isnan(min_choice) else None,
-                        'max_choice': max_choice if isnan(max_choice) else None,
-                        'depends': depends if isnan(depends) else None
+                        'min_value': min_value if not isnan(min_value) else None,
+                        'max_value': max_value if not isnan(max_value) else None,
+                        'min_choice': min_choice if not isnan(min_choice) else None,
+                        'max_choice': max_choice if not isnan(max_choice) else None,
+                        'depends': depends if not isnan(depends) else None
                     }
                 })
             else:
