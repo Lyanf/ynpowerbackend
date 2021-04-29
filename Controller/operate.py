@@ -27,6 +27,7 @@ def exceptQuery(category, startTime, endTime, grain, area):
             break
     if data is not None:
         out = Outlier(StartYear=startTime, EndYear = endTime, datatype=category[0], pretype=category[1])
+        return out
         if out["outlier"] == None:
             for d in data:
                 temp = {}
