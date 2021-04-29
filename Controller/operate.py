@@ -28,20 +28,16 @@ def exceptQuery(category, startTime, endTime, grain, area):
     if data is not None:
         out = Outlier(StartYear=startTime, EndYear = endTime, datatype=category[0], pretype=category[1])
         print(out, flush=True)
-        if out["outlier"] == None:
-            for d in data:
-                temp = {}
-                temp["key"] = d[0]
-                temp["category"] = category
-                temp['region'] = area
-                temp['grain'] = grain
-                temp['value'] = d[2]
-                temp["suggest"] = out["correction"]
-                datalist.append(temp)
-    else:
-        raise ValueError('输入数据为空值')
-    result = datalist
-    return result
+        for i in range(len(out['outlier'])):
+            datalist.append({
+                'key': out['year'][i],
+                'category': category,
+                'region': area,
+                'grain': grain,
+                'value': out['outlier'][i],
+                'suggesst': out["correction"][i]
+            })
+    return datalist
 
 def exceptResolve(originData, modifiedData):
     grain = originData['grain']
