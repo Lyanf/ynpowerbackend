@@ -7,7 +7,7 @@ Created on Wed Feb 24 13:46:59 2021
 
 
 import algorithms.predict_economic as preeco
-from dao.interface import getData
+from algorithms.interface import getData
 import json 
 
 import numpy as np
@@ -114,6 +114,8 @@ def Apriori(StartYear,EndYear,pretype,econamelist,city="云南省"):
         factorname.append(name[i])
         factorconfi.append(factor[1])
         factorscore.append(factor[0])
+    factorscore=np.round(factorscore,2).tolist()
+    factorconfi=np.round(factorconfi,2).tolist()
     return {"FactorsName":factorname,"Score":factorscore,"Confidence":factorconfi}
 
 if __name__ == '__main__':

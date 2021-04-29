@@ -17,7 +17,7 @@ from dao.interface import getData
 import json 
 import math
 
-def UnarylinearTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",city="云南省",planflag=0,plan=0):
+def UnarylinearTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",city="云南省",planflag=1,plan=1):
 
     
     """一元一次外推"""

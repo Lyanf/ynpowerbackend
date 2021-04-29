@@ -17,7 +17,7 @@ from dao.interface import getData
 import json 
 import math
 """一元一次，已修改，未联调"""
-def Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",econamelist=["GDP"],city="云南省",planflag=0,plan=0):
+def Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",econamelist=["GDP"],city="云南省",planflag=1,plan=1):
     """
     
 
@@ -48,7 +48,7 @@ def Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用�
 
     """
     if len(econamelist) !=1:
-        raise ValueError("请重新选择*一个*经济变量.")
+        raise ValueError("仅支持选择一个因素变量") 
     
     elif city=="云南省":
         name=[pretype]
@@ -59,6 +59,7 @@ def Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用�
         # print(datajson)
         data=json.loads(datajson)
         finaldata.append(data)
+
         
         #读取经济数据
         ecodatajson=getData("云南省_year_社会经济类", econamelist[0], StartYear, EndYear)
@@ -77,78 +78,89 @@ def Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用�
         x = x.reshape(-1,1)
         y = y.reshape(-1,1)
 
-
+        
         #区分训练数据和预测数据
         num=len(x)
-        testyear=math.floor(num/5)
-        trainx=x[:num-testyear]
-        trainy=y[:num-testyear]
-        
-        testx=x[num-testyear:]
-        testy=y[num-testyear:]
-        
-        reg = LinearRegression().fit(trainx, trainy)
-        
-        # reg = LinearRegression().fit(x, y)
-        
-        testp = ic.getpred(testx,testyear,planflag,plan)
-        testp = np.array(testp).T
-        testpm = []
-        for i in range(51):
-            testpm.append(np.mean(testp[i]))
-        testpmm = testpm.index(np.median(testpm))
-        testpredx = testp[testpmm]
-        testpredx = [k * testx[-1] for k in testpredx]
-        testpredy = [testx * reg.coef_[0][0] + reg.intercept_[0] for testx in testpredx]
-        
-        # loadp = reg.predict(testx)#趋势外推
-        
-        mape=MAPE(testpredy,testy)
-        rmse=RMSE(testpredy,testy)
-
-
-
-        trainyear=[]
-        for t in testy:
-            count=-1
-            for d in final[pretype]:
-                count+=1
-                
-                if t>d-5 and t<d+5:
-                    # print("yes")
-                    trainyear.append(final.index[count])
-                    break
-        
-        
-        
-        
-        preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)
-        year=len(preyear)
-        p = ic.getpred(x,year,planflag,plan)
-        p = np.array(p).T
-        pm = []
-        for i in range(51):
-            pm.append(np.mean(p[i]))
-        pmm = pm.index(np.median(pm))
-        predx = p[pmm]
-        predx = [k * x[-1] for k in predx]
+        testyear=math.ceil(num/8)
+        if testyear<2:
+            raise ValueError("历史数据过少或预测年份过长，请重新选择") 
+        # if testyear<3:
+        #      raise ValueError("历史数据过少或预测年份过长，请重新选择") 
+        else:
+            trainx=x[:num-testyear]
+            trainy=y[:num-testyear]
             
-        predy = [x * reg.coef_[0][0] + reg.intercept_[0] for x in predx]
-        predy=np.array(predy).squeeze()        
-        
-        #存储
-        ytrain=np.array(testpredy).squeeze()
-        ypre=np.array(predy).squeeze()
-        result={"trainfromyear":trainyear[0],"traintoyear":trainyear[-1],"trainresult":ytrain.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
-        return result
+            testx=x[num-testyear:]
+            testy=y[num-testyear:]
+            
+            reg = LinearRegression().fit(trainx, trainy)
+            
+            # reg = LinearRegression().fit(x, y)
+            
+            testp = ic.getpred(testx,testyear,planflag,plan)
+            testp = np.array(testp).T
+            testpm = []
+            for i in range(51):
+                testpm.append(np.mean(testp[i]))
+                
+            testpmm = testpm.index(np.median(testpm))
+            testpredx = testp[testpmm]
+            testpredx = [k * testx[-1] for k in testpredx]
+            testpredy = [testx * reg.coef_[0][0] + reg.intercept_[0] for testx in testpredx]
+            
+            print(final)
+            
+            
+            # loadp = reg.predict(testx)#趋势外推
+            
+            print(testpredx)
+  
+            mape=MAPE(testpredy,testy)
+            rmse=RMSE(testpredy,testy)
+    
+    
+            historyyear=np.arange(int(StartYear),int(EndYear)+1)
+            trainyear=historyyear[num-testyear:]
+            # for t in testy:
+            #     count=-1
+            #     for d in final[pretype]:
+            #         count+=1
+                    
+            #         if t>d-5 and t<d+5:
+            #             # print("yes")
+            #             trainyear.append(final.index[count])
+            #             break
+            
+            
+            
+            
+            preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)
+            year=len(preyear)
+            p = ic.getpred(x,year,planflag,plan)
+            p = np.array(p).T
+            pm = []
+            for i in range(51):
+                pm.append(np.mean(p[i]))
+            pmm = pm.index(np.median(pm))
+            predx = p[pmm]
+            predx = [k * x[-1] for k in predx]
+                
+            predy = [x * reg.coef_[0][0] + reg.intercept_[0] for x in predx]
+            predy=np.array(predy).squeeze()        
+            
+            #存储
+            ytrain=np.array(testpredy).squeeze()
+            ypre=np.array(predy).squeeze()
+            result={"trainfromyear":trainyear[0],"traintoyear":trainyear[-1],"trainresult":ytrain.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
+            return result
 if __name__ == '__main__':
     StartYear="1990"
     EndYear="2019"
     PreStartYear="2020"
-    PreEndYear="2021"
+    PreEndYear="2025"
     pretype="全社会用电量"
     city="云南省"
     
-    result=Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype,["GDP"],city)
+    result=Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype,["能源生产总值"],city,1,5)
 
      

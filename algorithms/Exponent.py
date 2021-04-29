@@ -20,7 +20,7 @@ import math
 
 
 
-def Exponent(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",econamelist=["GDP"],city="云南省",planflag=0,plan=0):
+def Exponent(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",econamelist=["GDP"],city="云南省",planflag=1,plan=1):
     
     
     
@@ -39,7 +39,8 @@ def Exponent(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电�
         return Para    
 
     if len(econamelist) !=1:
-        raise LookupError("请重新选择一个经济变量")
+        return {"trainfromyear":None,"traintoyear":None,"trainresult":None,"prefromyear":None,"pretoyear":None,"preresult":"请重新选择一个经济变量.","MAPE":None,"RMSE":None}
+    
     elif city=="云南省":
         name=[pretype]
         finaldata=[]
@@ -137,7 +138,7 @@ if __name__ == '__main__':
     StartYear="1990"
     EndYear="2019"
     PreStartYear="2020"
-    PreEndYear="2022"
+    PreEndYear="2040"
     pretype="全社会用电量"
     city="云南省"
     

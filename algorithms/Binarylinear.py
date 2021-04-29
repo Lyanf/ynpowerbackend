@@ -20,7 +20,7 @@ import math
 
 
 
-def Binarylinear(StartYear,EndYear,PreStartYear,PreEndYear,econamelist,pretype="全社会用电量",city="云南省",planflag1=0,plan1=0,planflag2=0,plan2=0):
+def Binarylinear(StartYear,EndYear,PreStartYear,PreEndYear,econamelist,pretype="全社会用电量",city="云南省",planflag1=1,plan1=1,planflag2=1,plan2=1):
     """
     
 
@@ -64,7 +64,7 @@ def Binarylinear(StartYear,EndYear,PreStartYear,PreEndYear,econamelist,pretype="
     
     
     if len(econamelist) !=2:
-        raise ValueError("请选择*两个*经济变量")
+        return {"False":"请重新选择两个经济变量."}
     elif city=="云南省":
         name=[pretype]
         finaldata=[]

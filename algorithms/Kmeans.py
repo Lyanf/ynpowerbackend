@@ -11,7 +11,7 @@ import pandas as pd
 import algorithms.predict_economic as preeco
 from dao.interface import getData
 import json 
-
+import math
 from sklearn import metrics
 from sklearn.cluster import KMeans
 
@@ -39,8 +39,11 @@ def Kmeans(StartYear,EndYear,pretype,econamelist,n_clusters,city="云南省"):
         DESCRIPTION. The default is "云南省".
 
     """
-    if n_clusters>len(econamelist):
-        raise ValueError("聚类数过大，请重新选取")
+    if n_clusters>len(econamelist)*0.5:
+        m=math.ceil(len(econamelist)*0.5)
+        raise ValueError ("聚类数过大，建议在1-%s之间选取"%m)
+    if n_clusters==0:
+        raise ValueError ("聚类数不可设置为小于1的整数")
     else:
         finaldata=[]
         name=[]
@@ -96,4 +99,4 @@ if __name__ == '__main__':
     pretype=["全社会用电量"]
     econamelist=["GDP","第一产业GDP","第二产业GDP"]
     
-    result=Kmeans(StartYear,EndYear,pretype,econamelist,2,city="云南省")
+    result=Kmeans(StartYear,EndYear,pretype,econamelist,5,city="云南省")

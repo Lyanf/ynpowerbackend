@@ -147,8 +147,8 @@ def SARIMAIndustry(StartYear,EndYear,PreStartYear,PreEndYear,pretype,city="云�
 
 if __name__ == '__main__':
     pretype="第一产业用电量"
-    StartYear="2008"
-    EndYear="2019"
-    PreStartYear="2020"
-    PreEndYear="2021"
+    StartYear="2012"
+    EndYear="2020"
+    PreStartYear="2021"
+    PreEndYear="2022"
     result=SARIMAIndustry(StartYear,EndYear,PreStartYear,PreEndYear,pretype,city="云南省")

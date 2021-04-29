@@ -18,7 +18,7 @@ from dao.interface import getData
 import json 
 import math
 
-def ExponentTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype = "全社会用电量", city="云南省",planflag=0,plan=0):
+def ExponentTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype = "全社会用电量", city="云南省",planflag=1,plan=1):
 
     
     """指数函数"""
