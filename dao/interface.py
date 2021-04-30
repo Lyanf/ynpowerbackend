@@ -784,7 +784,7 @@ def getAlgorithmArgs(method = None, filename = None):
                         else:
                             temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类")
                     
-                    if row.iloc[i - 1][j].startswith("剔除数据名称列表"):
+                    if row.iloc[i - 1][j].startswith("要剔除的行业名单"):
                         temp["value"] = getDataNameByAreaAndKind(area="云南省", kind="电力电量类-行业")
 
                     if row.iloc[i - 1][j].startswith("预测行业名称"):
