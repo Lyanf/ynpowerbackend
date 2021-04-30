@@ -1714,9 +1714,9 @@ def _parse_limits():
     limits = dict()
     for method_name, args_name, type, min_value, max_value, min_choice, max_choice, depends in data:
         limits.update({
-            (method_name, args_name, type): (min_value, max_value, min_choice, max_choice, depends)
+            (method_name, args_name): (min_value, max_value, min_choice, max_choice, depends)
         })
-        print('set!', (method_name, args_name, type))
+        print('set!', (method_name, args_name))
     return limits
 
 class getAlgorithmArg(Resource):
@@ -1731,7 +1731,7 @@ class getAlgorithmArg(Resource):
         limits = _parse_limits()
         
         for arg in args['para']:
-            chunk = (method_eng_name, arg['key'], arg['kind'])
+            chunk = (method_eng_name, arg['key'])
             if chunk in limits:
                 min_value, max_value, min_choice, max_choice, depends = limits[chunk]
                 arg.update({
@@ -1749,9 +1749,9 @@ class getAlgorithmArg(Resource):
                 })
                 print('not hit!', chunk)
         re = {
-            "msg":"success",
-            "code":200,
-            "data":args
+            "msg": "success",
+            "code": 200,
+            "data": args
         }
         return re
 class testExecuteAlgorithm(Resource):
