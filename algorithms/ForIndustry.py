@@ -54,9 +54,11 @@ def ForIndustry(StartYear,EndYear,PreStartYear,PreEndYear,rejectlsit,proposedata
             
             inddatajson=getData("云南省_year_电力电量类-行业", rejectlsit[i], StartYear, EndYear)
             inddata=json.loads(inddatajson)
-            finaldata.append(inddata)
-            name.append(rejectlsit[i])
             print(inddata)
+            if len(inddata)==0:
+                raise ValueError("%s 中不存在 %s-%s 年的%s 数据"%("电力电量类-行业",StartYear,EndYear,rejectlsit[i]))
+            else:
+                finaldata.append(inddata)
                 name.append(rejectlsit[i])
             
         #获取最终数据DataFrame
