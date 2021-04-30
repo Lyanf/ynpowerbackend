@@ -2,6 +2,7 @@ from flask import Flask, request, render_template
 from flask_cors import CORS
 from flask_restful import Resource, Api
 from pprint import pprint, pformat
+
 from Controller import *
 from utils import methodNameZhToEn
 from math import isnan
@@ -1719,6 +1720,9 @@ def _parse_limits():
         print('set!', (method_name, args_name))
     return limits
 
+def _s_isnan(o):
+    return isinstance(o, float) and isnan(o)
+
 class getAlgorithmArg(Resource):
     def get(self):
         method = request.args["method"]
@@ -1736,11 +1740,11 @@ class getAlgorithmArg(Resource):
                 min_value, max_value, min_choice, max_choice, depends = limits[chunk]
                 arg.update({
                     'limits': {
-                        'min_value': min_value if not isnan(min_value) else None,
-                        'max_value': max_value if not isnan(max_value) else None,
-                        'min_choice': min_choice if not isnan(min_choice) else None,
-                        'max_choice': max_choice if not isnan(max_choice) else None,
-                        'depends': depends if not isnan(depends) else None
+                        'min_value': min_value if not _s_isnan(min_value) else None,
+                        'max_value': max_value if not _s_isnan(max_value) else None,
+                        'min_choice': min_choice if not _s_isnan(min_choice) else None,
+                        'max_choice': max_choice if not _s_isnan(max_choice) else None,
+                        'depends': depends if not _s_isnan(depends) else None
                     }
                 })
             else:
