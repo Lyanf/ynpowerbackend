@@ -1708,11 +1708,11 @@ END
 
 def _parse_limits():
     limits_filename = os.path.join(app.root_path, 'algorithms', 'limits.csv')
-    titles = ['算法名', '参数名', '类型', '最小值', '最大值', '最少选择', '最多选择', '依赖于']
+    titles = ['算法名', '参数名', '最小值', '最大值', '最少选择', '最多选择', '依赖于']
     data = pd.read_csv(limits_filename).values.tolist()
 
     limits = dict()
-    for method_name, args_name, type, min_value, max_value, min_choice, max_choice, depends in data:
+    for method_name, args_name, min_value, max_value, min_choice, max_choice, depends in data:
         limits.update({
             (method_name, args_name): (min_value, max_value, min_choice, max_choice, depends)
         })
