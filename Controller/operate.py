@@ -168,9 +168,9 @@ def regionSinglePredict(args):
         
         print('method is', method)
         if method != '地区组合预测模型' and method != '行业组合预测模型':
-            result = formatPredictResult(result)
+            result = formatPredictResult(result, 0)
         else:
-            result = formatPredictResultMix(result)
+            result = formatPredictResultMix(result, 0)
         return result
     except Exception as e:
         _, _, exception_traceback = sys.exc_info()
@@ -196,7 +196,7 @@ def regionMixPredict(args):
         if tag != None:
             re = insertAlgorithmContent(tag, tagType, content)
 
-        result = formatPredictResult(result)
+        result = formatPredictResult(result, 0)
         print(result)
         return result
     except Exception as e:
@@ -339,7 +339,7 @@ def bigDataPredict(args):
         while prefromyear <= pretoyear:
             temp = {
                 'year': prefromyear.strftime("%Y"),
-                'predict': result['preresult'][i]
+                'predict': round(result['preresult'][i], 0)
             }
             tableTwoData.append(temp)
             i += 1

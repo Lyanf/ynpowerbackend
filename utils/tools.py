@@ -261,7 +261,7 @@ def getAlgorithm(name):
     # print(f)
     return f
 
-def formatPredictResult(result):
+def formatPredictResult(result, digits=2):
     tableTwoData = []
     try:
         prefromyear = timeFormat(result["prefromyear"], "year")
@@ -270,7 +270,7 @@ def formatPredictResult(result):
         while prefromyear <= pretoyear:
             temp={
                 'year': prefromyear.strftime("%Y"),
-                'predict': round(result['preresult'][i],2)
+                'predict': round(result['preresult'][i],digits)
             }
             tableTwoData.append(temp)
             i += 1
@@ -290,7 +290,7 @@ def formatPredictResult(result):
         re = None
     return re
 
-def formatPredictResultMix(result):
+def formatPredictResultMix(result, digits=2):
     tableTwoData = {
         'xData': [],
         'yData': []
@@ -306,7 +306,7 @@ def formatPredictResultMix(result):
         
         for i in range(len(result['name'])):
             tableTwoData['yData'].append({
-                'data': result['preresult'][i],
+                'data': round(result['preresult'][i], digits),
                 'name': result['name'][i]
             })
 
