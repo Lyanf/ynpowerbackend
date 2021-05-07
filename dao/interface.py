@@ -902,6 +902,13 @@ def majorMetaDataToId(major):
     conn.commit()
     return [v[0] for v in result]
 
+def createBrandNewMetadata(major, minor):
+    sql = "insert into brand_new_metadata values ('{}', '{}')".format(major, minor)
+    conn = getConn()
+    cur = conn.cursor()
+    cur.execute(sql)
+    conn.commit()
+
 def renameBrandNewMetadata(major, old_minor, new_minor):
     expected_major_ids = majorMetaDataToId(major)
     metadata_limits = ' or '.join(['metadataid=%d' % i for i in expected_major_ids])

@@ -221,7 +221,14 @@ class GetMetadata(Resource):
 @register('db', 'metadata', 'create')
 class CreateMetadata(Resource):
     def post(self):
-        try_print_json()
+        path, minor_name = request.json['path'], request.json['name']
+        if len(path) != 1:
+            return {
+                "msg": "只能新建二级节点",
+                "code": -1
+            }
+        major_name = path[0]
+        createBrandNewMetadata(major_name, minor_name)
         return {
             "msg": "success",
             "code": 200
