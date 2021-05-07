@@ -53,7 +53,9 @@ class UploadCSV(Resource):
 
         datatype = {'Year': 'S', 'year': 'S','datetime':'S', 'DT':'S'}
         data = pd.read_csv(file, encoding='utf-8', dtype=datatype)
-        # print(data)
+        print('###< upload csv content')
+        print(data)
+        print('upload csv content >###')
         uploadData(data, area, grain, kind)
         re = {
             "message": 'success'
