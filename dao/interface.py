@@ -877,6 +877,41 @@ def getDataNameByAreaAndKind(area = "云南省", kind = "社会经济类"):
         result.append(i[0])
     return result
 
+def getBrandNewMetadata():
+    sql = "select distinct major_category, minor_category from brand_new_metadata"
+    conn = getConn()
+    cur = conn.cursor()
+    cur.execute(sql)
+    result = cur.fetchall()
+    conn.commit()
+
+    result_dict = dict()
+    for major, minor in result:
+        if major in result_dict:
+            result_dict[major].append(minor)
+        else:
+            result_dict[major] = [minor]
+    return result_dict
+
+def majorMetaDataToId(major):
+    sql = "select distinct id from metadata where kind='{}'".format(major)
+    conn = getConn()
+    cur = conn.cursor()
+    cur.execute(sql)
+    result = cur.fetchall()
+    conn.commit()
+    return [v[0] for v in result]
+
+def renameBrandNewMetadata(major, old_minor, new_minor):
+    expected_major_ids = majorMetaDataToId(major)
+    metadata_limits = ' or '.join(['metadataid=%d' % i for i in expected_major_ids])
+    rename_metadata_sql = "update brand_new_metadata set minor_category='{}' where major_category='{}' and minor_category='{}'".format(new_minor, major, old_minor)
+    rename_actual_data_sql = "update electric_data_test set dataname='{}' where dataname='{}' and ({})".format(new_minor, old_minor, metadata_limits)
+    conn = getConn()
+    cur = conn.cursor()
+    cur.execute(rename_metadata_sql)
+    cur.execute(rename_actual_data_sql)
+    conn.commit()
 
 if __name__ == '__main__':
     # conn = psycopg2.connect(dbname="electric", user="postgresadmin", password="admin123", host="192.168.1.108",

@@ -1,7 +1,12 @@
+from os import major
 from flask import Flask, request, render_template
 from flask_cors import CORS
 from flask_restful import Resource, Api
 from pprint import pprint, pformat
+
+from dao.interface import *
+# pprint(majorMetaDataToId("电力电量类"))
+# print(' or '.join(['metadataid=%d' % i for i in majorMetaDataToId("电力电量类")]))
 
 from Controller import *
 from utils import methodNameZhToEn
@@ -217,6 +222,14 @@ class CreateMetadata(Resource):
 class RenameMetadata(Resource):
     def post(self):
         try_print_json()
+        path, new_minor_name = request.json['path'], request.json['name']
+        if len(path) != 2:
+            return {
+                "msg": "只能对二级节点更名",
+                "code": -1
+            } 
+        major_name, old_minor_name = path
+        renameBrandNewMetadata(major_name, old_minor_name, new_minor_name)
         return {
             "msg": "success",
             "code": 200
@@ -1673,6 +1686,15 @@ class PayloadChartsMonthly(Resource):
         #     "code": 200,
         #     "data": payload
         # }
+
+@register('brand', 'new', 'metadata', 'get')
+class GetBrandNewMetadata(Resource):
+    def get(self):
+        return {
+            "msg": "success",
+            "code": 200,
+            "data": getBrandNewMetadata()
+        }
 
 @register('payload', 'charts', 'yearly')
 class PayloadChartsYearly(Resource):
