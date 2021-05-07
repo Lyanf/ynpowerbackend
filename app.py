@@ -1710,25 +1710,14 @@ class PayloadChartsMonthly(Resource):
         #     "data": payload
         # }
 
-# @register('brand', 'new', 'metadata', 'get')
-# class GetBrandNewMetadata(Resource):
-#     def get(self):
-#         metadata = getBrandNewMetadata()
-#         normalized_metadata = []
-#         for name, children in metadata.items():
-#             normalized_metadata.append({
-#                 'value': name,
-#                 'label': name,
-#                 'children': [{
-#                     'value': subname,
-#                     'label': subname
-#                 } for subname in children]
-#             })
-#         return {
-#             "msg": "success",
-#             "code": 200,
-#             "data": normalized_metadata
-#         }
+@register('brand', 'new', 'metadata', 'get')
+class GetBrandNewMetadata(Resource):
+    def get(self):
+        return {
+            "msg": "success",
+            "code": 200,
+            "data": getBrandNewMetadata()
+        }
 
 @register('payload', 'charts', 'yearly')
 class PayloadChartsYearly(Resource):
