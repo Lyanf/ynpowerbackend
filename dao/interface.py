@@ -920,6 +920,17 @@ def renameBrandNewMetadata(major, old_minor, new_minor):
     cur.execute(rename_actual_data_sql)
     conn.commit()
 
+def deleteBrandNewMetadata(major, minor):
+    expected_major_ids = majorMetaDataToId(major)
+    metadata_limits = ' or '.join(['metadataid=%d' % i for i in expected_major_ids])
+    delete_metadata_sql = "delete from brand_new_metadata where major_category='{}' and minor_category='{}'".format(major, minor)
+    delete_actual_data_sql = "delete from electric_data_test where dataname='{}' and ({})".format(minor, metadata_limits)
+    conn = getConn()
+    cur = conn.cursor()
+    cur.execute(delete_metadata_sql)
+    cur.execute(delete_actual_data_sql)
+    conn.commit()
+
 if __name__ == '__main__':
     # conn = psycopg2.connect(dbname="electric", user="postgresadmin", password="admin123", host="192.168.1.108",
     #                         port="32345")

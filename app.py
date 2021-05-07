@@ -254,7 +254,14 @@ class RenameMetadata(Resource):
 @register('db', 'metadata', 'delete')
 class DeleteMetadata(Resource):
     def post(self):
-        try_print_json()
+        path = request.json['path']
+        if len(path) != 2:
+            return {
+                "msg": "只能删除二级节点",
+                "code": -1
+            }
+        major_name, minor_name = path
+        deleteBrandNewMetadata(major_name, minor_name)
         return {
             "msg": "success",
             "code": 200
