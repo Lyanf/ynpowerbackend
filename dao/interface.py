@@ -877,6 +877,21 @@ def getDataNameByAreaAndKind(area = "云南省", kind = "社会经济类"):
         result.append(i[0])
     return result
 
+
+_grain_zh2en_mapper = {
+    '年': 'year',
+    '月': 'month',
+    '日': 'day',
+    '时': 'hour'
+}
+
+_grain_en2zh_mapper = {
+    'year': '年',
+    'month': '月',
+    'day': '日',
+    'hour': '时'
+}
+
 def getBrandNewMetadata():
     sql = "select distinct major_category, minor_category from brand_new_metadata"
     conn = getConn()
