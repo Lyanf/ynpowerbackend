@@ -22,7 +22,7 @@ dbname="electric"
 user="postgres"
 password="admin123"
 host="localhost"
-port="32345"
+port="5432"
 
 class Database():
     # replace the user, password, hostname and database according to your configuration according to your information

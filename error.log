@@ -1,5 +1,115 @@
-[2021-04-29 09:43:19 +0800] [27757] [INFO] Starting gunicorn 20.0.4
-[2021-04-29 09:43:19 +0800] [27757] [INFO] Listening at: http://0.0.0.0:18000 (27757)
-[2021-04-29 09:43:19 +0800] [27757] [INFO] Using worker: sync
-[2021-04-29 09:43:19 +0800] [27760] [INFO] Booting worker with pid: 27760
-[2021-04-29 09:43:19 +0800] [27761] [INFO] Booting worker with pid: 27761
+[2021-05-08 09:48:10 +0800] [18516] [INFO] Starting gunicorn 20.0.4
+[2021-05-08 09:48:10 +0800] [18516] [ERROR] Connection in use: ('', 18000)
+[2021-05-08 09:48:10 +0800] [18516] [ERROR] Retrying in 1 second.
+[2021-05-08 09:48:11 +0800] [18516] [ERROR] Connection in use: ('', 18000)
+[2021-05-08 09:48:11 +0800] [18516] [ERROR] Retrying in 1 second.
+[2021-05-08 09:48:12 +0800] [18516] [ERROR] Connection in use: ('', 18000)
+[2021-05-08 09:48:12 +0800] [18516] [ERROR] Retrying in 1 second.
+[2021-05-08 09:48:13 +0800] [18516] [INFO] Listening at: http://0.0.0.0:18000 (18516)
+[2021-05-08 09:48:13 +0800] [18516] [INFO] Using worker: sync
+[2021-05-08 09:48:13 +0800] [18624] [INFO] Booting worker with pid: 18624
+[2021-05-08 09:48:13 +0800] [18625] [INFO] Booting worker with pid: 18625
+[2021-05-08 09:48:14 +0800] [18625] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/workers/base.py", line 119, in init_process
+    self.load_wsgi()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/workers/base.py", line 144, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/wsgiapp.py", line 49, in load
+    return self.load_wsgiapp()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/wsgiapp.py", line 39, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/util.py", line 358, in import_app
+    mod = importlib.import_module(module)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 11, in <module>
+    from Controller import *
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/__init__.py", line 3, in <module>
+    from .operate import *
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 5, in <module>
+    from algorithms.loadcompute.default import default_jiabi, default_souku, default_f
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadcompute/default.py", line 47, in <module>
+    loadmax, electricity = default_jiabi(file,start,end)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadcompute/default.py", line 33, in default_jiabi
+    load_max = default_value("loadmax",file,start,end)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadcompute/default.py", line 11, in default_value
+    data = algorithm1(key,file,start,end)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadcompute/algorithm.py", line 9, in algorithm1
+    resultJson = getData(file, data, start,end)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 213, in getData
+    metadata = getMetaData(area, kind, grain)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 131, in getMetaData
+    conn = getConn()
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 39, in getConn
+    port=port)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/psycopg2/__init__.py", line 127, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: Connection refused
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 32345?
+
+[2021-05-08 09:48:14 +0800] [18624] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/workers/base.py", line 119, in init_process
+    self.load_wsgi()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/workers/base.py", line 144, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/wsgiapp.py", line 49, in load
+    return self.load_wsgiapp()
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/app/wsgiapp.py", line 39, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/gunicorn/util.py", line 358, in import_app
+    mod = importlib.import_module(module)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/app.py", line 11, in <module>
+    from Controller import *
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/__init__.py", line 3, in <module>
+    from .operate import *
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/Controller/operate.py", line 5, in <module>
+    from algorithms.loadcompute.default import default_jiabi, default_souku, default_f
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadcompute/default.py", line 47, in <module>
+    loadmax, electricity = default_jiabi(file,start,end)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadcompute/default.py", line 33, in default_jiabi
+    load_max = default_value("loadmax",file,start,end)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadcompute/default.py", line 11, in default_value
+    data = algorithm1(key,file,start,end)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/algorithms/loadcompute/algorithm.py", line 9, in algorithm1
+    resultJson = getData(file, data, start,end)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 213, in getData
+    metadata = getMetaData(area, kind, grain)
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 131, in getMetaData
+    conn = getConn()
+  File "/home/dclab/ynpower/newynpower/ynpowerbackend/dao/interface.py", line 39, in getConn
+    port=port)
+  File "/home/dclab/miniconda3/envs/test/lib/python3.7/site-packages/psycopg2/__init__.py", line 127, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: Connection refused
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 32345?
+
+[2021-05-08 09:48:14 +0800] [18625] [INFO] Worker exiting (pid: 18625)
+[2021-05-08 09:48:14 +0800] [18624] [INFO] Worker exiting (pid: 18624)
+[2021-05-08 09:48:44 +0800] [18516] [INFO] Shutting down: Master
+[2021-05-08 09:48:44 +0800] [18516] [INFO] Reason: Worker failed to boot.
