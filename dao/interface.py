@@ -917,9 +917,11 @@ def removeWHLData():
     expected_major_ids = getWHLMetadataId()
     metadata_limits = ' or '.join(['metadataid=%d' % i for i in expected_major_ids])
     delete_actual_data_sql = "delete from electric_data_test where ({})".format(metadata_limits)
+    delete_whl_metadata = "delete from metadata where kind='yunnan'"
     conn = getConn()
     cur = conn.cursor()
     cur.execute(delete_actual_data_sql)
+    cur.execute(delete_whl_metadata)
     conn.commit()
 
 def initDatabase():
