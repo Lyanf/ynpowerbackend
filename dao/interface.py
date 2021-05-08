@@ -892,6 +892,50 @@ _grain_en2zh_mapper = {
     'hour': '时'
 }
 
+
+def getWHLMetadataId(major):
+    sql = "select distinct id from metadata where kind='yunnan'"
+    conn = getConn()
+    cur = conn.cursor()
+    cur.execute(sql)
+    result = cur.fetchall()
+    conn.commit()
+    return [v[0] for v in result]
+
+
+def removeAllData():
+    sql1 = "delete from electric_data_test"
+    sql2 = "delete from metadata"
+    conn = getConn()
+    cur = conn.cursor()
+    cur.execute(sql1)
+    cur.execute(sql2)
+    result = cur.fetchall()
+    conn.commit()
+
+def removeWHLData():
+    expected_major_ids = getWHLMetadataId()
+    metadata_limits = ' or '.join(['metadataid=%d' % i for i in expected_major_ids])
+    delete_actual_data_sql = "delete from electric_data_test where ({})".format(metadata_limits)
+    delete_whl_metadata = "delete from metadata where kind='yunnan'"
+    conn = getConn()
+    cur = conn.cursor()
+    cur.execute(delete_actual_data_sql)
+    cur.execute(delete_whl_metadata)
+    conn.commit()
+
+def initDatabase():
+    sql1 = "delete from electric_data_test"
+    sql2 = "delete from metadata"
+    sql3 = "delete from brand_new_metadata"
+    conn = getConn()
+    cur = conn.cursor()
+    cur.execute(sql1)
+    cur.execute(sql2)
+    cur.execute(sql3)
+    result = cur.fetchall()
+    conn.commit()
+
 def getBrandNewMetadata():
     sql = "select distinct major_category, minor_category from brand_new_metadata"
     conn = getConn()
@@ -906,6 +950,10 @@ def getBrandNewMetadata():
             result_dict[major].append(minor)
         else:
             result_dict[major] = [minor]
+
+    for critical_major in ['电力电量类', '电力电量类-行业', '社会经济类']:
+        if not critical_major in result_dict:
+            result_dict[critical_major] = []
     return result_dict
 
 def majorMetaDataToId(major):

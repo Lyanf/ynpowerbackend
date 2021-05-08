@@ -1747,6 +1747,32 @@ class PayloadChartsYearly(Resource):
         }
         return re
 
+@register('danger', 'remove', 'all', 'data')
+class RemoveAllData(Resource):
+    def post(self):
+        removeAllData()
+        re = {
+            "msg": "success",
+            "code": 200
+        }
+
+@register('danger', 'remove', 'whl', 'data')
+class RemoveWenHonglinData(Resource):
+    def post(self):
+        removeWHLData()
+        re = {
+            "msg": "success",
+            "code": 200
+        }
+
+@register('danger', 'init', 'db')
+class InitializeDatabase(Resource):
+    def post(self):
+        initDatabase()
+        re = {
+            "msg": "success",
+            "code": 200
+        }
 
 """
 fore-end related http apis
@@ -1836,7 +1862,6 @@ class getDefaultOfLoadPre(Resource):
             "code": 200,
             "data": result
         }
-
 
 
 api.add_resource(UploadCSV, "/api/db/upload")

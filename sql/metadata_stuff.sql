@@ -1,12 +1,3 @@
-create table brand_new_metadata
-(
-    major_category text,
-    minor_category text
-);
-
-alter table brand_new_metadata
-    owner to postgres;
-
 INSERT INTO brand_new_metadata (major_category, minor_category) VALUES ('电力电量类', '剔除大用户的社会用电量');
 INSERT INTO brand_new_metadata (major_category, minor_category) VALUES ('电力电量类', '全社会用电量');
 INSERT INTO brand_new_metadata (major_category, minor_category) VALUES ('电力电量类', '年最大负荷');
