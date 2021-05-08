@@ -8,5 +8,5 @@ create table person
 alter table person
     owner to postgres;
 
-INSERT INTO public.person (id, username, password) VALUES (1, 'admin', 'admin');
-INSERT INTO public.person (id, username, password) VALUES (2, 'test', 'test');
+INSERT INTO person (id, username, password) VALUES (1, 'admin', 'admin');
+INSERT INTO person (id, username, password) VALUES (2, 'test', 'test');
