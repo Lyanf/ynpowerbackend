@@ -21,7 +21,7 @@ defaultFile = os.path.join(os.getcwd(), os.path.dirname(os.path.dirname(__file__
 dbname="electric"
 user="postgres"
 password="admin123"
-host="dclab.club"
+host="localhost"
 port="32345"
 
 class Database():
