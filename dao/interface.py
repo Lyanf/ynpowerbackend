@@ -1063,14 +1063,22 @@ def validateIndustry(args, start, end):
                 raise TypeError('econame list type should be str or list, not', str(type(v)))
     act_start, act_end = range
     if act_start > act_end:
-        raise ValueError("输入的年份范围（%d～%d）超过了限制，请尝试更换参数组合。" % (start, end))
+        raise ValueError("选择的参数组合没有公共数据，请尝试更换参数组合。")
     if start < act_start or end > act_end:
         raise ValueError("输入的年份范围（%d～%d）超过了限制，合法范围是 %d～%d。" % (start, end, act_start, act_end))
 
 def validateForIndustry(args):
-    propose_data = pd.read_csv(args["proposedata"])
-    args["proposedata"].seek(0)
-    pd_years = [int(v[0]) for v in propose_data.values]
+    range = (float('-inf'), float('+inf'))
+    for arg in args['rejectlsit']:
+        range = _intersection(range, getDataRange('电力电量类-行业', arg, '云南省', '年'))
+    
+    start, end = args['StartYear'], args['EndYear']
+    act_start, act_end = range
+    if act_start > act_end:
+        raise ValueError("选择的参数组合没有公共数据，请尝试更换参数组合。")
+    if start < act_start or end > act_end:
+        raise ValueError("输入的年份范围（%d～%d）超过了限制，合法范围是 %d～%d。" % (start, end, act_start, act_end))
+
 
 def validateLDM(args):
     building_area = pd.read_csv(args["buildingarea"])
