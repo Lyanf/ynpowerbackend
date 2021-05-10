@@ -1950,14 +1950,25 @@ class addData(Resource):
 
 class getDefaultOfLoadPre(Resource):
     def get(self):
-        start = request.args["start"]
-        end = request.args["end"]
-        result = getDefault(start, end)
-        return {
-            "msg":"success",
-            "code": 200,
-            "data": result
-        }
+        try:
+            start = request.args["start"]
+            end = request.args["end"]
+            result = getDefault(start, end)
+            return {
+                "msg":"success",
+                "code": 200,
+                "data": result
+            }
+        except DataRangeError as e:
+            return {
+                "msg": str(e),
+                "code": -1
+            }
+        except Exception as e:
+            return {
+                "msg": "算法错误：" + str(e),
+                "code": -1
+            }
 
 
 api.add_resource(UploadCSV, "/api/db/upload")
