@@ -1,9 +1,0 @@
-[2021-05-10 16:46:34 +0800] [26161] [INFO] Starting gunicorn 20.0.4
-[2021-05-10 16:46:34 +0800] [26161] [INFO] Listening at: http://0.0.0.0:18000 (26161)
-[2021-05-10 16:46:34 +0800] [26161] [INFO] Using worker: sync
-[2021-05-10 16:46:34 +0800] [26164] [INFO] Booting worker with pid: 26164
-[2021-05-10 16:46:34 +0800] [26165] [INFO] Booting worker with pid: 26165
-[2021-05-10 16:46:39 +0800] [26165] [INFO] Worker exiting (pid: 26165)
-[2021-05-10 16:46:39 +0800] [26164] [INFO] Worker exiting (pid: 26164)
-[2021-05-10 16:46:39 +0800] [26161] [INFO] Handling signal: term
-[2021-05-10 16:46:39 +0800] [26161] [INFO] Shutting down: Master
