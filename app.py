@@ -112,6 +112,9 @@ class getAlgorithmResult(Resource):
         }
         return json.dumps(re, allow_nan=False)
 
+class DataRangeError(Exception):
+    ...
+
 class GetDataJson(Resource):
     def post(self):
         dataName = request.json['dataName']
@@ -120,22 +123,29 @@ class GetDataJson(Resource):
         grain = request.json['grain'].strip()
         area = request.json['area'].strip()
         kind = request.json['kind'].strip()
-        re = getDatas(area + "_" + grain + "_" + kind, dataName, startTime, endTime)
 
-        # re = dao.getDataTest(area + "_" + grain + "_" + kind, dataName, startTime, endTime)
-        return re
+        try:
+            re = getDatas(area + "_" + grain + "_" + kind, dataName, startTime, endTime)
+
+            # re = dao.getDataTest(area + "_" + grain + "_" + kind, dataName, startTime, endTime)
+            return re
+        except:
+            raise DataRangeError("「%s」→「%s」下没有对应年份 %s 到 %s 的数据。" % (kind, dataName, startTime, endTime))
 
     def get(self):
         dataName = request.args.get('dataName')
         startTime = request.args.get('startTime')
         endTime = request.args.get('endTime')
         location = request.args.get('location')
-        data = getDatas(location, dataName, startTime, endTime)
-        re = {
-            "data": data,
-            "status": '200'
-        }
-        return re
+        try:
+            data = getDatas(location, dataName, startTime, endTime)
+            re = {
+                "data": data,
+                "status": '200'
+            }
+            return re
+        except:
+            raise DataRangeError("「%s」下没有对应年份 %s 到 %s 的数据。" % (dataName, startTime, endTime))
 
 class TestAlgorithm(Resource):
     def post(self):
@@ -1042,161 +1052,155 @@ class MonthlyPayloadTraits(Resource):
 class YearlyPayloadTraits(Resource):
     def get(self):
         # try_print_args()
-        result = yearlyPayloadTraits(request.args)
 
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": result
-        }
-        # payload = [
-        #         {
-        #             'year
-        #             ': '%d 年' % (2010 + i),
-        #             'yearMaxPayload': randint(10000, 1000000),
-        #             'yearAverageDailyPayloadRate': random() * 500,
-        #             'seasonImbaRate': random() * 500,
-        #             'yearMaxPeekValleyDiff': random() * 500,
-        #             'yearMaxPeekValleyDiffRate': random() * 500,
-        #             'yearMaxPayloadUsageHours': 20
-        #         } for i in range(1, 13)
-        #     ]
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+        try:
+            result = yearlyPayloadTraits(request.args)
+
+            return {
+                "msg": "success",
+                "code": 200,
+                "data": result
+            }
+        except DataRangeError as e:
+            return {
+                "msg": str(e),
+                "code": -1
+            }
+        except Exception as e:
+            return {
+                "msg": "算法错误：" + str(e),
+                "code": -1
+            }
 
 @register('payload', 'predict', 'dbquery')
 class SokuPayloadPredict(Resource):
     def post(self):
-        # try_print_json()
-        result = sokuPayloadPredict(request.json)
-        payload = {
-            'xName': '小时',
-            'xData': list(range(0, 24)),
-            'yName': '单位：MW',
-            'yData': [
-                {
-                    'tag': '预测负荷',
-                    'data': [int(v) for v in result["result"]]
-                }
-            ]
-        }
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": payload
-        }
-        # payload = [
-        #         {
-        #             'time': '%d:%d' % (randint(10, 20), randint(10, 50)),
-        #             'actualPayload': randint(10000, 1000000),
-        #             'predictPayload': randint(10000, 1000000)
-        #         } for _ in range(1, 13)
-        #     ]
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+        try:
+            result = sokuPayloadPredict(request.json)
+            payload = {
+                'xName': '小时',
+                'xData': list(range(0, 24)),
+                'yName': '单位：MW',
+                'yData': [
+                    {
+                        'tag': '预测负荷',
+                        'data': [int(v) for v in result["result"]]
+                    }
+                ]
+            }
+            return {
+                "msg": "success",
+                "code": 200,
+                "data": payload
+            }
+        except DataRangeError as e:
+            return {
+                "msg": str(e),
+                "code": -1
+            }
+        except Exception as e:
+            return {
+                "msg": "算法错误：" + str(e),
+                "code": -1
+            }
 
 @register('payload', 'predict', 'clamping')
 class ClampingPayloadPredict(Resource):
     def post(self):
-        # try_print_json()
-        result = clampingPayloadPredict(request.json)
-        print(result)
-        payload = {
-            'xName': '小时',
-            'xData': list(range(0, 24)),
-            'yName': '单位：MW',
-            'yData': [
-                {
-                    'tag': '预测负荷',
-                    'data': [int(v) for v in result["result"]]
-                }
-            ]
-        }
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": payload
-        }
-
-
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+        try:
+            result = clampingPayloadPredict(request.json)
+            print(result)
+            payload = {
+                'xName': '小时',
+                'xData': list(range(0, 24)),
+                'yName': '单位：MW',
+                'yData': [
+                    {
+                        'tag': '预测负荷',
+                        'data': [int(v) for v in result["result"]]
+                    }
+                ]
+            }
+            return {
+                "msg": "success",
+                "code": 200,
+                "data": payload
+            }
+        except DataRangeError as e:
+            return {
+                "msg": str(e),
+                "code": -1
+            }
+        except Exception as e:
+            return {
+                "msg": "算法错误：" + str(e),
+                "code": -1
+            }
 
 @register('payload', 'predict', 'interp')
 class InterpolatingPayloadPredict(Resource):
     def post(self):
-        # try_print_json()
-        result = interpolatingPayloadPredict(request.json)
-        payload = {
-            'xName': "小时",
-            'xData': list(range(0, 24)),
-            'yName': '单位：MW',
-            'yData': [
-                {
-                    'tag': '预测负荷',
-                    'data': [int(v) for v in result["result"]]
-                }
-            ]
-        }
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": payload
-        }
-
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+        try:
+            result = interpolatingPayloadPredict(request.json)
+            payload = {
+                'xName': "小时",
+                'xData': list(range(0, 24)),
+                'yName': '单位：MW',
+                'yData': [
+                    {
+                        'tag': '预测负荷',
+                        'data': [int(v) for v in result["result"]]
+                    }
+                ]
+            }
+            return {
+                "msg": "success",
+                "code": 200,
+                "data": payload
+            }
+        except DataRangeError as e:
+            return {
+                "msg": str(e),
+                "code": -1
+            }
+        except Exception as e:
+            return {
+                "msg": "算法错误：" + str(e),
+                "code": -1
+            }
 
 @register('payload', 'predict', 'yearly')
 class YearlyContinuousPayloadPredict(Resource):
     def post(self):
-        # try_print_json()
-        result = yearlyContinuousPayloadPredict(request.json)
-        length = len(result['result'])
-        payload = {
-            'xName': "小时数",
-            'xData': list(range(0, length)),
-            'yName': '单位：MW',
-            'yData': [
-                {
-                    'tag': '预测负荷',
-                    'data': [int(v) for v in sorted(result["result"], reverse=True)]
-                }
-            ]
-        }
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": payload
-        }
-        # payload = [
-        #         {
-        #             'time': '%d:%d' % (randint(10, 20), randint(10, 50)),
-        #             'payload': randint(10000, 1000000)
-        #         } for _ in range(1, 13)
-        #     ]
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+        try:
+            result = yearlyContinuousPayloadPredict(request.json)
+            length = len(result['result'])
+            payload = {
+                'xName': "小时数",
+                'xData': list(range(0, length)),
+                'yName': '单位：MW',
+                'yData': [
+                    {
+                        'tag': '预测负荷',
+                        'data': [int(v) for v in sorted(result["result"], reverse=True)]
+                    }
+                ]
+            }
+            return {
+                "msg": "success",
+                "code": 200,
+                "data": payload
+            }
+        except DataRangeError as e:
+            return {
+                "msg": str(e),
+                "code": -1
+            }
+        except Exception as e:
+            return {
+                "msg": "算法错误：" + str(e),
+                "code": -1
+            }
 
 @register('params', 'mining')
 class DataMiningParameters(Resource):
@@ -1715,70 +1719,80 @@ class PayloadChartsDaily(Resource):
 @register('payload', 'charts', 'daily', 'typical')
 class PayloadChartsDailyTypical(Resource):
     def get(self):
-        # try_print_args()
-        year = request.args['year']
-        period = request.args['period']  # 丰水期、汛前枯期、汛后枯期
-        category = request.args['category'] # 最大负荷、最小负荷、中位负荷
-        if period == "丰水期":
-            periodnum = 1
-        elif period == "汛前枯期":
-            periodnum = 0
-        else:
-            periodnum = 2
-        result = DailyTypicalOp(year,periodnum,category)
-        payload = {
-            'xName': '小时',
-            'xData': list(range(0, 24)),
-            'yName': '单位：MW',
-            'yData': [
-                {
-                    'tag': '典型负荷',
-                    'data': result["re"]
-                }
-            ]
-        }
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": payload
-        }
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+        try:
+            year = request.args['year']
+            period = request.args['period']  # 丰水期、汛前枯期、汛后枯期
+            category = request.args['category'] # 最大负荷、最小负荷、中位负荷
+            if period == "丰水期":
+                periodnum = 1
+            elif period == "汛前枯期":
+                periodnum = 0
+            else:
+                periodnum = 2
+            result = DailyTypicalOp(year,periodnum,category)
+            payload = {
+                'xName': '小时',
+                'xData': list(range(0, 24)),
+                'yName': '单位：MW',
+                'yData': [
+                    {
+                        'tag': '典型负荷',
+                        'data': result["re"]
+                    }
+                ]
+            }
+            re = {
+                "msg": "success",
+                "code": 200,
+                "data": payload
+            }
+            return re
+        except DataRangeError as e:
+            return {
+                "msg": str(e),
+                "code": -1
+            }
+        except Exception as e:
+            return {
+                "msg": "算法错误：" + str(e),
+                "code": -1
+            }
 
 @register('payload', 'charts', 'monthly')
 class PayloadChartsMonthly(Resource):
     def get(self):
-        # try_print_args()
-        year = request.args['year']
-        category = request.args['category']
-        result = ChartMonthlyOp(year, category)
-        payload = {
-                'xName': '月份',
-                'xData': list(range(1, 13)),
-                'yName': '单位：MW',
-                'yData': [
-                    {
-                        'tag': category,
-                        'data': result
-                    }
-                ]
+        try:
+            year = request.args['year']
+            category = request.args['category']
+            result = ChartMonthlyOp(year, category)
+            payload = {
+                    'xName': '月份',
+                    'xData': list(range(1, 13)),
+                    'yName': '单位：MW',
+                    'yData': [
+                        {
+                            'tag': category,
+                            'data': result
+                        }
+                    ]
+                }
+            re = {
+                "msg": "success",
+                "code": 200,
+                "data": payload
             }
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": payload
-        }
 
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+            return re
+        except DataRangeError as e:
+            return {
+                "msg": str(e),
+                "code": -1
+            }
+        except Exception as e:
+            return {
+                "msg": "算法错误：" + str(e),
+                "code": -1
+            }
 
 @register('brand', 'new', 'metadata', 'get')
 class GetBrandNewMetadata(Resource):
@@ -1792,29 +1806,39 @@ class GetBrandNewMetadata(Resource):
 @register('payload', 'charts', 'yearly')
 class PayloadChartsYearly(Resource):
     def get(self):
-        # try_print_args()
-        result = payloadChartsYearly(request.args)
+        try:
+            result = payloadChartsYearly(request.args)
 
-        begin_year = request.args['beginYear']
-        end_year = request.args['endYear']
+            begin_year = request.args['beginYear']
+            end_year = request.args['endYear']
 
-        payload = {
-            'xName': '年份',
-            'xData': list(range(int(begin_year), int(end_year) + 1)),
-            'yName': '单位：MW',
-            'yData': [
-                {
-                    'tag': '负荷',
-                    'data': result
-                }
-            ]
-        }
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": payload
-        }
-        return re
+            payload = {
+                'xName': '年份',
+                'xData': list(range(int(begin_year), int(end_year) + 1)),
+                'yName': '单位：MW',
+                'yData': [
+                    {
+                        'tag': '负荷',
+                        'data': result
+                    }
+                ]
+            }
+            re = {
+                "msg": "success",
+                "code": 200,
+                "data": payload
+            }
+            return re
+        except DataRangeError as e:
+            return {
+                "msg": str(e),
+                "code": -1
+            }
+        except Exception as e:
+            return {
+                "msg": "算法错误：" + str(e),
+                "code": -1
+            }
 
 @register('danger', 'remove', 'all', 'data')
 class RemoveAllData(Resource):
