@@ -1067,11 +1067,29 @@ def validateIndustry(args, start, end):
     if start < act_start or end > act_end:
         raise ValueError("输入的年份范围（%d～%d）超过了限制，合法范围是 %d～%d。" % (start, end, act_start, act_end))
 
-def validateLDM(args):
+def validateForIndustry(args):
     range = (float('-inf'), float('+inf'))
 
-def validateForIndustry(args):
-    ...
+def validateLDM(args):
+    building_area = pd.read_csv(args["buildingarea"])
+    args["buildingarea"].seek(0)
+
+    load_density = pd.read_csv(args["loaddensity"])
+    args["loaddensity"].seek(0)
+
+    ba_years = [int(v[0]) for v in building_area.values]
+    ld_years = [int(v[0]) for v in load_density.values]
+
+    if ba_years != ld_years:
+        raise ValueError('「建筑用地数据列表」和「建筑用地对应负荷密度列表」的年份不一致。')
+    
+    f_start, f_end = min(ba_years), max(ld_years)
+
+    start, end = getDataRange('电力电量类', args['pretype*'], args['city*'], '年')
+
+    if f_start < start or f_end > end:
+        raise ValueError('上传文件的年份范围（%d～%d）超过了数据库中的年份范围（%d～%d）。' % (f_start, f_end, start, end))
+
 
 def getDataRange(major_category: str, minor_category: str, region: str, grain: str) -> tuple:
     conn = getConn()

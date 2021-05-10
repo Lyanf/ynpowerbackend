@@ -795,8 +795,7 @@ class RegionSinglePredict(Resource):
         except Exception as e:
             return {
                 "msg": '%s' % repr(e),
-                "code": -1,
-                "data": None
+                "code": -1
             }
         re = regionSinglePredict(full_params)
         return _handle_response(re)
@@ -827,8 +826,7 @@ class IndustrySinglePredict(Resource):
         except Exception as e:
             return {
                 "msg": '%s' % repr(e),
-                "code": -1,
-                "data": None
+                "code": -1
             }
         re = industrySinglePredict(request.json)
         return _handle_response(re)
@@ -862,10 +860,16 @@ class PayloadDensityPredict(Resource):
         args = {}
         args["buildingarea"] = request.files["buildingarea"]
         args["loaddensity"] = request.files["loaddensity"]
-        # args["PreEndYear"] = request.form["PreEndYear"]
-        # args["PreStartYear"] = request.form["PreStartYear"]
         arg = {**args, **request.form}
 
+        try:
+            validateLDM(arg)
+        except Exception as e:
+            return {
+                "msg": '%s' % repr(e),
+                "code": -1
+            }
+        
         re = payloadDensityPredict(arg)
         return _handle_response(re)
 
