@@ -39,12 +39,13 @@ def default_f(file,start,end):
 	electricity = default_value("electricity",file,start,end)
 	return load_max, electricity
 
-start = "2013"
-end = "2018"
-# 3个页面均采用文件名为souku结尾的即可
-file = "yunnan_year_fengshui-souku-max"
+if __name__ == '__main__':
+	start = "2013"
+	end = "2018"
+	# 3个页面均采用文件名为souku结尾的即可
+	file = "yunnan_year_fengshui-souku-max"
 
-loadmax, electricity = default_jiabi(file,start,end)
-loadmax, electricity = default_f(file,start,end)
-load_max, electricity, gamma, beta = default_souku(file,start,end)
-print(load_max, electricity, gamma, beta)
+	loadmax, electricity = default_jiabi(file,start,end)
+	loadmax, electricity = default_f(file,start,end)
+	load_max, electricity, gamma, beta = default_souku(file,start,end)
+	print(load_max, electricity, gamma, beta)
