@@ -893,7 +893,7 @@ _grain_en2zh_mapper = {
 }
 
 
-def getWHLMetadataId(major):
+def getWHLMetadataId():
     sql = "select distinct id from metadata where kind='yunnan'"
     conn = getConn()
     cur = conn.cursor()
