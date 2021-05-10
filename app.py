@@ -77,6 +77,10 @@ class UploadCSVAndAutoCreate(Resource):
         print(data)
         print('upload csv content >###')
         uploadData(data, area, grain, kind)
+
+        for minor in list(data.columns.values)[1:]:
+            createBrandNewMetadata(kind, minor)
+            
         re = {
             "message": 'success'
         }
