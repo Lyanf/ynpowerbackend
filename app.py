@@ -799,7 +799,10 @@ class RegionSinglePredict(Resource):
             })
 
         try:
-            validateRegion(full_params, full_params['StartYear'], full_params['EndYear'])
+            if request['method'] == 'LDM':
+                validateLDM(full_params)
+            else:
+                validateRegion(full_params, full_params['StartYear'], full_params['EndYear'])
         except Exception as e:
             print(e)
             return {
