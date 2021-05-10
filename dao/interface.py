@@ -1119,6 +1119,7 @@ def getDataRange(major_category: str, minor_category: str, region: str, grain: s
         raise ValueError("「%s」→「%s」下没有%s%s粒度的数据。" % (major_category, minor_category, region, grain_en2zh_mapper(grain)))
     
     min_year, max_year = min(years), max(years)
+    print("finally, min max =", min_year, max_year)
     return (min_year, max_year)
     
 if __name__ == '__main__':
