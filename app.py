@@ -4,6 +4,13 @@ from flask_restful import Resource, Api
 from pprint import pprint, pformat
 
 from dao.interface import *
+
+# validateLDM({
+#     'buildingarea': open('./algorithms/yunnan_building.csv'),
+#     'loaddensity': open('./algorithms/yunnan_loaddensity.csv'),
+#     'pretype*': '全社会用电量',
+#     'city*': '云南省'
+# })
 # pprint(majorMetaDataToId("电力电量类"))
 # print(' or '.join(['metadataid=%d' % i for i in majorMetaDataToId("电力电量类")]))
 
@@ -872,7 +879,7 @@ class PayloadDensityPredict(Resource):
                 "msg": '%s' % repr(e),
                 "code": -1
             }
-        
+        print('ldm check passed')
         re = payloadDensityPredict(arg)
         print(re)
         return _handle_response(re)
