@@ -61,6 +61,27 @@ class UploadCSV(Resource):
         }
         return re
 
+
+class UploadCSVAndAutoCreate(Resource):
+    def post(self):
+        file = request.files['file']
+        print(file.filename.split('.')[0])
+        l = file.filename.split('.')[0].split('_')
+        area = l[0]
+        grain = l[1]
+        kind = l[2]
+
+        datatype = {'Year': 'S', 'year': 'S','datetime':'S', 'DT':'S'}
+        data = pd.read_csv(file, encoding='utf-8', dtype=datatype)
+        print('###< upload csv content')
+        print(data)
+        print('upload csv content >###')
+        uploadData(data, area, grain, kind)
+        re = {
+            "message": 'success'
+        }
+        return re
+
 class insertAlgorithmResult(Resource):
     def post(self):
         content = request.json['result']
@@ -1868,6 +1889,7 @@ class getDefaultOfLoadPre(Resource):
 
 
 api.add_resource(UploadCSV, "/api/db/upload")
+api.add_resource(UploadCSVAndAutoCreate, "/api/db/upload/autocreate")
 api.add_resource(GetDataJson, '/getDataJson')
 api.add_resource(TestAlgorithm, "/interface")
 api.add_resource(insertAlgorithmResult, "/api/insert/result")
