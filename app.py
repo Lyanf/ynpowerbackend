@@ -868,13 +868,13 @@ class PayloadDensityPredict(Resource):
         try:
             validateLDM(arg)
         except Exception as e:
-            raise
             return {
                 "msg": '%s' % repr(e),
                 "code": -1
             }
         
         re = payloadDensityPredict(arg)
+        print(re)
         return _handle_response(re)
 
 _files = []
