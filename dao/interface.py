@@ -917,7 +917,6 @@ def removeAllData():
     print(" <<< removeAllData executes sql")
     cur.execute(sql1)
     cur.execute(sql2)
-    result = cur.fetchall()
     conn.commit()
 
 def removeWHLData():
@@ -952,7 +951,6 @@ def initDatabase():
     cur.execute(sql1)
     cur.execute(sql2)
     cur.execute(sql3)
-    result = cur.fetchall()
     conn.commit()
 
 def getBrandNewMetadata():
