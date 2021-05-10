@@ -3,50 +3,54 @@ from .algorithm import y_character, typical_day, y_load, y_load_cons, multi_y_ch
 from .day import d_character, day_plot, multi_d_character
 from .month import m_character, multi_m_character
 
-#年负荷特性
-def yearfeature(start, end, datasource="yunnan_day_电力电量类"):
-    result = multi_y_character(datasource, start, end)
-    print(result)
-    re = []
-    for i in range(len(result[0])):
-        temp = {
-            'year': result[0][i],
-            'yearMaxPayload': int(result[1][i][0]),
-            'yearMinPayload': int(result[1][i][1]),
-            'yearAveragePayload': int(result[1][i][2]),  # ,
-            'yearMaxPeekValleyDiff': round(result[1][i][3],3),  # ,
-            'yearRate': round(result[1][i][4],3),  # ,
-            'seasonImbaRate': round(result[1][i][5],3),  # ,
-            'monthImbaRate': round(result[1][i][6],3),  #
-        }
-        re.append(temp)
-    return re
-    # max_l,min_l,mean_l,max_p2v,y_ratio, s_unbalance, m_unbalance = y_character(datasource, start, end)
-    # result = {
-    #     'yearMaxPayload': max_l,
-    #     'yearMinPayload': min_l,
-    #     'yearAverageDailyPayloadRate': mean_l,
-    #     'seasonImbaRate': s_unbalance,
-    #     'monthImbaRate': m_unbalance,
-    #     'yearMaxPeekValleyDiff': max_p2v,
-    #     'yearRate': y_ratio
-    # }
-    # return result
-#典型日
-def typicalDay(start, end, season, datasource="yunnan_day_电力电量类"):
-    return typical_day(datasource, start, end, season)
-#年负荷曲线
-def yearLoad(start, end, datasource="yunnan_day_电力电量类"):
-    result = y_load(datasource, start, end)
-    return result
-#年持续负荷曲线
-def yearLoadCon(start, end, datasource="yunnan_day_电力电量类"):
-    result = y_load_cons(datasource, start, end)
-    return result
-
 
 class DataRangeError(Exception):
     ...
+
+#年负荷特性
+def yearfeature(start, end, datasource="yunnan_day_电力电量类"):
+    try:
+        result = multi_y_character(datasource, start, end)
+        print(result)
+        re = []
+        for i in range(len(result[0])):
+            temp = {
+                'year': result[0][i],
+                'yearMaxPayload': int(result[1][i][0]),
+                'yearMinPayload': int(result[1][i][1]),
+                'yearAveragePayload': int(result[1][i][2]),  # ,
+                'yearMaxPeekValleyDiff': round(result[1][i][3],3),  # ,
+                'yearRate': round(result[1][i][4],3),  # ,
+                'seasonImbaRate': round(result[1][i][5],3),  # ,
+                'monthImbaRate': round(result[1][i][6],3),  #
+            }
+            re.append(temp)
+        return re
+    except:
+        raise DataRangeError("「%s」下没有 %s 到 %s 时期的数据。" % (datasource, start, end))
+#典型日
+def typicalDay(start, end, season, datasource="yunnan_day_电力电量类"):
+    try:
+        return typical_day(datasource, start, end, season)
+    except:
+        raise DataRangeError("「%s」下没有 %s 到 %s 时期的数据。" % (datasource, start, end))
+
+#年负荷曲线
+def yearLoad(start, end, datasource="yunnan_day_电力电量类"):
+    try:
+        result = y_load(datasource, start, end)
+        return result
+    except:
+        raise DataRangeError("「%s」下没有 %s 到 %s 时期的数据。" % (datasource, start, end))
+
+#年持续负荷曲线
+def yearLoadCon(start, end, datasource="yunnan_day_电力电量类"):
+    try:
+        result = y_load_cons(datasource, start, end)
+        return result
+    except:
+        raise DataRangeError("「%s」下没有 %s 到 %s 时期的数据。" % (datasource, start, end))
+
 
 #日负荷特征
 def dayFeature(start, end, datasource="yunnan_day_电力电量类"):
@@ -68,34 +72,31 @@ def dayFeature(start, end, datasource="yunnan_day_电力电量类"):
             re.append(temp)
         return sorted(re, key=lambda x: tuple(x['day'].split('/')))
     except:
-        raise DataRangeError("「%s」下没有对应年份 %s 到 %s 的数据。" % (datasource, start, end))
+        raise DataRangeError("「%s」下没有 %s 到 %s 时期的数据。" % (datasource, start, end))
 #日负荷曲线
 def dayLoad(start, end, datasource="yunnan_day_电力电量类"):
-    result = day_plot(datasource, start, end)
-    return result.tolist()
+    try:
+        result = day_plot(datasource, start, end)
+        return result.tolist()
+    except:
+        raise DataRangeError("「%s」下没有 %s 到 %s 时期的数据。" % (datasource, start, end))
 
 #月负荷特性
 def monthFeature(start, end, datasource="yunnan_day_电力电量类"):
-    result = multi_m_character(datasource, start, end)
-    re = []
-    for i in range(len(result[0])):
-        temp = {
-            'month': str(result[0][i][0]) + "/" +str(result[0][i][1]),
-            'monthAverageDailyPayload': int(result[1][i][0]),
-            'monthMaxPeekValleyDiff': int(result[1][i][1]),
-            'monthAverageDailyPayloadRate': round(result[1][i][2],3),
-            'monthMinPayloadRate': round(result[1][i][3],3),
-            'monthMaxPeekValleyDiffRate': round(result[1][i][4],3),
-        }
-        re.append(temp)
-    return re
-    # m_mean, m_peak, m_r_mean, m_min_r, m_peak_r = m_character(datasource, start, end)
-    # result = {
-    #     'monthAverageDailyPayload': m_mean,
-    #     'monthMaxPeekValleyDiff': m_peak,
-    #     'monthAverageDailyPayloadRate': m_r_mean,
-    #     'monthMinPayloadRate': m_min_r,
-    #     'monthMaxPeekValleyDiffRate': m_peak_r
-    # }
-    # return result
+    try:
+        result = multi_m_character(datasource, start, end)
+        re = []
+        for i in range(len(result[0])):
+            temp = {
+                'month': str(result[0][i][0]) + "/" +str(result[0][i][1]),
+                'monthAverageDailyPayload': int(result[1][i][0]),
+                'monthMaxPeekValleyDiff': int(result[1][i][1]),
+                'monthAverageDailyPayloadRate': round(result[1][i][2],3),
+                'monthMinPayloadRate': round(result[1][i][3],3),
+                'monthMaxPeekValleyDiffRate': round(result[1][i][4],3),
+            }
+            re.append(temp)
+        return re
+    except:
+        raise DataRangeError("「%s」下没有 %s 到 %s 时期的数据。" % (datasource, start, end))
 
