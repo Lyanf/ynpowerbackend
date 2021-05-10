@@ -1787,6 +1787,7 @@ class RemoveAllData(Resource):
             "msg": "success",
             "code": 200
         }
+        return re
 
 @register('danger', 'remove', 'whl', 'data')
 class RemoveWenHonglinData(Resource):
@@ -1796,6 +1797,7 @@ class RemoveWenHonglinData(Resource):
             "msg": "success",
             "code": 200
         }
+        return re
 
 @register('danger', 'init', 'db')
 class InitializeDatabase(Resource):
@@ -1805,6 +1807,7 @@ class InitializeDatabase(Resource):
             "msg": "success",
             "code": 200
         }
+        return re
 
 """
 fore-end related http apis
