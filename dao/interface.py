@@ -152,7 +152,7 @@ def insertMetadata(area, kind, grain):
     if len(re) > 0:
         return True
     else:
-        sql = "INSERT IGNORE INTO metadata(area, kind, grain) VALUES('{}', '{}', '{}')".format(area, kind, grain)
+        sql = "INSERT INTO metadata(area, kind, grain) VALUES('{}', '{}', '{}')".format(area, kind, grain)
         # print(sql)
         cur.execute(sql)
     conn.commit()
@@ -190,7 +190,7 @@ def addPowerData(data, area, grain, kind):
             if np.isnan(v):
                 continue
             values.append(
-                "INSERT IGNORE INTO electric_data_test(datatime, dataname, datavalue, metadataid) VALUES(to_timestamp('{}','YYYY/MM/DD HH24:MI:SS'), '{}', {}, '{}') on conflict on constraint unique_cons do update set datavalue={};".format(
+                "INSERT INTO electric_data_test(datatime, dataname, datavalue, metadataid) VALUES(to_timestamp('{}','YYYY/MM/DD HH24:MI:SS'), '{}', {}, '{}') on conflict on constraint unique_cons do update set datavalue={};".format(
                     datatime, header[i], v, metadataId, v))
             if len(values) >= 50000:
                 t = threading.Thread(target=insertPowerData, args=(values,))
@@ -634,7 +634,7 @@ def createDataByMetadataid(datavalue, dataname, datatime, metadataid):
     conn = getConn()
     cur = conn.cursor()
 
-    sql = "INSERT IGNORE INTO electric_data_test(datatime, dataname, datavalue, metadataid) VALUES(to_timestamp('{}','YYYY/MM/DD HH24:MI:SS'), '{}', {}, '{}') on conflict on constraint unique_cons do update set datavalue={};".format(
+    sql = "INSERT INTO electric_data_test(datatime, dataname, datavalue, metadataid) VALUES(to_timestamp('{}','YYYY/MM/DD HH24:MI:SS'), '{}', {}, '{}') on conflict on constraint unique_cons do update set datavalue={};".format(
                     datatime, dataname, datavalue, metadataid, datavalue)
     cur.execute(sql)
     conn.commit()
@@ -981,7 +981,7 @@ def majorMetaDataToId(major):
     return [v[0] for v in result]
 
 def createBrandNewMetadata(major, minor):
-    sql = "insert ignore into brand_new_metadata values ('{}', '{}')".format(major, minor)
+    sql = "insert into brand_new_metadata values ('{}', '{}')".format(major, minor)
     conn = getConn()
     cur = conn.cursor()
     cur.execute(sql)
