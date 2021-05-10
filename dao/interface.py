@@ -204,63 +204,68 @@ def addPowerData(data, area, grain, kind):
     conn.commit()
     conn.close()
 
+class DataRangeError(Exception):
+    ...
+
 def getData(location, dataName, startTime, endTime):
-    l = location.split("_", maxsplit=2)
-    grain = l[1]
-    area = l[0]
-    kind = l[2]
-    print(area, kind, grain)
-    metadata = getMetaData(area, kind, grain)
-    print(metadata)
-    metadataId = metadata[0][0]
-    conn = getConn()
-    cur = conn.cursor()
-    whe = []
-    whe.append("metadataid = {} ".format(metadataId))
-    startTime = formateTimeString(startTime, grain, 0)
-    endTime = formateTimeString(endTime, grain, 1)
-    whe.append("datatime >= '{}' and datatime <= '{}'".format(startTime, endTime))
+    try:
+        l = location.split("_", maxsplit=2)
+        grain = l[1]
+        area = l[0]
+        kind = l[2]
+        print(area, kind, grain)
+        metadata = getMetaData(area, kind, grain)
+        print(metadata)
+        metadataId = metadata[0][0]
+        conn = getConn()
+        cur = conn.cursor()
+        whe = []
+        whe.append("metadataid = {} ".format(metadataId))
+        startTime = formateTimeString(startTime, grain, 0)
+        endTime = formateTimeString(endTime, grain, 1)
+        whe.append("datatime >= '{}' and datatime <= '{}'".format(startTime, endTime))
 
-    if dataName != None:
-        dataNamelist = dataName.split(',')
-        # print(dataNamelist)
-        dataNames = ""
-        for i in range(len(dataNamelist)):
-            dataNames += "'" + dataNamelist[i] + "'"
-            if i != len(dataNamelist) - 1:
-                dataNames += ","
-        whe.append("dataname in ({})".format(dataNames))
+        if dataName != None:
+            dataNamelist = dataName.split(',')
+            # print(dataNamelist)
+            dataNames = ""
+            for i in range(len(dataNamelist)):
+                dataNames += "'" + dataNamelist[i] + "'"
+                if i != len(dataNamelist) - 1:
+                    dataNames += ","
+            whe.append("dataname in ({})".format(dataNames))
 
-    wherestr = " and ".join(whe)
-    if grain == "year":
-        sql = "select to_char(datatime::TIMESTAMP, 'yyyy') as datatime, dataname, datavalue, metadataid, id from electric_data_test where " + wherestr
-    elif grain == "month":
-        sql = "select to_char(datatime::TIMESTAMP, 'yyyy/mm') as datatime, dataname, datavalue, metadataid, id from electric_data_test where " + wherestr
-    elif grain == "day":
-        sql = "select to_char(datatime::TIMESTAMP , 'yyyy/mm/dd') as datatime, dataname, datavalue, metadataid, id from electric_data_test where " + wherestr
-    elif grain == "hour":
-        sql = "select to_char(datatime::TIMESTAMP, 'yyyy/mm/dd hh') as datatime, dataname, datavalue, metadataid, id from electric_data_test where " + wherestr
-    elif grain == "min":
-        sql = "select to_char(datatime::TIMESTAMP, 'yyyy/mm/dd hh:mi') as datatime, dataname, datavalue, metadataid, id from electric_data_test where " + wherestr
-    elif grain == "sec":
-        sql = "select to_char(datatime::TIMESTAMP, 'yyyy/mm/dd hh:mi:ss') as datatime, dataname, datavalue, metadataid, id from electric_data_test where " + wherestr
+        wherestr = " and ".join(whe)
+        if grain == "year":
+            sql = "select to_char(datatime::TIMESTAMP, 'yyyy') as datatime, dataname, datavalue, metadataid, id from electric_data_test where " + wherestr
+        elif grain == "month":
+            sql = "select to_char(datatime::TIMESTAMP, 'yyyy/mm') as datatime, dataname, datavalue, metadataid, id from electric_data_test where " + wherestr
+        elif grain == "day":
+            sql = "select to_char(datatime::TIMESTAMP , 'yyyy/mm/dd') as datatime, dataname, datavalue, metadataid, id from electric_data_test where " + wherestr
+        elif grain == "hour":
+            sql = "select to_char(datatime::TIMESTAMP, 'yyyy/mm/dd hh') as datatime, dataname, datavalue, metadataid, id from electric_data_test where " + wherestr
+        elif grain == "min":
+            sql = "select to_char(datatime::TIMESTAMP, 'yyyy/mm/dd hh:mi') as datatime, dataname, datavalue, metadataid, id from electric_data_test where " + wherestr
+        elif grain == "sec":
+            sql = "select to_char(datatime::TIMESTAMP, 'yyyy/mm/dd hh:mi:ss') as datatime, dataname, datavalue, metadataid, id from electric_data_test where " + wherestr
 
-    # print(sql)
-    cur.execute(sql)
-    resultDict =cur.fetchall()
-    conn.commit()
-    conn.close()
-    # print(resultDict)
-    if  dataName == None or len(dataNamelist) > 1:
-        return resultDict
-    elif len(dataNamelist) <= 1:
-        newDict = {}
-        for r in resultDict:
-            # print(r)
-            newDict[r[0]] = r[2]
-        resultJsonStr = json.dumps(newDict)
-        return resultJsonStr
-
+        # print(sql)
+        cur.execute(sql)
+        resultDict = cur.fetchall()
+        conn.commit()
+        conn.close()
+        # print(resultDict)
+        if  dataName == None or len(dataNamelist) > 1:
+            return resultDict
+        elif len(dataNamelist) <= 1:
+            newDict = {}
+            for r in resultDict:
+                # print(r)
+                newDict[r[0]] = r[2]
+            resultJsonStr = json.dumps(newDict)
+            return resultJsonStr
+    except:
+        raise DataRangeError("「%s」下没有「%s」%s 到 %s 时期的数据。" % (dataName, location, startTime, endTime))
 
 
 def getUserByPsAndName(username, password):
