@@ -1092,11 +1092,13 @@ def validateLDM(args):
 
 
 def getDataRange(major_category: str, minor_category: str, region: str, grain: str) -> tuple:
+    print("getDataRange called.", major_category, minor_category, region, grain)
     conn = getConn()
     cur = conn.cursor()
     get_metadata_id_sql = "select distinct id from metadata where area='%s' and grain='%s' and kind='%s'" % (region, grain, major_category)
     cur.execute(get_metadata_id_sql)
     result = cur.fetchall()
+    print("here's result #1:", result)
     target_id = result[0][0]
     print('gotta target_id:', target_id)
     get_actual_data_sql = "select distinct datatime from electric_data_test where metadataid=%d and dataname='%s'" % (target_id, minor_category)
@@ -1105,7 +1107,7 @@ def getDataRange(major_category: str, minor_category: str, region: str, grain: s
     years = set()
     for time in cur.fetchall():
         years.add(time[0].year)
-    
+    print("here's years:", years)
     if len(years) == 0:
         raise ValueError("「%s」→「%s」下没有%s%s粒度的数据。" % (major_category, minor_category, region, grain_en2zh_mapper(grain)))
     
