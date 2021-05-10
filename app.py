@@ -995,67 +995,51 @@ class BigDataMethodQuery(Resource):
 @register('payload', 'traits', 'daily')
 class DailyPayloadTraits(Resource):
     def get(self):
-        # try_print_args()
-        result = dailyPayloadTraits(request.args)
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": result
-        }
-        # payload = [
-        #         {
-        #             'day': '2020 年 %d 月 %d 日' % (i, i * 2),
-        #             'dayMaxPayload': randint(0, 1000),
-        #             'dayAveragePayload': random() * 500,
-        #             'dayPayloadRate': random() * 500,
-        #             'dayMinPayloadRate': random() * 500,
-        #             'dayPeekValleyDiff': random() * 500,
-        #             'dayPeekValleyDiffRate': random() * 500
-        #         } for i in range(1, 13)
-        #     ]
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+        try:
+            result = dailyPayloadTraits(request.args)
+            return {
+                "msg": "success",
+                "code": 200,
+                "data": result
+            }
+        except DataRangeError as e:
+            return {
+                "msg": str(e),
+                "code": -1
+            }
+        except Exception as e:
+            return {
+                "msg": "算法错误：" + str(e),
+                "code": -1
+            }
+
 
 @register('payload', 'traits', 'monthly')
 class MonthlyPayloadTraits(Resource):
     def get(self):
-        # try_print_args()
-        result = monthlyPayloadTraits(request.args)
-        re = {
-            "msg":"success",
-            "code": 200,
-            "data" : result
-        }
-        # payload = [
-        #         {
-        #             'month': '2020 年 %d 月' % i,
-        #             'monthAverageDailyPayload': randint(0, 1000),
-        #             'monthMaxPeekValleyDiff': random() * 500,
-        #             'monthAverageDailyPayloadRate': random() * 500,
-        #             'monthImbaRate': random() * 500,
-        #             'monthMinPayloadRate': random() * 500,
-        #             'monthMaxPeekValleyDiffRate': random() * 500
-        #         } for i in range(1, 13)
-        #     ]
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+        try:
+            result = monthlyPayloadTraits(request.args)
+            return {
+                "msg":"success",
+                "code": 200,
+                "data" : result
+            }
+        except DataRangeError as e:
+            return {
+                "msg": str(e),
+                "code": -1
+            }
+        except Exception as e:
+            return {
+                "msg": "算法错误：" + str(e),
+                "code": -1
+            }
 
 @register('payload', 'traits', 'yearly')
 class YearlyPayloadTraits(Resource):
     def get(self):
-        # try_print_args()
-
         try:
             result = yearlyPayloadTraits(request.args)
-
             return {
                 "msg": "success",
                 "code": 200,
