@@ -1,4 +1,3 @@
-from traceback import print_exc
 from flask import Flask, request, render_template
 from flask_cors import CORS
 from flask_restful import Resource, Api
@@ -442,7 +441,7 @@ class ExceptionQuery(Resource):
             }
             return re
         except Exception as e:
-            print_exc(e)
+            print(e)
             return {
                 "msg": '%s' % repr(e),
                 "code": -1
@@ -795,7 +794,7 @@ class RegionSinglePredict(Resource):
         try:
             validateRegion(full_params, full_params['StartYear'], full_params['EndYear'])
         except Exception as e:
-            print_exc(e)
+            print(e)
             return {
                 "msg": '%s' % repr(e),
                 "code": -1
@@ -827,7 +826,7 @@ class IndustrySinglePredict(Resource):
             full_params = dict(request.json)
             validateRegion(full_params, full_params['StartYear'], full_params['EndYear'])
         except Exception as e:
-            print_exc(e)
+            print(e)
             return {
                 "msg": '%s' % repr(e),
                 "code": -1
@@ -869,7 +868,7 @@ class PayloadDensityPredict(Resource):
         try:
             validateLDM(arg)
         except Exception as e:
-            print_exc(e)
+            print(e)
             return {
                 "msg": '%s' % repr(e),
                 "code": -1
