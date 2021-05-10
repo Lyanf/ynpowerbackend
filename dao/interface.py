@@ -967,7 +967,10 @@ def getBrandNewMetadata():
             if minor != '':
                 result_dict[major].append(minor)
         else:
-            result_dict[major] = [minor]
+            if minor != '':
+                result_dict[major] = [minor]
+            else:
+                result_dict[major] = []
 
     return result_dict
 
