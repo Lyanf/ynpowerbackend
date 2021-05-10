@@ -43,24 +43,32 @@ def yearLoad(start, end, datasource="yunnan_day_电力电量类"):
 def yearLoadCon(start, end, datasource="yunnan_day_电力电量类"):
     result = y_load_cons(datasource, start, end)
     return result
+
+
+class DataRangeError(Exception):
+    ...
+
 #日负荷特征
 def dayFeature(start, end, datasource="yunnan_day_电力电量类"):
-    result = multi_d_character(datasource, start, end)
-    # print(result[0].tolist())
-    re = [] #d_max, d_mean, d_min, d_r, d_m_r, peak, peak_r
-    for i in range(len(result[0].tolist())):
-        temp = {
-            'day': result[0][i][0],
-            'dayMaxPayload': int(result[1][i][0]),
-            'dayMinPayload': int(result[1][i][2]), #d_min,
-            'dayAveragePayload': int(result[1][i][1]), #d_mean,
-            'dayPayloadRate': round(result[1][i][3], 3), #d_r,
-            'dayMinPayloadRate': round(result[1][i][4],3), #d_m_r,
-            'dayPeekValleyDiff': int(result[1][i][5]), #peak,
-            'dayPeekValleyDiffRate': round(result[1][i][6],3), #peak_r
-        }
-        re.append(temp)
-    return sorted(re, key=lambda x: tuple(x['day'].split('/')))
+    try:
+        result = multi_d_character(datasource, start, end)
+        # print(result[0].tolist())
+        re = [] #d_max, d_mean, d_min, d_r, d_m_r, peak, peak_r
+        for i in range(len(result[0].tolist())):
+            temp = {
+                'day': result[0][i][0],
+                'dayMaxPayload': int(result[1][i][0]),
+                'dayMinPayload': int(result[1][i][2]), #d_min,
+                'dayAveragePayload': int(result[1][i][1]), #d_mean,
+                'dayPayloadRate': round(result[1][i][3], 3), #d_r,
+                'dayMinPayloadRate': round(result[1][i][4],3), #d_m_r,
+                'dayPeekValleyDiff': int(result[1][i][5]), #peak,
+                'dayPeekValleyDiffRate': round(result[1][i][6],3), #peak_r
+            }
+            re.append(temp)
+        return sorted(re, key=lambda x: tuple(x['day'].split('/')))
+    except:
+        raise DataRangeError("「%s」下没有对应年份 %s 到 %s 的数据。" % (datasource, start, end))
 #日负荷曲线
 def dayLoad(start, end, datasource="yunnan_day_电力电量类"):
     result = day_plot(datasource, start, end)
