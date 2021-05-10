@@ -1017,6 +1017,31 @@ def deleteBrandNewMetadata(major, minor):
         cur.execute(delete_actual_data_sql)
     conn.commit()
 
+
+def judgeDataRange(major_category: str, minor_category: str, region: str, grain: str, begin_year: int, end_year: int):
+    conn = getConn()
+    cur = conn.cursor()
+    get_metadata_id_sql = "select distinct id from metadata where area='%s' and grain='%s' and kind='%s'" % (region, grain, major_category)
+    cur.execute(get_metadata_id_sql)
+    result = cur.fetchall()
+    target_id = result[0][0]
+    print('gotta target_id:', target_id)
+    get_actual_data_sql = "select distinct datatime from electric_data_test where metadataid=%d and dataname='%s'" % (target_id, minor_category)
+    cur.execute(get_actual_data_sql)
+
+    years = set()
+    for time in cur.fetchall():
+        years.add(time[0].year)
+    
+    if len(years) == 0:
+        raise ValueError("缺少「%s」「%s」->「%s」数据节点下 %d～%d 「%s」粒度的数据。实际数据范围为空。" % (region, major_category, minor_category, begin_year, end_year, grain))
+    
+    min_year, max_year = min(years), max(years)
+    print(years)
+
+    if begin_year < min_year or end_year > max_year:
+        raise ValueError("缺少「%s」「%s」->「%s」数据节点下 %d～%d 「%s」粒度的数据。实际数据范围为 %d～%d。" % (region, major_category, minor_category, begin_year, end_year, grain, min_year, max_year))
+    
 if __name__ == '__main__':
     # conn = psycopg2.connect(dbname="electric", user="postgresadmin", password="admin123", host="192.168.1.108",
     #                         port="32345")
