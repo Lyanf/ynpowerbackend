@@ -799,7 +799,7 @@ class RegionSinglePredict(Resource):
             })
 
         try:
-            if request['method'] == 'LDM':
+            if full_params['method'] == 'LDM':
                 validateLDM(full_params)
             else:
                 validateRegion(full_params, full_params['StartYear'], full_params['EndYear'])
@@ -874,9 +874,7 @@ class PayloadDensityPredict(Resource):
         args["buildingarea"] = request.files["buildingarea"]
         args["loaddensity"] = request.files["loaddensity"]
         arg = {**args, **request.form}
-
-        validateLDM(arg)
-        print('ldm check passed')
+        
         re = payloadDensityPredict(arg)
         print(re)
         return _handle_response(re)
