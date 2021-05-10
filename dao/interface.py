@@ -898,6 +898,9 @@ def getWHLMetadataId():
     conn = getConn()
     cur = conn.cursor()
     cur.execute(sql)
+    print(" >>> getWHLMetadataId executes sql")
+    print(sql)
+    print(" <<< getWHLMetadataId executes sql")
     result = cur.fetchall()
     conn.commit()
     return [v[0] for v in result]
@@ -908,6 +911,10 @@ def removeAllData():
     sql2 = "delete from metadata"
     conn = getConn()
     cur = conn.cursor()
+    print(" >>> removeAllData executes sql")
+    print(sql1)
+    print(sql2)
+    print(" <<< removeAllData executes sql")
     cur.execute(sql1)
     cur.execute(sql2)
     result = cur.fetchall()
@@ -920,6 +927,10 @@ def removeWHLData():
     delete_whl_metadata = "delete from metadata where kind='yunnan'"
     conn = getConn()
     cur = conn.cursor()
+    print(" >>> removeWHLData executes sql")
+    print(delete_actual_data_sql)
+    print(delete_whl_metadata)
+    print(" <<< removeWHLData executes sql")
     cur.execute(delete_actual_data_sql)
     cur.execute(delete_whl_metadata)
     conn.commit()
@@ -930,6 +941,11 @@ def initDatabase():
     sql3 = "delete from brand_new_metadata"
     conn = getConn()
     cur = conn.cursor()
+    print(" >>> initDatabase executes sql")
+    print(sql1)
+    print(sql2)
+    print(sql3)
+    print(" <<< initDatabase executes sql")
     cur.execute(sql1)
     cur.execute(sql2)
     cur.execute(sql3)
