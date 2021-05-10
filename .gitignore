@@ -12,3 +12,4 @@ venv/
 *.exe
 algorithms/loadpredict/shuangxiangjiabi/sxjb/for_redistribution/MyAppInstaller_mcr.app/Contents/MacOS/setup.dSYM/Contents/Resources/DWARF/setup
 algorithms/loadpredict/shuangxiangjiabi/sxjb/for_redistribution/MyAppInstaller_mcr.app/Contents/MacOS/setup
+*.log
