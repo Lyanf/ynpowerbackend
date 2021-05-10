@@ -80,7 +80,7 @@ class UploadCSVAndAutoCreate(Resource):
 
         for minor in list(data.columns.values)[1:]:
             createBrandNewMetadata(kind, minor)
-            
+
         re = {
             "message": 'success'
         }
@@ -262,6 +262,10 @@ class CreateMetadata(Resource):
             }
         else:
             createBrandNewMetadata(minor_name, '')
+            return {
+                "msg": "success",
+                "code": 200
+            }
 
 @register('db', 'metadata', 'rename')
 class RenameMetadata(Resource):
