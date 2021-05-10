@@ -1069,7 +1069,7 @@ def validateIndustry(args, start, end):
 
 def validateForIndustry(args):
     range = (float('-inf'), float('+inf'))
-    for arg in args['rejectlsit']:
+    for arg in args['rejectlsit'].split(','):
         range = _intersection(range, getDataRange('电力电量类-行业', arg, '云南省', '年'))
     
     start, end = args['StartYear'], args['EndYear']
