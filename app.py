@@ -872,13 +872,7 @@ class PayloadDensityPredict(Resource):
         args["loaddensity"] = request.files["loaddensity"]
         arg = {**args, **request.form}
 
-        try:
-            validateLDM(arg)
-        except Exception as e:
-            return {
-                "msg": '%s' % repr(e),
-                "code": -1
-            }
+        validateLDM(arg)
         print('ldm check passed')
         re = payloadDensityPredict(arg)
         print(re)
