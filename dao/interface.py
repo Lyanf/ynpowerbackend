@@ -1072,7 +1072,7 @@ def validateForIndustry(args):
     for arg in args['rejectlsit'].split(','):
         range = _intersection(range, getDataRange('电力电量类-行业', arg, '云南省', '年'))
     
-    start, end = args['StartYear'], args['EndYear']
+    start, end = int(args['StartYear']), int(args['EndYear'])
     act_start, act_end = range
     if act_start > act_end:
         raise ValueError("选择的参数组合没有公共数据，请尝试更换参数组合。")
