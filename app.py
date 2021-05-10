@@ -799,10 +799,10 @@ class RegionSinglePredict(Resource):
             })
 
         try:
-            if full_params['method'] == 'LDM':
+            if full_params['method'] == '负荷密度法':
                 validateLDM(full_params)
             else:
-                validateRegion(full_params, full_params['StartYear'], full_params['EndYear'])
+                validateRegion(full_params, int(full_params['StartYear']), int(full_params['EndYear']))
         except Exception as e:
             print(e)
             raise e
