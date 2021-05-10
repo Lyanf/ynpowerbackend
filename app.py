@@ -790,6 +790,14 @@ class RegionSinglePredict(Resource):
                 name: content
             })
 
+        try:
+            validateRegion(full_params, full_params['StartYear'], full_params['EndYear'])
+        except Exception as e:
+            return {
+                "msg": '%s' % repr(e),
+                "code": -1,
+                "data": None
+            }
         re = regionSinglePredict(full_params)
         return _handle_response(re)
 
@@ -813,7 +821,15 @@ class RegionMixPredict(Resource):
 @register('predict', 'industry', 'single')
 class IndustrySinglePredict(Resource):
     def post(self):
-        # try_print_json()
+        try:
+            full_params = dict(request.json)
+            validateRegion(full_params, full_params['StartYear'], full_params['EndYear'])
+        except Exception as e:
+            return {
+                "msg": '%s' % repr(e),
+                "code": -1,
+                "data": None
+            }
         re = industrySinglePredict(request.json)
         return _handle_response(re)
 

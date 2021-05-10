@@ -858,6 +858,7 @@ def executeAlgorithm(method, args):
         # print(v.keys())
         # if v == "method" or v == "name" or v == "num":
         #     continue
+    
     print(argstr)
 
     result = eval("f("+argstr+")")
@@ -891,6 +892,11 @@ _grain_en2zh_mapper = {
     'day': '日',
     'hour': '时'
 }
+
+def grain_en2zh_mapper(en: str) -> str:
+    if en in _grain_en2zh_mapper:
+        return _grain_en2zh_mapper[en]
+    return en
 
 
 def getWHLMetadataId():
@@ -1018,7 +1024,56 @@ def deleteBrandNewMetadata(major, minor):
     conn.commit()
 
 
-def judgeDataRange(major_category: str, minor_category: str, region: str, grain: str, begin_year: int, end_year: int):
+def _intersection(lhs: tuple, rhs: tuple) -> tuple:
+    assert(len(lhs) == 2)
+    assert(len(rhs) == 2)
+    return (max(lhs[0], rhs[0]), min(lhs[1], rhs[1]))
+
+def validateRegion(args, start, end):
+    range = (float('-inf'), float('+inf'))
+    for k, v in args.items():
+        if k.startswith('pretype'):
+            range = _intersection(range, getDataRange('电力电量类', v, args['city*'], '年'))
+        elif k.startswith('econamelist'):
+            if type(v) == str:
+                range = _intersection(range, getDataRange('社会经济类', v, args['city*'], '年'))
+            elif type(v) == list:
+                for subv in v:
+                    range = _intersection(range, getDataRange('社会经济类', subv, args['city*'], '年'))
+            else:
+                raise TypeError('econame list type should be str or list, not', str(type(v)))
+    act_start, act_end = range
+    if act_start > act_end:
+        raise ValueError("输入的年份范围（%d～%d）超过了限制，请尝试更换参数组合。" % (start, end))
+    if start < act_start or end > act_end:
+        raise ValueError("输入的年份范围（%d～%d）超过了限制，合法范围是 %d～%d。" % (start, end, act_start, act_end))
+    
+def validateIndustry(args, start, end):
+    range = (float('-inf'), float('+inf'))
+    for k, v in args.items():
+        if k.startswith('pretype'):
+            range = _intersection(range, getDataRange('电力电量类-行业', v, args['city*'], '年'))
+        elif k.startswith('econamelist'):
+            if type(v) == str:
+                range = _intersection(range, getDataRange('社会经济类', v, args['city*'], '年'))
+            elif type(v) == list:
+                for subv in v:
+                    range = _intersection(range, getDataRange('社会经济类', subv, args['city*'], '年'))
+            else:
+                raise TypeError('econame list type should be str or list, not', str(type(v)))
+    act_start, act_end = range
+    if act_start > act_end:
+        raise ValueError("输入的年份范围（%d～%d）超过了限制，请尝试更换参数组合。" % (start, end))
+    if start < act_start or end > act_end:
+        raise ValueError("输入的年份范围（%d～%d）超过了限制，合法范围是 %d～%d。" % (start, end, act_start, act_end))
+
+def validateLDM(args):
+    range = (float('-inf'), float('+inf'))
+
+def validateForIndustry(args):
+    ...
+
+def getDataRange(major_category: str, minor_category: str, region: str, grain: str) -> tuple:
     conn = getConn()
     cur = conn.cursor()
     get_metadata_id_sql = "select distinct id from metadata where area='%s' and grain='%s' and kind='%s'" % (region, grain, major_category)
@@ -1034,13 +1089,10 @@ def judgeDataRange(major_category: str, minor_category: str, region: str, grain:
         years.add(time[0].year)
     
     if len(years) == 0:
-        raise ValueError("缺少「%s」「%s」->「%s」数据节点下 %d～%d 「%s」粒度的数据。实际数据范围为空。" % (region, major_category, minor_category, begin_year, end_year, grain))
+        raise ValueError("「%s」→「%s」下没有%s%s粒度的数据。" % (major_category, minor_category, region, grain_en2zh_mapper(grain)))
     
     min_year, max_year = min(years), max(years)
-    print(years)
-
-    if begin_year < min_year or end_year > max_year:
-        raise ValueError("缺少「%s」「%s」->「%s」数据节点下 %d～%d 「%s」粒度的数据。实际数据范围为 %d～%d。" % (region, major_category, minor_category, begin_year, end_year, grain, min_year, max_year))
+    return (min_year, max_year)
     
 if __name__ == '__main__':
     # conn = psycopg2.connect(dbname="electric", user="postgresadmin", password="admin123", host="192.168.1.108",
