@@ -1068,7 +1068,9 @@ def validateIndustry(args, start, end):
         raise ValueError("输入的年份范围（%d～%d）超过了限制，合法范围是 %d～%d。" % (start, end, act_start, act_end))
 
 def validateForIndustry(args):
-    range = (float('-inf'), float('+inf'))
+    propose_data = pd.read_csv(args["proposedata"])
+    args["proposedata"].seek(0)
+    pd_years = [int(v[0]) for v in propose_data.values]
 
 def validateLDM(args):
     building_area = pd.read_csv(args["buildingarea"])
@@ -1087,6 +1089,7 @@ def validateLDM(args):
 
     start, end = getDataRange('电力电量类', args['pretype*'], args['city*'], '年')
 
+    print(f_start, f_end, start, end)
     if f_start < start or f_end > end:
         raise ValueError('上传文件的年份范围（%d～%d）超过了数据库中的年份范围（%d～%d）。' % (f_start, f_end, start, end))
 

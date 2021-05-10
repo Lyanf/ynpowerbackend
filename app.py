@@ -926,6 +926,15 @@ class BigDataPredict(Resource):
         args = {}
         args["proposedata"] = request.files["proposedata"]
         arg = {**args, **request.form}
+
+        try:
+            validateForIndustry(arg)
+        except Exception as e:
+            print(e)
+            return {
+                "msg": '%s' % repr(e),
+                "code": -1
+            }
         print(arg)
         re = bigDataPredict(arg)
         return _handle_response(re)
