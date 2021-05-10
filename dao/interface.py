@@ -894,7 +894,7 @@ _grain_en2zh_mapper = {
 
 
 def getWHLMetadataId():
-    sql = "select distinct id from metadata where kind='yunnan'"
+    sql = "select distinct id from metadata where area='yunnan'"
     conn = getConn()
     cur = conn.cursor()
     cur.execute(sql)
@@ -922,9 +922,12 @@ def removeAllData():
 
 def removeWHLData():
     expected_major_ids = getWHLMetadataId()
+    print('WHL metadata ids: ', expected_major_ids)
+    if len(expected_major_ids) == 0:
+        return
     metadata_limits = ' or '.join(['metadataid=%d' % i for i in expected_major_ids])
     delete_actual_data_sql = "delete from electric_data_test where ({})".format(metadata_limits)
-    delete_whl_metadata = "delete from metadata where kind='yunnan'"
+    delete_whl_metadata = "delete from metadata where area='yunnan'"
     conn = getConn()
     cur = conn.cursor()
     print(" >>> removeWHLData executes sql")
@@ -990,6 +993,8 @@ def createBrandNewMetadata(major, minor):
 
 def renameBrandNewMetadata(major, old_minor, new_minor):
     expected_major_ids = majorMetaDataToId(major)
+    if len(expected_major_ids) == 0:
+        return
     metadata_limits = ' or '.join(['metadataid=%d' % i for i in expected_major_ids])
     rename_metadata_sql = "update brand_new_metadata set minor_category='{}' where major_category='{}' and minor_category='{}'".format(new_minor, major, old_minor)
     rename_actual_data_sql = "update electric_data_test set dataname='{}' where dataname='{}' and ({})".format(new_minor, old_minor, metadata_limits)
@@ -1001,6 +1006,8 @@ def renameBrandNewMetadata(major, old_minor, new_minor):
 
 def deleteBrandNewMetadata(major, minor):
     expected_major_ids = majorMetaDataToId(major)
+    if len(expected_major_ids) == 0:
+        return
     metadata_limits = ' or '.join(['metadataid=%d' % i for i in expected_major_ids])
     delete_metadata_sql = "delete from brand_new_metadata where major_category='{}' and minor_category='{}'".format(major, minor)
     delete_actual_data_sql = "delete from electric_data_test where dataname='{}' and ({})".format(minor, metadata_limits)
