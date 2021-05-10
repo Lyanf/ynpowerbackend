@@ -1092,6 +1092,10 @@ def validateLDM(args):
 
 
 def getDataRange(major_category: str, minor_category: str, region: str, grain: str) -> tuple:
+    try:
+        grain = _grain_zh2en_mapper[grain]
+    except:
+        raise LookupError("未知粒度 %s" % grain)
     print("getDataRange called.", major_category, minor_category, region, grain)
     conn = getConn()
     cur = conn.cursor()
