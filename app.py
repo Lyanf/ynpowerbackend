@@ -807,7 +807,6 @@ class RegionSinglePredict(Resource):
                 validateRegion(full_params, int(full_params['StartYear']), int(full_params['EndYear']))
         except Exception as e:
             print(e)
-            raise e
             return {
                 "msg": '%s' % repr(e),
                 "code": -1
