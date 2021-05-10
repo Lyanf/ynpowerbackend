@@ -223,17 +223,20 @@ class GetMetadata(Resource):
 class CreateMetadata(Resource):
     def post(self):
         path, minor_name = request.json['path'], request.json['name']
-        if len(path) != 1:
+        if len(path) > 2:
             return {
-                "msg": "只能新建二级节点",
+                "msg": "只能新建根节点或二级节点",
                 "code": -1
             }
-        major_name = path[0]
-        createBrandNewMetadata(major_name, minor_name)
-        return {
-            "msg": "success",
-            "code": 200
-        }
+        elif len(path) == 2:
+            major_name = path[1]
+            createBrandNewMetadata(major_name, minor_name)
+            return {
+                "msg": "success",
+                "code": 200
+            }
+        else:
+            createBrandNewMetadata(minor_name, '')
 
 @register('db', 'metadata', 'rename')
 class RenameMetadata(Resource):

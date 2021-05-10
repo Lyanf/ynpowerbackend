@@ -964,13 +964,11 @@ def getBrandNewMetadata():
     result_dict = dict()
     for major, minor in result:
         if major in result_dict:
-            result_dict[major].append(minor)
+            if minor != '':
+                result_dict[major].append(minor)
         else:
             result_dict[major] = [minor]
 
-    for critical_major in ['电力电量类', '电力电量类-行业', '社会经济类']:
-        if not critical_major in result_dict:
-            result_dict[critical_major] = []
     return result_dict
 
 def majorMetaDataToId(major):
