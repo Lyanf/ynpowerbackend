@@ -868,7 +868,7 @@ class PayloadDensityPredict(Resource):
         try:
             validateLDM(arg)
         except Exception as e:
-            print(e)
+            raise
             return {
                 "msg": '%s' % repr(e),
                 "code": -1
