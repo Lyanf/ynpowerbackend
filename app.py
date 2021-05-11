@@ -1548,32 +1548,78 @@ class PredictionResultDetail(Resource):
 @register('predict', 'results', 'compare')
 class PredictionResultComparison(Resource):
     def post(self):
-        # try_print_json()
-        tags = request.json['tags']
-        trait = request.json['trait']
-        result = getAlgorithmContentByTag(tags)
-        re = {}
-        re['msg'] = "success"
-        re['code'] = 200
-        re["data"] = result['content']
-        re["data"]['tag'] = result['tag']
-        # payload = [
-        #     {
-        #         'tag': tag,
-        #         'data': [random() for _ in range(40)]
-        #     } for tag in tags
-        # ]
-        return re
-        #     {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": {
-        #         'xName': '年份',
-        #         'xData': ['%i 年' % (i + 2000) for i in range(40)],
-        #         'yName': 'RMSE 值',
-        #         'yData': payload
-        #     }
-        # }
+        try:
+            tags = request.json['tags']
+            trait = request.json['trait']
+
+            contents = []
+            for tag in tags:
+                try:
+                    contents.append(json.loads(getAlgorithmContentByTag(tag)[0]['content']))
+                except:
+                    raise ValueError('无法读取 %s 方案的信息。请删除后重新尝试。' % tag)
+
+            if len(contents) < 2:
+                raise ValueError('请选择至少两个方案以进行对比。')
+
+            if trait == 'MAPE':
+                data = {
+                    'xName': '',
+                    'xData': [''],
+                    'yName': 'MAPE 值',
+                    'yData': [
+                        {
+                            'tag': content['arg']['tag'],
+                            'data': [content['result']['MAPE']]
+                        } for content in contents
+                    ]
+                }
+                return {
+                    'msg': "ok",
+                    'code': 200,
+                    'data': data
+                }
+            elif trait == 'RMSE':
+                data = {
+                    'xName': '',
+                    'xData': [''],
+                    'yName': 'RMSE 值',
+                    'yData': [
+                        {
+                            'tag': content['arg']['tag'],
+                            'data': [content['result']['RMSE']]
+                        } for content in contents
+                    ]
+                }
+                return {
+                    'msg': "ok",
+                    'code': 200,
+                    'data': data
+                }
+            elif trait == 'predictMVW':
+                data = {
+                    'xName': '年份',
+                    'xData': [str(year) for year in range(contents[0]['arg']['PreStartYear'], contents[0]['arg']['PreEndYear'] + 1)],
+                    'yName': '预测值',
+                    'yData': [
+                        {
+                            'tag': content['arg']['tag'],
+                            'data': content['result']['preresult']
+                        } for content in contents
+                    ]
+                }
+                return {
+                    'msg': "ok",
+                    'code': 200,
+                    'data': data
+                }
+            else:
+                raise LookupError('未知的比对特征 %s。' % trait)
+        except Exception as e:
+            return {
+                "msg": str(e),
+                "code": -1
+            }
 
 @register('payload', 'charts', 'daily')
 class PayloadChartsDaily(Resource):
