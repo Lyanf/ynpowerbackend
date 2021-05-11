@@ -473,7 +473,7 @@ def getTagByKind(kind):
         conn.commit()
         for i in rows:
             temp = {}
-            temp['id'] = i[0]
+            temp['tag'] = i[0]
             temp['tagType'] = kind
             result.append(temp)
         re = result
