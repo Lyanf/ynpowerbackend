@@ -1528,70 +1528,21 @@ class PredictionResultsQuery(Resource):
 @register('predict', 'results', 'detail')
 class PredictionResultDetail(Resource):
     def get(self):
-        # try_print_args()
-        tag = request.args['tag']
-        result = getAlgorithmContentByTag(tag)
-        contentstr = result[0]["content"]
-        content = json.loads(contentstr)
-        arg = content["arg"]
-        re = {
-            "msg": "success",
-            "code": 200,
-            "data": {
-                "parameters": arg
-
+        try:
+            tag = request.args['tag']
+            result = getAlgorithmContentByTag(tag)
+            contentstr = result[0]["content"]
+            content = json.loads(contentstr)
+            return {
+                "msg": "success",
+                "code": 200,
+                "data": content
             }
-        }
-        # payload = {
-        #     'parameters': [
-        #         {
-        #             'key': '方案名称',
-        #             'value': request.args['tag']
-        #         },
-        #         {
-        #             'key': '预测类型',
-        #             'value': '远期预测'
-        #         },
-        #         {
-        #             'key': '预测年份',
-        #             'value': '2015 到 2020'
-        #         },
-        #         {
-        #             'key': '预测方法',
-        #             'value': '猜测法'
-        #         },
-        #         {
-        #             'key': '预测时间',
-        #             'value': '2021 年 1 月 21 日 11:04:33'
-        #         }
-        #     ],
-        #     'graphData': [
-        #         {
-        #             'xName': str(i),
-        #             'yValue': randint(0, 1000)
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableOneData': [
-        #         {
-        #             'index': '评价指标 %d' % i,
-        #             'r2': random(),
-        #             'mape': random(),
-        #             'rmse': random()
-        #         } for i in range(1, 18)
-        #     ],
-        #     'tableTwoData': [
-        #         {
-        #             'year': i + 2010,
-        #             'predict': random() * randint(300, 500)
-        #         } for i in range(17)
-        #     ]
-        # }
-        return re
-        # {
-        #     "msg": "success",
-        #     "code": 200,
-        #     "data": payload
-        # }
+        except Exception as e:
+            return {
+                "msg": str(e),
+                "code": -1
+            }
 
 @register('predict', 'results', 'compare')
 class PredictionResultComparison(Resource):
