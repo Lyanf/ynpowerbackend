@@ -370,12 +370,13 @@ def insertAlgorithmContent(tag, kind, content):
         re = {
             "code": 200
         }
-    except:
+    except Exception as e:
         re = {
             "msg":"fail",
             "code": -1
         }
-
+        print("!!!!!!!!!!!!!!!!!!! failed to insert plan !!!!!!!!!!!!!!!!!!!")
+        print(e)
     finally:
         conn.close()
     return re
