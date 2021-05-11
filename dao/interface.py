@@ -1038,7 +1038,13 @@ def validateRegion(args, start, end):
     range = (float('-inf'), float('+inf'))
     for k, v in args.items():
         if k.startswith('pretype'):
-            range = _intersection(range, getDataRange('电力电量类', v, args['city*'], '年'))
+            if type(v) == str:
+                range = _intersection(range, getDataRange('电力电量类', v, args['city*'], '年'))
+            elif type(v) == list:
+                for subv in v:
+                    range = _intersection(range, getDataRange('电力电量类', v, args['city*'], '年'))
+            else:
+                raise TypeError('pretype 字段应该是 str 或 list 类型，而不是', str(type(v)))
         elif k.startswith('econamelist'):
             if type(v) == str:
                 range = _intersection(range, getDataRange('社会经济类', v, args['city*'], '年'))
@@ -1046,7 +1052,7 @@ def validateRegion(args, start, end):
                 for subv in v:
                     range = _intersection(range, getDataRange('社会经济类', subv, args['city*'], '年'))
             else:
-                raise TypeError('econame list type should be str or list, not', str(type(v)))
+                raise TypeError('econame 字段应该是 str 或 list 类型，而不是', str(type(v)))
     act_start, act_end = range
     if act_start > act_end:
         raise ValueError("输入的年份范围（%d～%d）超过了限制，请尝试更换参数组合。" % (start, end))
