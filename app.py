@@ -97,6 +97,10 @@ class insertAlgorithmResult(Resource):
     def post(self):
         content = request.json['result']
         tag = request.json['tag']
+        if tag.strip() == '':
+            return {
+                "message": 'empty request'
+            }
         print(content)
         re = insertAlgorithmReusltController(content, tag)
         re = {
