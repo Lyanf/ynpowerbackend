@@ -1613,7 +1613,7 @@ class PredictionResultComparison(Resource):
                 data = {
                     'xName': '年份',
                     'xData': [str(year) for year in range(start, end + 1)],
-                    'yName': '预测值',
+                    'yName': '预测功率值（MW）',
                     'yData': [
                         {
                             'tag': content['arg']['tag'],
