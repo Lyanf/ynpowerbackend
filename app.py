@@ -1619,8 +1619,8 @@ class PredictionResultComparison(Resource):
                             'tag': content['arg']['tag'],
                             'data': _padding_empty_years(
                                 content['result']['preresult'],
-                                content['arg']['PreStartYear'], 
-                                content['arg']['PreEndYear'],
+                                int(content['arg']['PreStartYear']), 
+                                int(content['arg']['PreEndYear']),
                                 start, end)
                         } for content in contents
                     ]
