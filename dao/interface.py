@@ -1042,7 +1042,7 @@ def validateRegion(args, start, end):
                 range = _intersection(range, getDataRange('电力电量类', v, args['city*'], '年'))
             elif type(v) == list:
                 for subv in v:
-                    range = _intersection(range, getDataRange('电力电量类', v, args['city*'], '年'))
+                    range = _intersection(range, getDataRange('电力电量类', subv, args['city*'], '年'))
             else:
                 raise TypeError('pretype 字段应该是 str 或 list 类型，而不是', str(type(v)))
         elif k.startswith('econamelist'):
