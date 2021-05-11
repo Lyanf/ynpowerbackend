@@ -115,25 +115,6 @@ def tagDelete(current_name):
     return deleteTag(current_name)
 
 def miningRequest(args):
-    # data = getDataByCondition(grain=None, startTime=str(beginYear), endTime=str(endYear), kind=None, dataName=None,
-    #                           area=region)  # 是否需要粒度，和kind，dataname
-    # f = getAlgorithm(method)
-    # result = None
-    # if method == "Pearson":
-    #     threshold = arg['threshold']
-    #     result = f()
-    # elif method == "KMeans":
-    #     suggestCategoryCount = arg['suggestCategoryCount']
-    #     categoryCount = arg['categoryCount']
-    #     result = f()
-    # elif method == "PCA":
-    #     absThreshold = arg['absThreshold']
-    #     result = f()
-    # elif method == "ARL":
-    #     minSupport = arg['minSupport']
-    #     minConfidence = arg['minConfidence']
-    #     result = f()
-    # (tag, tagType, region, factors, method, pearson, beginYear, endYear)
     try:
         beginYear, endYear, region, industry, method, tag, tagType = getArgs(args)
         result = executeAlgorithm(method, args)

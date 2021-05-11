@@ -606,33 +606,14 @@ class TagsDelete(Resource):
 @register('mining', 'request')
 class MiningRequest(Resource):
     def post(self):
-        # # try_print_json()
-        # args = request.json
-        # tag = request.json['tag']
-        # # tagType: 'MINING'
-        # tagType = request.json['tagType']
-        # region = request.json['region']
-        # # factors: list[str]
-        # factors = request.json['factors']
-        # # method: str  # Pearson / KMeans / PCA / ARL
-        # method = request.json['method']
-        # beginYear = request.json['beginYear']
-        # endYear = request.json['endYear']
-        # if method == "Pearson":
-        #    pearson = request.json['pearson']
-        #    re = miningRequest(tag, tagType, region, factors, method, pearson, beginYear, endYear, args)
-        #
-        # elif method == "KMeans":
-        #     kMeans = request.json['kMeans']
-        #     re = miningRequest(tag, tagType, region, factors, method, kMeans, beginYear, endYear, args)
-        #
-        # elif method == "PCA":
-        #     PCA = request.json['PCA']
-        #     re = miningRequest(tag, tagType, region, factors, method, PCA, beginYear, endYear, args)
-        #
-        # elif method == "ARL":
-        #     ARL = request.json['ARL']
-        #     re = miningRequest(tag, tagType, region, factors, method, ARL, beginYear, endYear, args)
+        try:
+            validateRegion(request.json, int(request.json['StartYear']), int(request.json['EndYear']))
+        except Exception as e:
+            print(e)
+            return {
+                "msg": '%s' % repr(e),
+                "code": -1
+            }
         re = miningRequest(request.json)
         return _handle_response(re)
 
