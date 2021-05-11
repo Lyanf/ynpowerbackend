@@ -121,10 +121,8 @@ def miningRequest(args):
         content = {}
         content['arg'] = args
         content['result'] = result
-        if tag != None:
-
-            re = insertAlgorithmContent(tag, tagType, content)
-
+        if tag:
+            insertAlgorithmContent(tag, tagType, content)
         return result
     except Exception as e:
         _, _, exception_traceback = sys.exc_info()
@@ -144,8 +142,8 @@ def regionSinglePredict(args):
         content['arg'] = args
         content['result'] = result
 
-        if tag != None:
-            re = insertAlgorithmContent(tag, tagType, content)
+        if tag:
+            insertAlgorithmContent(tag, tagType, content)
         
         print('method is', method)
         if method != '地区组合预测模型' and method != '行业组合预测模型':
@@ -174,8 +172,8 @@ def regionMixPredict(args):
         content['arg'] = args
         content['result'] = result
 
-        if tag != None:
-            re = insertAlgorithmContent(tag, tagType, content)
+        if tag:
+            insertAlgorithmContent(tag, tagType, content)
 
         result = formatPredictResult(result, 0)
         print(result)
@@ -197,8 +195,8 @@ def industrySinglePredict(args):
         content['arg'] = args
         content["result"] = result
 
-        if tag != None:
-            re = insertAlgorithmContent(tag, tagType, content)
+        if tag:
+            insertAlgorithmContent(tag, tagType, content)
         result = formatPredictResult(result)
         print(result)
         return result
@@ -224,9 +222,8 @@ def industryMixPredict(args):
         content['arg'] = args
         content["result"] = result
 
-        if tag != None:
-
-            re = insertAlgorithmContent(tag, tagType, content)
+        if tag:
+            insertAlgorithmContent(tag, tagType, content)
         result = formatPredictResult(result)
         print(result)
         return result
@@ -246,9 +243,8 @@ def saturationCurvePredict(args):
         content['arg'] = args
         content["result"] = result
 
-        if tag != None:
-
-            re = insertAlgorithmContent(tag, tagType, content)
+        if tag:
+            insertAlgorithmContent(tag, tagType, content)
         result = formatPredictResult(result)
         print(result)
         return result
@@ -267,9 +263,8 @@ def payloadDensityPredict(args):
         content['arg'] = args
         content["result"] = result1
 
-        if tag != None:
-
-            re = insertAlgorithmContent(tag, tagType, content)
+        if tag:
+            insertAlgorithmContent(tag, tagType, content)
         result = formatPredictResult(result1)
         result["bu"] = result1["bu"]
         print(result)
@@ -310,9 +305,8 @@ def bigDataPredict(args):
         content['arg'] = args
         content["result"] = result
 
-        if tag != None:
-
-            re = insertAlgorithmContent(tag, tagType, content)
+        if tag:
+            insertAlgorithmContent(tag, tagType, content)
         tableTwoData = []
         prefromyear = timeFormat(result["prefromyear"], "year")
         pretoyear = timeFormat(result["pretoyear"], "year")

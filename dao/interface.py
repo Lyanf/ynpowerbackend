@@ -357,7 +357,7 @@ def addPerson(username, password):
     return msg
 
 def insertAlgorithmContent(tag, kind, content):
-
+    print("!!! going to insesrt algorithm !!!", tag, kind, content)
     conn = getConn()
     cur = conn.cursor()
 
