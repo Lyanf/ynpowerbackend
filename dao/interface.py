@@ -357,12 +357,24 @@ def addPerson(username, password):
     return msg
 
 def insertAlgorithmContent(tag, kind, content):
+    class NpEncoder(json.JSONEncoder):
+        def default(self, obj):
+            if isinstance(obj, np.integer):
+                return int(obj)
+            elif isinstance(obj, np.floating):
+                return float(obj)
+            elif isinstance(obj, np.ndarray):
+                return obj.tolist()
+            elif isinstance(obj, np.bool_):
+                return bool(obj)
+            else:
+                return super(NpEncoder, self).default(obj)
     print("!!! going to insesrt algorithm !!!", tag, kind, content)
     conn = getConn()
     cur = conn.cursor()
 
     try:
-        result = json.dumps(content)
+        result = json.dumps(content, cls=NpEncoder)
         sql = "INSERT INTO program (tag, content, kind) VALUES('{}', '{}', '{}') on conflict on constraint unique_tag do update set content='{}';".format(tag, result, kind, result)
         # print(sql)
         cur.execute(sql)
