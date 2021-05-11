@@ -40,6 +40,9 @@ create table brand_new_metadata
     minor_category text
 );
 
+INSERT INTO person (id, username, password) VALUES (1, 'admin', 'admin');
+INSERT INTO person (id, username, password) VALUES (2, 'test', 'test');
+
 CREATE UNIQUE INDEX unique_cons
 on electric_data_test (metadataid, dataname, datatime);
 
