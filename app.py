@@ -1545,6 +1545,16 @@ class PredictionResultDetail(Resource):
                 "code": -1
             }
 
+
+def _padding_empty_years(data: list, start, end, total_start, total_end) -> list:
+    padding_data = []
+    for year in range(total_start, total_end + 1):
+        if start <= year <= end:
+            padding_data.append(data[year - start])
+        else:
+            padding_data.append(None)
+    return padding_data
+
 @register('predict', 'results', 'compare')
 class PredictionResultComparison(Resource):
     def post(self):
@@ -1597,14 +1607,21 @@ class PredictionResultComparison(Resource):
                     'data': data
                 }
             elif trait == 'predictMVW':
+                start = min([int(cont['arg']['PreStartYear']) for cont in contents])
+                end = max([int(cont['arg']['PreEndYear']) for cont in contents])
+
                 data = {
                     'xName': '年份',
-                    'xData': [str(year) for year in range(contents[0]['arg']['PreStartYear'], contents[0]['arg']['PreEndYear'] + 1)],
+                    'xData': [str(year) for year in range(start, end + 1)],
                     'yName': '预测值',
                     'yData': [
                         {
                             'tag': content['arg']['tag'],
-                            'data': content['result']['preresult']
+                            'data': _padding_empty_years(
+                                content['result']['preresult'],
+                                content['arg']['PreStartYear'], 
+                                content['arg']['PreEndYear'],
+                                start, end)
                         } for content in contents
                     ]
                 }
