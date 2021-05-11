@@ -97,7 +97,7 @@ class insertAlgorithmResult(Resource):
     def post(self):
         content = request.json['result']
         tag = request.json['tag']
-        if tag.strip() == '':
+        if (not tag) or tag.strip() == '':
             return {
                 "message": 'empty request'
             }
