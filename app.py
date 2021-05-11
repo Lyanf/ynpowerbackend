@@ -1531,6 +1531,7 @@ class PredictionResultDetail(Resource):
         try:
             tag = request.args['tag']
             result = getAlgorithmContentByTag(tag)
+            print('\nplan get: ', result)
             contentstr = result[0]["content"]
             content = json.loads(contentstr)
             return {
