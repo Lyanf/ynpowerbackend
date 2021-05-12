@@ -31,12 +31,12 @@ from algorithms.evaluation import RMSE,MAPE
 
 
 
-def GBDT(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会用电量",city="云南省",LearningRate=0.1, MaxDepth=20, NumberofEstimators=500):
+def GBDT(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会用电量",city="云南省",LearningRate=0.5, MaxDepth=20, NumberofEstimators=500):
 
     if timestep > (int(EndYear)-int(StartYear)+1):
-        raise ValueError("训练步长过大，请调整后重试")
+        raise ValueError("训练步长过大，请调整后重试.")
     elif int(EndYear)-int(StartYear)<(int(PreEndYear)-int(PreStartYear)+timestep):
-        raise ValueError("历史时间长度小于预测时间长度，请增加历史时间长度或减小预测时间长度")    
+        raise ValueError("历史时间长度小于预测时间长度,请增加历史时间长度或减小预测时间长度.")    
     else:
         #读取数据，确定参数
         name=[pretype]
@@ -98,11 +98,11 @@ def GBDT(StartYear,EndYear,PreStartYear,PreEndYear,timestep,pretype="全社会�
 
 
 if __name__ == '__main__':
-    StartYear="2013"
+    StartYear="2000"
     EndYear="2019"
     PreStartYear="2020"
-    PreEndYear="2026"
-    timestep=2
+    PreEndYear="2023"
+    timestep=7
     pretype="全社会用电量"
     city="云南省"
 
