@@ -1493,6 +1493,32 @@ class YearlyContinuousPayloadPredictionParameters(Resource):
         #         'tag': request.args['tag']
         #     }
         # }
+@register('predict', 'results', 'query', 'compare')
+class PredictionResultsQueryForComparison(Resource):
+    def get(self):
+        re = {
+            "msg": "success",
+            "code": 200,
+            "data": []
+        }
+        re1 = getTagByKind("STATIC_REGIONAL")
+        if re1 is not None:
+            for t in re1:
+                re["data"].append(t)
+        re2 = getTagByKind("DYNAMIC_INDUSTRIAL")
+        if re2 is not None:
+            for t in re2:
+                re["data"].append(t)
+        re3 = getTagByKind("LONGTERM")
+        if re3 is not None:
+            for t in re3:
+                re["data"].append(t)
+        re4 = getTagByKind("BIGUSER")
+        if re4 is not None:
+            for t in re4:
+                re["data"].append(t)
+        return re
+
 
 @register('predict', 'results', 'query')
 class PredictionResultsQuery(Resource):
@@ -1506,7 +1532,7 @@ class PredictionResultsQuery(Resource):
         if re1 is not None:
             for t in re1:
                 re["data"].append(t)
-        re2 = getTagByKind("MIX")
+        re2 = getTagByKind("DYNAMIC_INDUSTRIAL")
         if re2 is not None:
             for t in re2:
                 re["data"].append(t)
