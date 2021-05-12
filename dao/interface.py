@@ -357,6 +357,8 @@ def addPerson(username, password):
     return msg
 
 def insertAlgorithmContent(tag, kind, content):
+    if tag == None or tag.strip() == '' or tag == 'null':
+        return
     class NpEncoder(json.JSONEncoder):
         def default(self, obj):
             if isinstance(obj, np.integer):
