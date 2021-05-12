@@ -833,7 +833,7 @@ class IndustrySinglePredict(Resource):
     def post(self):
         try:
             full_params = dict(request.json)
-            validateRegion(full_params, full_params['StartYear'], full_params['EndYear'])
+            validateIndustry(full_params, full_params['StartYear'], full_params['EndYear'])
         except Exception as e:
             print(e)
             return {
