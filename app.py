@@ -798,6 +798,8 @@ class RegionSinglePredict(Resource):
                 validateLDM(full_params)
             elif full_params['method'] == '大用户法':
                 validateForIndustry(full_params)
+            elif full_params['method'] == '地区组合预测模型' or full_params['method'] == '行业组合预测模型':
+                ...
             else:
                 validateRegion(full_params, int(full_params['StartYear']), int(full_params['EndYear']))
         except Exception as e:
