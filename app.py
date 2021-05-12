@@ -994,12 +994,12 @@ class DailyPayloadTraits(Resource):
             }
         except DataRangeError as e:
             return {
-                "msg": str(e),
+                "msg": repr(e),
                 "code": -1
             }
         except Exception as e:
             return {
-                "msg": "算法错误：" + str(e),
+                "msg": repr(e),
                 "code": -1
             }
 
@@ -1016,12 +1016,12 @@ class MonthlyPayloadTraits(Resource):
             }
         except DataRangeError as e:
             return {
-                "msg": str(e),
+                "msg": repr(e),
                 "code": -1
             }
         except Exception as e:
             return {
-                "msg": "算法错误：" + str(e),
+                "msg": repr(e),
                 "code": -1
             }
 
@@ -1037,12 +1037,12 @@ class YearlyPayloadTraits(Resource):
             }
         except DataRangeError as e:
             return {
-                "msg": str(e),
+                "msg": repr(e),
                 "code": -1
             }
         except Exception as e:
             return {
-                "msg": "算法错误：" + str(e),
+                "msg": repr(e),
                 "code": -1
             }
 
@@ -1069,12 +1069,12 @@ class SokuPayloadPredict(Resource):
             }
         except DataRangeError as e:
             return {
-                "msg": str(e),
+                "msg": repr(e),
                 "code": -1
             }
         except Exception as e:
             return {
-                "msg": "算法错误：" + str(e),
+                "msg": repr(e),
                 "code": -1
             }
 
@@ -1102,12 +1102,12 @@ class ClampingPayloadPredict(Resource):
             }
         except DataRangeError as e:
             return {
-                "msg": str(e),
+                "msg": repr(e),
                 "code": -1
             }
         except Exception as e:
             return {
-                "msg": "算法错误：" + str(e),
+                "msg": repr(e),
                 "code": -1
             }
 
@@ -1134,12 +1134,12 @@ class InterpolatingPayloadPredict(Resource):
             }
         except DataRangeError as e:
             return {
-                "msg": str(e),
+                "msg": repr(e),
                 "code": -1
             }
         except Exception as e:
             return {
-                "msg": "算法错误：" + str(e),
+                "msg": repr(e),
                 "code": -1
             }
 
@@ -1167,12 +1167,12 @@ class YearlyContinuousPayloadPredict(Resource):
             }
         except DataRangeError as e:
             return {
-                "msg": str(e),
+                "msg": repr(e),
                 "code": -1
             }
         except Exception as e:
             return {
-                "msg": "算法错误：" + str(e),
+                "msg": repr(e),
                 "code": -1
             }
 
@@ -1572,7 +1572,7 @@ class PredictionResultDetail(Resource):
             }
         except Exception as e:
             return {
-                "msg": str(e),
+                "msg": repr(e),
                 "code": -1
             }
 
@@ -1665,7 +1665,7 @@ class PredictionResultComparison(Resource):
                 raise LookupError('未知的比对特征 %s。' % trait)
         except Exception as e:
             return {
-                "msg": str(e),
+                "msg": repr(e),
                 "code": -1
             }
 
@@ -1764,12 +1764,12 @@ class PayloadChartsDailyTypical(Resource):
             return re
         except DataRangeError as e:
             return {
-                "msg": str(e),
+                "msg": repr(e),
                 "code": -1
             }
         except Exception as e:
             return {
-                "msg": "算法错误：" + str(e),
+                "msg": repr(e),
                 "code": -1
             }
 
@@ -1800,12 +1800,12 @@ class PayloadChartsMonthly(Resource):
             return re
         except DataRangeError as e:
             return {
-                "msg": str(e),
+                "msg": repr(e),
                 "code": -1
             }
         except Exception as e:
             return {
-                "msg": "算法错误：" + str(e),
+                "msg": repr(e),
                 "code": -1
             }
 
@@ -1846,12 +1846,12 @@ class PayloadChartsYearly(Resource):
             return re
         except DataRangeError as e:
             return {
-                "msg": str(e),
+                "msg": repr(e),
                 "code": -1
             }
         except Exception as e:
             return {
-                "msg": "算法错误：" + str(e),
+                "msg": repr(e),
                 "code": -1
             }
 
@@ -1976,12 +1976,12 @@ class getDefaultOfLoadPre(Resource):
             }
         except DataRangeError as e:
             return {
-                "msg": str(e),
+                "msg": repr(e),
                 "code": -1
             }
         except Exception as e:
             return {
-                "msg": "算法错误：" + str(e),
+                "msg": repr(e),
                 "code": -1
             }
 

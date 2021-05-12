@@ -322,7 +322,7 @@ def formatPredictResultMix(result, digits=2):
     except Exception as e:
         print('formatPredictResultMix error', repr(e))
         return {
-            "msg": str(e),
+            "msg": repr(e),
             "code": -1
         }
     return re
