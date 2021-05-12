@@ -84,14 +84,26 @@ def Combination(PreStartYear,PreEndYear,pretype,singleresult,city="云南省", c
     for tag in singleresult:
         r=getAlgorithmResult(tag)
         data=json.loads(json.loads(r)["results"][0][1])
+        print(data)
+        if ("PreStartYear" or "PreEndtYear") not in data["arg"].keys():
+            raise ValueError("%s 并非预测模型，不适用于组合预测模型"%tag)
+        elif "pretype" in data["arg"].keys():
+            if data["arg"]["pretype"] != pretype:
+               raise ValueError("%s 的预测目标与组合预测的预测目标不符"%tag)
+            else:
+                pass
+        elif "pretype*" in data["arg"].keys():
+            if data["arg"]["pretype*"] != pretype:
+                raise ValueError("%s 的预测目标与组合预测的预测目标不符"%tag)
+            else:
+                pass
+        elif data["arg"]["PreStartYear"]!=int(PreStartYear):
+            raise ValueError("%s 的预测起始年份与所选预测起始年份不符"%tag)
+        elif data["arg"]["PreEndYear"]!=int(PreEndYear):
+            raise ValueError("%s 的预测起始年份与所选预测终止年份不符"%tag)
+        elif "trainresult" not in data["result"].keys():
+            raise ValueError("%s 不适用于组合预测模型"%tag)
 
-        print(data['arg'])
-        if data["arg"]["beginYear"]!=int(PreStartYear):
-            raise ValueError("%s 的预测起始年份与所选预测起始年份不符" % tag)
-        elif data["arg"]["endYear"]!=int(PreEndYear):
-            raise ValueError("%s 的预测终止年份与所选预测终止年份不符" % tag)
-        elif "trainresult" not in data["result"]:
-            raise LookupError("%s 不适用于组合预测模型" % tag)
     #读取各个模型的数据
     alldata=[]
     for tag in singleresult:
@@ -204,9 +216,9 @@ def Combination(PreStartYear,PreEndYear,pretype,singleresult,city="云南省", c
 
 
 if __name__ == '__main__':
-    singleresult=["Y-云南用电量-对数-2020-2022","Y-云南用电量-灰色滑动-2020-2022","Y-云南用电量-模糊线性-2020-2022"]
+    singleresult=["Y-全社会用电量-指数外推-20-23","Y-全社会用电量-模糊线性-20-23","Y-主成分分析"]
     PreStartYear = "2020"
-    PreEndYear = "2022"
+    PreEndYear = "2023"
     pretype = "全社会用电量"
     comtype="递阶组合"
     cresult=Combination(PreStartYear,PreEndYear,pretype,singleresult,"云南省",comtype)
