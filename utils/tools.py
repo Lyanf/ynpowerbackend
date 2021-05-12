@@ -313,7 +313,8 @@ def formatPredictResultMix(result, digits=2):
             "tableOneData":[
                 {
                     'mape': round(result["MAPE"][i],2),
-                    "rmse": round(result["RMSE"][i],2)
+                    "rmse": round(result["RMSE"][i],2),
+                    "name": result['name'][i]
                 } for i in range(len(result['MAPE']))
             ],
             "tableTwoData": tableTwoData
