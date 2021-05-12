@@ -321,7 +321,10 @@ def formatPredictResultMix(result, digits=2):
         }
     except Exception as e:
         print('formatPredictResultMix error', repr(e))
-        re = None
+        return {
+            "msg": str(e),
+            "code": -1
+        }
     return re
 
 def getCombinationMethod():
