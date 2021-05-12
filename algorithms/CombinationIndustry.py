@@ -84,20 +84,15 @@ def CombinationIndustry(PreStartYear,PreEndYear,pretype,singleresult,city="云�
     for tag in singleresult:
         r=getAlgorithmResult(tag)
         data=json.loads(json.loads(r)["results"][0][1])
-        print(data)
         if ("PreStartYear" or "PreEndtYear") not in data["arg"].keys():
             raise ValueError("%s 并非预测模型，不适用于组合预测模型"%tag)
-        elif "pretype" in data["arg"].keys():
+        if "pretype" in data["arg"].keys():
             if data["arg"]["pretype"] != pretype:
                raise ValueError("%s 的预测目标与组合预测的预测目标不符"%tag)
-            else:
-                pass
-        elif "pretype*" in data["arg"].keys():
+        if "pretype*" in data["arg"].keys():
             if data["arg"]["pretype*"] != pretype:
                 raise ValueError("%s 的预测目标与组合预测的预测目标不符"%tag)
-            else:
-                pass
-        elif data["arg"]["PreStartYear"]!=int(PreStartYear):
+        if data["arg"]["PreStartYear"]!=int(PreStartYear):
             raise ValueError("%s 的预测起始年份与所选预测起始年份不符"%tag)
         elif data["arg"]["PreEndYear"]!=int(PreEndYear):
             raise ValueError("%s 的预测起始年份与所选预测终止年份不符"%tag)
@@ -210,11 +205,11 @@ def CombinationIndustry(PreStartYear,PreEndYear,pretype,singleresult,city="云�
 
 
 if __name__ == '__main__':
-    PreStartYear = "2020"
-    PreEndYear = "2022"
-    pretype = "第一产业用电量"
+    PreStartYear = "2021"
+    PreEndYear = "2023"
+    pretype = "黄磷用电量"
     comtype="等权组合"
     city="云南省"
     
-    singleresult=["Y-一产-RF-2020-2022","Y-一产-PCA-2020-2022","Y-一产-SARIMA-2020-2022","Y-一产-EEMD-2020-2022"]
+    singleresult=["Y-黄磷-EEMD-21-23","Y-黄磷-SARIMA-21-23","Y-K均值"]
     cresult=CombinationIndustry(PreStartYear,PreEndYear,pretype,singleresult,city,comtype)
