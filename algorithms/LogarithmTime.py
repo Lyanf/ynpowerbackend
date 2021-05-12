@@ -56,7 +56,7 @@ def LogarithmTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会�
 
         final["time"]=realyear
 
-        x = final["time"].values
+        x = final["time"].values*(1+plan*0.01)
         y = final[pretype].values        #load
 
 
@@ -65,7 +65,7 @@ def LogarithmTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会�
 
 
         #区分训练数据和预测数据
-        preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)
+        preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)*(1+plan*0.01)
         year=len(preyear)
         #区分训练数据和预测数据
         num=len(x)
@@ -92,7 +92,7 @@ def LogarithmTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会�
             testpmm = testpm.index(np.median(testpm))
             testpredx = testp[testpmm]
             testpredx = [k * testx[-1] for k in testpredx]
-            testpredy = [a*np.log (x) + b for x in testpredx]
+            testpredy = [a*np.log (x) + b for x in testx]
     
     
             trainyear=realyear[num-1-year:num]   
@@ -116,7 +116,7 @@ def LogarithmTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会�
             predx = p[pmm]
             predx = [k * x[-1] for k in predx]
                 
-            predy = [ap*np.log (x0) + bp for x0 in predx]
+            predy = [ap*np.log (x0) + bp for x0 in preyear]
             predy=np.array(predy).squeeze()
             
     
@@ -128,10 +128,10 @@ def LogarithmTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会�
             return result
             
 if __name__ == '__main__':
-    StartYear="1990"
+    StartYear="2000"
     EndYear="2019"
     PreStartYear="2020"
-    PreEndYear="2021"
+    PreEndYear="2023"
     pretype="全社会用电量"
     city="云南省"
     

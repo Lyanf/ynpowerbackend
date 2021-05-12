@@ -42,15 +42,15 @@ def UnarylinearTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会
 
         final["time"]=realyear
         
-       
 
-        x = final["time"].values
+
+        x = final["time"].values*(1+plan*0.01)
         y = final[pretype].values        #load
 
 
         x = x.reshape(-1,1)
         y = y.reshape(-1,1)
-        
+
         preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)
         year=len(preyear)
         #区分训练数据和预测数据
@@ -66,19 +66,31 @@ def UnarylinearTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会
             testx=x[num-1-year:num-1]
             testy=y[num-1-year:num-1]
             
+            
+            # trainp = ic.getpred(trainx,year,planflag,plan)
+            # trainp = np.array(trainp).T
+            # trainpm = []
+            # for i in range(51):
+            #     trainpm.append(np.mean(trainp[i]))
+            # trainpmm = trainpm.index(np.median(trainpm))
+            # trainpredx = trainp[trainpmm]
+            # trainpredx = [k * trainx[-1] for k in trainpredx]           
+            
+            # print(trainx)
+            # print(trainpredx)
             reg = LinearRegression().fit(trainx, trainy)
             
             # reg = LinearRegression().fit(x, y)
             
-            testp = ic.getpred(testx,year,planflag,plan)
-            testp = np.array(testp).T
-            testpm = []
-            for i in range(51):
-                testpm.append(np.mean(testp[i]))
-            testpmm = testpm.index(np.median(testpm))
-            testpredx = testp[testpmm]
-            testpredx = [k * testx[-1] for k in testpredx]
-            testpredy = [testx * reg.coef_[0][0] + reg.intercept_[0] for testx in testpredx]
+            # testp = ic.getpred(testx,year,planflag,plan)
+            # testp = np.array(testp).T
+            # testpm = []
+            # for i in range(51):
+            #     testpm.append(np.mean(testp[i]))
+            # testpmm = testpm.index(np.median(testpm))
+            # testpredx = testp[testpmm]
+            # testpredx = [k * testx[-1] for k in testpredx]
+            testpredy = [testx * reg.coef_[0][0] + reg.intercept_[0] for testx in testx]
             
             # loadp = reg.predict(testx)#趋势外推
             
@@ -90,18 +102,20 @@ def UnarylinearTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会
             trainyear=realyear[num-1-year:num-1]
     
             
-            preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)
+            preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)*(1+plan*0.01)
             
-            p = ic.getpred(preyear,year,planflag,plan)
-            p = np.array(p).T
-            pm = []
-            for i in range(51):
-                pm.append(np.mean(p[i]))
-            pmm = pm.index(np.median(pm))
-            predx = p[pmm]
-            predx = [k * x[-1] for k in predx]
-                
-            predy = [x * reg.coef_[0][0] + reg.intercept_[0] for x in predx]
+            reg1 = LinearRegression().fit(x, y)
+            
+            # p = ic.getpred(preyear,year,planflag,plan)
+            # p = np.array(p).T
+            # pm = []
+            # for i in range(51):
+            #     pm.append(np.mean(p[i]))
+            # pmm = pm.index(np.median(pm))
+            # predx = p[pmm]
+            # predx = [k * x[-1] for k in predx]
+
+            predy = [x * reg1.coef_[0][0] + reg1.intercept_[0] for x in preyear]
             predy=np.array(predy).squeeze()  
     
             
@@ -111,11 +125,11 @@ def UnarylinearTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会
             result={"trainfromyear":trainyear[0],"traintoyear":trainyear[-1],"trainresult":ytrain.tolist(),"prefromyear":PreStartYear,"pretoyear":PreEndYear,"preresult":ypre.tolist(),"MAPE":mape,"RMSE":rmse}
             return result
 if __name__ == '__main__':
-    StartYear="1990"
+    StartYear="2000"
     EndYear="2019"
     PreStartYear="2020"
-    PreEndYear="2021"
+    PreEndYear="2023"
     pretype="全社会用电量"
     city="云南省"
     
-    result=UnarylinearTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype,city)
+    result=UnarylinearTime(StartYear,EndYear,PreStartYear,PreEndYear,pretype,city,0,0)

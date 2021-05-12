@@ -21,9 +21,9 @@ def pre(data,name,fromyear,toyear):
         #数据表头为["year","value"]
     hisyear=data.index.values
     hisyear=list(map(int,hisyear))
-    datastartyear=hisyear[0]
-    datafinalyear=hisyear[-1]
-    year=toyear-fromyear+1
+    # datastartyear=hisyear[0]
+    # datafinalyear=hisyear[-1]
+    # year=toyear-fromyear+1
     
     
     x = np.array(hisyear)
@@ -33,23 +33,23 @@ def pre(data,name,fromyear,toyear):
     y = y.reshape(-1,1)
 
     #区分训练数据和预测数据
-    num=len(x)
-    if num>year+5:
-        testyear=year
-    else:
-        testyear=5
-    trainx=x[:num-testyear]
-    trainy=y[:num-testyear]
+    # num=len(x)
+    # if num>year+5:
+    #     testyear=year
+    # else:
+    #     testyear=5
+    # trainx=x[:num-testyear]
+    # trainy=y[:num-testyear]
     
-    testx=x[num-testyear:]
-    testy=y[num-testyear:]
+    # testx=x[num-testyear:]
+    # testy=y[num-testyear:]
 
-    
-    reg = LinearRegression().fit(trainx, trainy)
+    # print(trainx,trainy)
+    # reg = LinearRegression().fit(trainx, trainy)
     
     # reg = LinearRegression().fit(x, y)
-    testpredx=np.arange(trainx[-1]+1,trainx[-1]+1+testyear)
-    testpredy = [testx * reg.coef_[0][0] + reg.intercept_[0] for testx in testpredx]
+    # testpredx=np.arange(trainx[-1]+1,trainx[-1]+1+testyear)
+    # testpredy = [testx * reg.coef_[0][0] + reg.intercept_[0] for testx in testpredx]
     
     # loadp = reg.predict(testx)#趋势外推
     

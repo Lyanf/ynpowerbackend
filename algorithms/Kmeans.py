@@ -39,8 +39,8 @@ def Kmeans(StartYear,EndYear,pretype,econamelist,n_clusters,city="云南省"):
         DESCRIPTION. The default is "云南省".
 
     """
-    if n_clusters>len(econamelist)*0.5:
-        m=math.ceil(len(econamelist)*0.5)
+    if n_clusters>(len(pretype)+len(econamelist))*0.5:
+        m=math.ceil((len(pretype)+len(econamelist))*0.5)
         raise ValueError ("聚类数过大，建议在1-%s之间选取"%m)
     if n_clusters==0:
         raise ValueError ("聚类数不可设置为小于1的整数")
