@@ -833,7 +833,10 @@ class IndustrySinglePredict(Resource):
     def post(self):
         try:
             full_params = dict(request.json)
-            validateIndustry(full_params, full_params['StartYear'], full_params['EndYear'])
+            validateIndustry(full_params, int(full_params['StartYear']), int(full_params['EndYear']))
+
+            if full_params['method'] == '基于ARIMA季节分解的行业电量预测':
+                validateSARIMA(full_params, int(full_params['StartYear']), int(full_params['EndYear']))
         except Exception as e:
             print(e)
             return {

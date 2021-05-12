@@ -1093,6 +1093,16 @@ def validateIndustry(args, start, end):
     if start < act_start or end > act_end:
         raise ValueError("输入的年份范围（%d～%d）超过了限制，合法范围是 %d～%d。" % (start, end, act_start, act_end))
 
+
+def validateSARIMA(args, start, end):
+    type = args['pretype']
+    act_start, act_end = getDataRange('电力电量类-行业', type, args['city*'], '月')
+    if act_start > act_end:
+        raise ValueError("选择的参数组合下没有数据，请尝试更换参数组合。")
+    if start < act_start or end > act_end:
+        raise ValueError("输入的年份范围（%d～%d）超过了限制，合法范围是 %d～%d。" % (start, end, act_start, act_end))
+    
+
 def validateForIndustry(args):
     range = (float('-inf'), float('+inf'))
     for arg in args['rejectlsit'].split(','):
@@ -1155,6 +1165,7 @@ def getDataRange(major_category: str, minor_category: str, region: str, grain: s
     min_year, max_year = min(years), max(years)
     print("finally, min max =", min_year, max_year)
     return (min_year, max_year)
+
     
 if __name__ == '__main__':
     # conn = psycopg2.connect(dbname="electric", user="postgresadmin", password="admin123", host="192.168.1.108",
