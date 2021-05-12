@@ -295,7 +295,6 @@ def formatPredictResultMix(result, digits=2):
         'xData': [],
         'yData': []
     }
-    tableOneData = []
     try:
         prefromyear = timeFormat(result["prefromyear"], "year")
         pretoyear = timeFormat(result["pretoyear"], "year")
@@ -306,7 +305,7 @@ def formatPredictResultMix(result, digits=2):
         
         for i in range(len(result['name'])):
             tableTwoData['yData'].append({
-                'data': round(result['preresult'][i], digits),
+                'data': [round(v, digits) for v in result['preresult'][i]],
                 'name': result['name'][i]
             })
 
