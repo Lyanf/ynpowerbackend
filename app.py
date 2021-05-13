@@ -5,6 +5,7 @@ from pprint import pprint, pformat
 
 from dao.interface import *
 
+# print(getUnit('测试', '煤炭'))
 # validateLDM({
 #     'buildingarea': open('./algorithms/yunnan_building.csv'),
 #     'loaddensity': open('./algorithms/yunnan_loaddensity.csv'),

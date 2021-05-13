@@ -16,13 +16,20 @@ filename = os.path.join(os.getcwd(), os.path.dirname(os.path.dirname(__file__)),
 # filename = os.path.join(app.root_path, 'algorithms', 'args.xlsx')
 defaultFile = os.path.join(os.getcwd(), os.path.dirname(os.path.dirname(__file__)),'algorithms', 'default.xls')
 
+DIST = True
 
-
-dbname="electric"
-user="postgres"
-password="admin123"
-host="localhost"
-port="5432"
+if DIST:
+    dbname="electric"
+    user="postgres"
+    password="admin123"
+    host="localhost"
+    port="5432"
+else:
+    dbname="electric"
+    user="postgres"
+    password="admin123"
+    host="dclab.club"
+    port="32345"
 
 class Database():
     # replace the user, password, hostname and database according to your configuration according to your information
@@ -1169,6 +1176,17 @@ def getDataRange(major_category: str, minor_category: str, region: str, grain: s
     return (min_year, max_year)
 
     
+def getUnit(major: str, minor: str) -> str:
+    try:
+        get_unit_sql = "select distinct unit from brand_new_metadata where major_category='%s' and minor_category='%s'" % (major, minor)
+        conn = getConn()
+        cur = conn.cursor()
+        cur.execute(get_unit_sql)
+        result = cur.fetchall()
+        return result[0][0]
+    except:
+        return ''
+
 if __name__ == '__main__':
     # conn = psycopg2.connect(dbname="electric", user="postgresadmin", password="admin123", host="192.168.1.108",
     #                         port="32345")
