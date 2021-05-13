@@ -891,6 +891,24 @@ def executeAlgorithm(method, args):
     print(argstr)
 
     result = eval("f("+argstr+")")
+
+    if type(result) == dict:
+        print("i'm trying to get an unit...")
+        if 'pretype' in args:
+            typee = args['pretype']
+        elif 'pretype*' in args:
+            typee = args['pretype*']
+        else:
+            # 得了吧
+            return result
+        
+        for major in ['电力电量类', '社会经济类', '电力电量类-行业']:
+            res_unit = getUnit(major, typee)
+            if res_unit:
+                result.update({
+                    'unit': res_unit
+                })
+                return result
     return result
 
 def getDataNameByAreaAndKind(area = "云南省", kind = "社会经济类"):

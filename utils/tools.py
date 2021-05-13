@@ -276,18 +276,22 @@ def formatPredictResult(result, digits=2):
             i += 1
             prefromyear = getNextYear(prefromyear)
 
-        re ={
+        re = {
             "tableOneData":[
                 {
                     'mape': round(result["MAPE"],2),
                     "rmse": round(result["RMSE"],2)
                 }
             ],
-            "tableTwoData": tableTwoData
+            "tableTwoData": tableTwoData,
         }
+        if 'unit' in result:
+            re.update({
+                'unit': result['unit']
+            })
     except Exception as e:
         print('formatPredictResult error', repr(e))
-        re = None
+        return None
     return re
 
 def formatPredictResultMix(result, digits=2):
