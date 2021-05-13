@@ -257,7 +257,7 @@ class GetMetadata(Resource):
                 'label': name,
                 'children': [{
                     'value': subname,
-                    'label': subname,
+                    'label': subname + '（%s）' % subunit,
                     'unit': subunit
                 } for subname, subunit in children]
             })
@@ -273,7 +273,7 @@ class CreateMetadata(Resource):
         path, minor_name, unit = request.json['path'], request.json['name'], request.json['unit']
         if unit.strip() == '':
             # fallback unit
-            unit = 'MW'
+            unit = ''
         if len(path) > 2:
             return {
                 "msg": "只能新建根节点或二级节点",
