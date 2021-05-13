@@ -269,7 +269,10 @@ class GetMetadata(Resource):
 @register('db', 'metadata', 'create')
 class CreateMetadata(Resource):
     def post(self):
-        path, minor_name = request.json['path'], request.json['name']
+        path, minor_name, unit = request.json['path'], request.json['name'], request.json['unit']
+        if unit.strip() == '':
+            # fallback unit
+            unit = 'MW'
         if len(path) > 2:
             return {
                 "msg": "只能新建根节点或二级节点",
@@ -277,13 +280,13 @@ class CreateMetadata(Resource):
             }
         elif len(path) == 2:
             major_name = path[1]
-            createBrandNewMetadata(major_name, minor_name)
+            createBrandNewMetadata(major_name, minor_name, unit)
             return {
                 "msg": "success",
                 "code": 200
             }
         else:
-            createBrandNewMetadata(minor_name, '')
+            createBrandNewMetadata(minor_name, '', '')
             return {
                 "msg": "success",
                 "code": 200
