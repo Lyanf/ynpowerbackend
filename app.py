@@ -250,14 +250,17 @@ class GetMetadata(Resource):
     def get(self):
         metadata = getBrandNewMetadata()
         normalized_metadata = []
-        for name, children in metadata.items():
+        for tuple, children in metadata.items():
+            name, unit = tuple
             normalized_metadata.append({
                 'value': name,
                 'label': name,
+                'unit': unit,
                 'children': [{
                     'value': subname,
-                    'label': subname
-                } for subname in children]
+                    'label': subname,
+                    'unit': subunit
+                } for subname, subunit in children]
             })
         return {
             "msg": "success",

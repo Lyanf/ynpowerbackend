@@ -37,7 +37,8 @@ create table program
 create table brand_new_metadata
 (
     major_category text,
-    minor_category text
+    minor_category text,
+    unit text
 );
 
 INSERT INTO person (id, username, password) VALUES (1, 'admin', 'admin');

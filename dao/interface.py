@@ -982,7 +982,7 @@ def initDatabase():
     conn.commit()
 
 def getBrandNewMetadata():
-    sql = "select distinct major_category, minor_category from brand_new_metadata"
+    sql = "select distinct major_category, minor_category, unit from brand_new_metadata"
     conn = getConn()
     cur = conn.cursor()
     cur.execute(sql)
@@ -990,13 +990,13 @@ def getBrandNewMetadata():
     conn.commit()
 
     result_dict = dict()
-    for major, minor in result:
+    for major, minor, unit in result:
         if major in result_dict:
             if minor != '':
-                result_dict[major].append(minor)
+                result_dict[major].append((minor, unit))
         else:
             if minor != '':
-                result_dict[major] = [minor]
+                result_dict[major] = [(minor, unit)]
             else:
                 result_dict[major] = []
 
@@ -1011,8 +1011,8 @@ def majorMetaDataToId(major):
     conn.commit()
     return [v[0] for v in result]
 
-def createBrandNewMetadata(major, minor):
-    sql = "insert into brand_new_metadata values ('{}', '{}')".format(major, minor)
+def createBrandNewMetadata(major, minor, unit='顿'):
+    sql = "insert into brand_new_metadata values ('{}', '{}', {})".format(major, minor, unit)
     conn = getConn()
     cur = conn.cursor()
     cur.execute(sql)
