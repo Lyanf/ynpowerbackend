@@ -33,7 +33,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     const TCHAR python[] = _T("python");
     const TCHAR app[] = _T("./app.py");
 
-    HINSTANCE hRslt = ShellExecute(NULL, _T(""), python, app, NULL, SW_SHOWNORMAL);
+    HINSTANCE hRslt = ShellExecute(NULL, _T(""), python, app, NULL, SW_SHOWMINIMIZED);
     if (hRslt <= (HINSTANCE)HINSTANCE_ERROR) {
         MessageBox(NULL, TEXT("Python 后端启动失败"), TEXT("失败"), MB_OK);
         return -1;
@@ -42,7 +42,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     const TCHAR explorer[] = _T("open");
     const TCHAR localhost[] = _T("http://localhost:18000");
 
-    hRslt = ShellExecute(NULL, explorer, localhost, NULL, NULL, SW_SHOWNORMAL);
+    hRslt = ShellExecute(NULL, explorer, localhost, NULL, NULL, SW_SHOWMAXIMIZED);
     if (hRslt <= (HINSTANCE)HINSTANCE_ERROR) {
         MessageBox(NULL, TEXT("网页前端启动失败"), TEXT("失败"), MB_OK);
         return -2;
