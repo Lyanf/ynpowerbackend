@@ -1011,7 +1011,7 @@ def majorMetaDataToId(major):
     conn.commit()
     return [v[0] for v in result]
 
-def createBrandNewMetadata(major, minor, unit='顿'):
+def createBrandNewMetadata(major, minor, unit='MW'):
     sql = "insert into brand_new_metadata values ('{}', '{}', {})".format(major, minor, unit)
     conn = getConn()
     cur = conn.cursor()
