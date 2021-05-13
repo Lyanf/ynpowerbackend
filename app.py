@@ -257,7 +257,7 @@ class GetMetadata(Resource):
                 'label': name,
                 'children': [{
                     'value': subname,
-                    'label': subname + '（%s）' % subunit,
+                    'label': (subname + '（%s）' % subunit) if subunit.strip() else subname,
                     'unit': subunit
                 } for subname, subunit in children]
             })
