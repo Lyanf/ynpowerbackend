@@ -1,3 +1,5 @@
+setx /M PATH "%PATH%;C:\Program Files\MATLAB\MATLAB Runtime\v96\runtime\win64"
+
 .\Installer\python-3.7.9-amd64.exe && (echo "Python 运行环境安装成功") || (echo "Python 运行环境安装失败")
 
 .\Installer\postgresql-13.2-2-windows-x64.exe && (echo "PostgreSQL 数据库安装成功") || (echo "PostgreSQL 数据库安装失败")
