@@ -198,7 +198,7 @@ def addPowerData(data, area, grain, kind):
                 continue
             values.append(
                 "INSERT INTO electric_data_test(datatime, dataname, datavalue, metadataid) VALUES(to_timestamp('{}','YYYY/MM/DD HH24:MI:SS'), '{}', {}, '{}') on conflict on constraint unique_cons do update set datavalue={};".format(
-                    datatime, header[i], v, metadataId, v))
+                    datatime, header[i].split('（')[0], v, metadataId, v))
             if len(values) >= 50000:
                 t = threading.Thread(target=insertPowerData, args=(values,))
                 values = []
@@ -1018,7 +1018,7 @@ def majorMetaDataToId(major):
     conn.commit()
     return [v[0] for v in result]
 
-def createBrandNewMetadata(major, minor, unit='MW'):
+def createBrandNewMetadata(major, minor, unit=''):
     sql = "insert into brand_new_metadata values ('{}', '{}', '{}')".format(major, minor, unit)
     conn = getConn()
     cur = conn.cursor()

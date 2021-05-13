@@ -87,7 +87,11 @@ class UploadCSVAndAutoCreate(Resource):
         uploadData(data, area, grain, kind)
 
         for minor in list(data.columns.values)[1:]:
-            createBrandNewMetadata(kind, minor)
+            if '（' in minor and minor.endswith('）'):
+                minor, unit = str(minor).split('（', maxsplit=1)
+                createBrandNewMetadata(kind, minor, unit.replace('）', ''))
+            else:
+                createBrandNewMetadata(kind, minor)
 
         re = {
             "message": 'success'
