@@ -83,7 +83,7 @@ namespace SetupTools
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            更改安装盘符ToolStripMenuItem.Text = "更改安装盘符（" + diskChar + ":\\）为…";
         }
 
         private void stepOneInstall_Click(object sender, EventArgs e)
@@ -215,6 +215,7 @@ namespace SetupTools
         {
             ChangeDisk form = new ChangeDisk();
             form.ShowDialog();
+            (sender as ToolStripMenuItem).Text = "更改安装盘符（" + diskChar + ":\\）为…";
         }
     }
 }
