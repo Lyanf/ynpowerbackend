@@ -14,9 +14,16 @@ namespace SetupTools
 {
     public partial class Form1 : Form
     {
+        public static string diskChar = "C";
+
         public Form1()
         {
             InitializeComponent();
+        }
+
+        string getInitDbContent(string diskChar)
+        {
+            return "set PGPASSWORD=admin123\ntype .\\script\\init.sql | \"" + diskChar + ":\\Program Files\\PostgreSQL\\13\\bin\\psql.exe\" -h \"localhost\" -U \"postgres\" -d \"electric\" -p 5432";
         }
 
         private string getRelativePath(string rel)
@@ -79,11 +86,6 @@ namespace SetupTools
 
         }
 
-        private void exitButton_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void stepOneInstall_Click(object sender, EventArgs e)
         {
             tryInstall("./bin/setup.exe");
@@ -96,7 +98,7 @@ namespace SetupTools
 
         private void stepThreeInstall_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("请使用 admin123 作为默认用户 postgresql 的密码。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("请使用 admin123 作为默认用户 postgres 的密码，并保持默认 5432 端口设定不变。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             tryInstall("./bin/postgresql-13.2-2-windows-x64.exe");
         }
 
@@ -112,7 +114,7 @@ namespace SetupTools
                 var name = "PATH";
                 var scope = EnvironmentVariableTarget.Machine;
                 var oldValue = Environment.GetEnvironmentVariable(name, scope);
-                var newValue = oldValue + @";C:\Program Files\MATLAB\MATLAB Runtime\v96\runtime\win64";
+                var newValue = oldValue + @";" + diskChar + @":\Program Files\MATLAB\MATLAB Runtime\v96\runtime\win64";
                 Environment.SetEnvironmentVariable(name, newValue, scope);
                 MessageBox.Show("配置环境变量成功。", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
             } catch
@@ -123,7 +125,19 @@ namespace SetupTools
 
         private void stepSixInit_Click(object sender, EventArgs e)
         {
-            tryExecute("./script/initdb.bat");
+            string content = getInitDbContent(diskChar);
+            try
+            {
+                System.IO.StreamWriter writer = new System.IO.StreamWriter("./script/initdb.bat", false, System.Text.Encoding.ASCII);
+                writer.WriteLine(content);
+                writer.Close();
+                writer.Dispose();
+                tryExecute("./script/initdb.bat");
+            }
+            catch
+            {
+                MessageBox.Show("无法生成数据库脚本 ./script/initdb.bat。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void step2Detect_Click(object sender, EventArgs e)
@@ -174,17 +188,33 @@ namespace SetupTools
 
         private void stepThreeDetect_Click(object sender, EventArgs e)
         {
-            checkFileExists(@"C:\Program Files\PostgreSQL\13\bin\psql.exe", "PostgreSQL");
+            checkFileExists(diskChar + @":\Program Files\PostgreSQL\13\bin\psql.exe", "PostgreSQL");
         }
 
         private void stepFourDetect_Click(object sender, EventArgs e)
         {
-            checkFileExists(@"C:\Program Files\MATLAB\MATLAB Runtime\v96\bin\win64\mclmcr.dll", "MATLAB");
+            checkFileExists(diskChar + @":\Program Files\MATLAB\MATLAB Runtime\v96\bin\win64\mclmcr.dll", "MATLAB");
         }
 
         private void stepFiveInstall_Click(object sender, EventArgs e)
         {
             tryExecute("./script/installdep.bat");
+        }
+
+        private void 帮助ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("请参阅软件使用用户手册”安装“一节。", "帮助");
+        }
+
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void 更改安装盘符ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeDisk form = new ChangeDisk();
+            form.ShowDialog();
         }
     }
 }

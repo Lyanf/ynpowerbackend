@@ -51,9 +51,14 @@ namespace SetupTools
             this.step2Detect = new System.Windows.Forms.Button();
             this.stepThreeDetect = new System.Windows.Forms.Button();
             this.stepFourDetect = new System.Windows.Forms.Button();
-            this.exitButton = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
             this.stepFiveInstall = new System.Windows.Forms.Button();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.copyRightLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.更改安装盘符ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // stepOneInstall
@@ -266,25 +271,6 @@ namespace SetupTools
             this.stepFourDetect.UseVisualStyleBackColor = true;
             this.stepFourDetect.Click += new System.EventHandler(this.stepFourDetect_Click);
             // 
-            // exitButton
-            // 
-            this.exitButton.Location = new System.Drawing.Point(406, 355);
-            this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(75, 40);
-            this.exitButton.TabIndex = 10;
-            this.exitButton.Text = "退出";
-            this.exitButton.UseVisualStyleBackColor = true;
-            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(29, 366);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(377, 18);
-            this.label13.TabIndex = 3;
-            this.label13.Text = "上海交通大学大数据工程技术研究中心 © 2021";
-            // 
             // stepFiveInstall
             // 
             this.stepFiveInstall.Location = new System.Drawing.Point(378, 243);
@@ -295,13 +281,65 @@ namespace SetupTools
             this.stepFiveInstall.UseVisualStyleBackColor = true;
             this.stepFiveInstall.Click += new System.EventHandler(this.stepFiveInstall_Click);
             // 
+            // statusStrip
+            // 
+            this.statusStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyRightLabel,
+            this.toolStripDropDownButton1});
+            this.statusStrip.Location = new System.Drawing.Point(0, 362);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(515, 32);
+            this.statusStrip.TabIndex = 11;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // copyRightLabel
+            // 
+            this.copyRightLabel.Name = "copyRightLabel";
+            this.copyRightLabel.Size = new System.Drawing.Size(384, 25);
+            this.copyRightLabel.Text = "上海交通大学大数据工程技术研究中心 © 2021";
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.更改安装盘符ToolStripMenuItem,
+            this.帮助ToolStripMenuItem,
+            this.退出ToolStripMenuItem});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(42, 29);
+            this.toolStripDropDownButton1.Tag = "";
+            this.toolStripDropDownButton1.Text = "···";
+            // 
+            // 帮助ToolStripMenuItem
+            // 
+            this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
+            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.帮助ToolStripMenuItem.Text = "帮助";
+            this.帮助ToolStripMenuItem.Click += new System.EventHandler(this.帮助ToolStripMenuItem_Click);
+            // 
+            // 退出ToolStripMenuItem
+            // 
+            this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.退出ToolStripMenuItem.Text = "退出";
+            this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
+            // 
+            // 更改安装盘符ToolStripMenuItem
+            // 
+            this.更改安装盘符ToolStripMenuItem.Name = "更改安装盘符ToolStripMenuItem";
+            this.更改安装盘符ToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.更改安装盘符ToolStripMenuItem.Text = "更改安装盘符…";
+            this.更改安装盘符ToolStripMenuItem.Click += new System.EventHandler(this.更改安装盘符ToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(515, 419);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.exitButton);
+            this.ClientSize = new System.Drawing.Size(515, 394);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label8);
@@ -326,11 +364,13 @@ namespace SetupTools
             this.Controls.Add(this.stepOneInstall);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(537, 475);
-            this.MinimumSize = new System.Drawing.Size(537, 475);
+            this.MaximumSize = new System.Drawing.Size(537, 450);
+            this.MinimumSize = new System.Drawing.Size(537, 450);
             this.Name = "Form1";
             this.Text = "环境配置实用程序";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -359,9 +399,13 @@ namespace SetupTools
         private System.Windows.Forms.Button step2Detect;
         private System.Windows.Forms.Button stepThreeDetect;
         private System.Windows.Forms.Button stepFourDetect;
-        private System.Windows.Forms.Button exitButton;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button stepFiveInstall;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel copyRightLabel;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 更改安装盘符ToolStripMenuItem;
     }
 }
 
