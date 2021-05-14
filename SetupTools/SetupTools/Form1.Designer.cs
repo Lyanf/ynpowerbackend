@@ -52,6 +52,7 @@ namespace SetupTools
             this.stepThreeDetect = new System.Windows.Forms.Button();
             this.stepFourDetect = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // stepOneInstall
@@ -266,19 +267,29 @@ namespace SetupTools
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(179, 367);
+            this.exitButton.Location = new System.Drawing.Point(412, 355);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(163, 40);
+            this.exitButton.Size = new System.Drawing.Size(75, 40);
             this.exitButton.TabIndex = 2;
-            this.exitButton.Text = "退出环境配置程序";
+            this.exitButton.Text = "退出";
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(29, 366);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(377, 18);
+            this.label13.TabIndex = 3;
+            this.label13.Text = "上海交通大学大数据工程技术研究中心 © 2021";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(515, 419);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label10);
@@ -337,6 +348,7 @@ namespace SetupTools
         private System.Windows.Forms.Button stepThreeDetect;
         private System.Windows.Forms.Button stepFourDetect;
         private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.Label label13;
     }
 }
 
