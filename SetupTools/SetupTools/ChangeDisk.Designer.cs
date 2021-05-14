@@ -125,7 +125,7 @@ namespace SetupTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(383, 185);
+            this.ClientSize = new System.Drawing.Size(383, 184);
             this.ControlBox = false;
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -133,6 +133,8 @@ namespace SetupTools
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
+            this.MaximumSize = new System.Drawing.Size(405, 240);
+            this.MinimumSize = new System.Drawing.Size(405, 240);
             this.Name = "ChangeDisk";
             this.Text = "更改安装盘符";
             this.Load += new System.EventHandler(this.ChangeDisk_Load);
