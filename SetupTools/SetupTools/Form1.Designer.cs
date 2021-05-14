@@ -90,7 +90,7 @@ namespace SetupTools
             this.stepTwoInstall.Location = new System.Drawing.Point(318, 84);
             this.stepTwoInstall.Name = "stepTwoInstall";
             this.stepTwoInstall.Size = new System.Drawing.Size(75, 40);
-            this.stepTwoInstall.TabIndex = 0;
+            this.stepTwoInstall.TabIndex = 1;
             this.stepTwoInstall.Text = "安装";
             this.stepTwoInstall.UseVisualStyleBackColor = true;
             this.stepTwoInstall.Click += new System.EventHandler(this.stepTwoInstall_Click);
@@ -120,7 +120,7 @@ namespace SetupTools
             this.stepThreeInstall.Location = new System.Drawing.Point(318, 137);
             this.stepThreeInstall.Name = "stepThreeInstall";
             this.stepThreeInstall.Size = new System.Drawing.Size(75, 40);
-            this.stepThreeInstall.TabIndex = 0;
+            this.stepThreeInstall.TabIndex = 3;
             this.stepThreeInstall.Text = "安装";
             this.stepThreeInstall.UseVisualStyleBackColor = true;
             this.stepThreeInstall.Click += new System.EventHandler(this.stepThreeInstall_Click);
@@ -150,7 +150,7 @@ namespace SetupTools
             this.stepFourInstall.Location = new System.Drawing.Point(318, 190);
             this.stepFourInstall.Name = "stepFourInstall";
             this.stepFourInstall.Size = new System.Drawing.Size(75, 40);
-            this.stepFourInstall.TabIndex = 0;
+            this.stepFourInstall.TabIndex = 5;
             this.stepFourInstall.Text = "安装";
             this.stepFourInstall.UseVisualStyleBackColor = true;
             this.stepFourInstall.Click += new System.EventHandler(this.stepFourInstall_Click);
@@ -180,7 +180,7 @@ namespace SetupTools
             this.stepFiveConfigure.Location = new System.Drawing.Point(318, 243);
             this.stepFiveConfigure.Name = "stepFiveConfigure";
             this.stepFiveConfigure.Size = new System.Drawing.Size(75, 40);
-            this.stepFiveConfigure.TabIndex = 0;
+            this.stepFiveConfigure.TabIndex = 7;
             this.stepFiveConfigure.Text = "配置";
             this.stepFiveConfigure.UseVisualStyleBackColor = true;
             this.stepFiveConfigure.Click += new System.EventHandler(this.stepFiveConfigure_Click);
@@ -210,7 +210,7 @@ namespace SetupTools
             this.stepSixInit.Location = new System.Drawing.Point(318, 296);
             this.stepSixInit.Name = "stepSixInit";
             this.stepSixInit.Size = new System.Drawing.Size(75, 40);
-            this.stepSixInit.TabIndex = 0;
+            this.stepSixInit.TabIndex = 8;
             this.stepSixInit.Text = "初始化";
             this.stepSixInit.UseVisualStyleBackColor = true;
             this.stepSixInit.Click += new System.EventHandler(this.stepSixInit_Click);
@@ -240,7 +240,7 @@ namespace SetupTools
             this.step2Detect.Location = new System.Drawing.Point(406, 84);
             this.step2Detect.Name = "step2Detect";
             this.step2Detect.Size = new System.Drawing.Size(75, 40);
-            this.step2Detect.TabIndex = 0;
+            this.step2Detect.TabIndex = 2;
             this.step2Detect.Text = "检测";
             this.step2Detect.UseVisualStyleBackColor = true;
             this.step2Detect.Click += new System.EventHandler(this.step2Detect_Click);
@@ -250,7 +250,7 @@ namespace SetupTools
             this.stepThreeDetect.Location = new System.Drawing.Point(406, 137);
             this.stepThreeDetect.Name = "stepThreeDetect";
             this.stepThreeDetect.Size = new System.Drawing.Size(75, 40);
-            this.stepThreeDetect.TabIndex = 0;
+            this.stepThreeDetect.TabIndex = 4;
             this.stepThreeDetect.Text = "检测";
             this.stepThreeDetect.UseVisualStyleBackColor = true;
             this.stepThreeDetect.Click += new System.EventHandler(this.stepThreeDetect_Click);
@@ -260,7 +260,7 @@ namespace SetupTools
             this.stepFourDetect.Location = new System.Drawing.Point(406, 190);
             this.stepFourDetect.Name = "stepFourDetect";
             this.stepFourDetect.Size = new System.Drawing.Size(75, 40);
-            this.stepFourDetect.TabIndex = 0;
+            this.stepFourDetect.TabIndex = 6;
             this.stepFourDetect.Text = "检测";
             this.stepFourDetect.UseVisualStyleBackColor = true;
             this.stepFourDetect.Click += new System.EventHandler(this.stepFourDetect_Click);
@@ -270,7 +270,7 @@ namespace SetupTools
             this.exitButton.Location = new System.Drawing.Point(412, 355);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(75, 40);
-            this.exitButton.TabIndex = 2;
+            this.exitButton.TabIndex = 9;
             this.exitButton.Text = "退出";
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
