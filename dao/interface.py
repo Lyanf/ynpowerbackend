@@ -1037,9 +1037,11 @@ def majorMetaDataToId(major):
     return [v[0] for v in result]
 
 def createBrandNewMetadata(major, minor, unit=''):
+    sql_del = "delete from brand_new_metadata where major_category='%s' and minor_category='%s'" % (major, minor)
     sql = "insert into brand_new_metadata values ('{}', '{}', '{}')".format(major, minor, unit)
     conn = getConn()
     cur = conn.cursor()
+    cur.execute(sql_del)
     cur.execute(sql)
     conn.commit()
 
