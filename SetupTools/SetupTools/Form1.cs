@@ -107,7 +107,7 @@ namespace SetupTools
 
         private void stepFiveConfigure_Click(object sender, EventArgs e)
         {
-            try
+           try
             {
                 var name = "PATH";
                 var scope = EnvironmentVariableTarget.Machine;
@@ -168,7 +168,7 @@ namespace SetupTools
             }
             else
             {
-                MessageBox.Show(programName + " 环境配置不正确。\n" + absPath + " 目录下没有所需文件。", "失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(programName + " 环境配置不正确。\n找不到所需的 " + absPath + " 文件。", "失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -180,6 +180,11 @@ namespace SetupTools
         private void stepFourDetect_Click(object sender, EventArgs e)
         {
             checkFileExists(@"C:\Program Files\MATLAB\MATLAB Runtime\v96\bin\win64\mclmcr.dll", "MATLAB");
+        }
+
+        private void stepFiveInstall_Click(object sender, EventArgs e)
+        {
+            tryExecute("./script/installdep.bat");
         }
     }
 }

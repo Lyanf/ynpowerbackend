@@ -53,11 +53,12 @@ namespace SetupTools
             this.stepFourDetect = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
+            this.stepFiveInstall = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // stepOneInstall
             // 
-            this.stepOneInstall.Location = new System.Drawing.Point(318, 31);
+            this.stepOneInstall.Location = new System.Drawing.Point(406, 31);
             this.stepOneInstall.Name = "stepOneInstall";
             this.stepOneInstall.Size = new System.Drawing.Size(75, 40);
             this.stepOneInstall.TabIndex = 0;
@@ -87,7 +88,7 @@ namespace SetupTools
             // 
             // stepTwoInstall
             // 
-            this.stepTwoInstall.Location = new System.Drawing.Point(318, 84);
+            this.stepTwoInstall.Location = new System.Drawing.Point(406, 84);
             this.stepTwoInstall.Name = "stepTwoInstall";
             this.stepTwoInstall.Size = new System.Drawing.Size(75, 40);
             this.stepTwoInstall.TabIndex = 1;
@@ -117,7 +118,7 @@ namespace SetupTools
             // 
             // stepThreeInstall
             // 
-            this.stepThreeInstall.Location = new System.Drawing.Point(318, 137);
+            this.stepThreeInstall.Location = new System.Drawing.Point(406, 137);
             this.stepThreeInstall.Name = "stepThreeInstall";
             this.stepThreeInstall.Size = new System.Drawing.Size(75, 40);
             this.stepThreeInstall.TabIndex = 3;
@@ -147,7 +148,7 @@ namespace SetupTools
             // 
             // stepFourInstall
             // 
-            this.stepFourInstall.Location = new System.Drawing.Point(318, 190);
+            this.stepFourInstall.Location = new System.Drawing.Point(406, 190);
             this.stepFourInstall.Name = "stepFourInstall";
             this.stepFourInstall.Size = new System.Drawing.Size(75, 40);
             this.stepFourInstall.TabIndex = 5;
@@ -177,11 +178,11 @@ namespace SetupTools
             // 
             // stepFiveConfigure
             // 
-            this.stepFiveConfigure.Location = new System.Drawing.Point(318, 243);
+            this.stepFiveConfigure.Location = new System.Drawing.Point(237, 243);
             this.stepFiveConfigure.Name = "stepFiveConfigure";
-            this.stepFiveConfigure.Size = new System.Drawing.Size(75, 40);
+            this.stepFiveConfigure.Size = new System.Drawing.Size(135, 40);
             this.stepFiveConfigure.TabIndex = 7;
-            this.stepFiveConfigure.Text = "配置";
+            this.stepFiveConfigure.Text = "配置环境变量";
             this.stepFiveConfigure.UseVisualStyleBackColor = true;
             this.stepFiveConfigure.Click += new System.EventHandler(this.stepFiveConfigure_Click);
             // 
@@ -201,16 +202,16 @@ namespace SetupTools
             this.label10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label10.Location = new System.Drawing.Point(106, 254);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(116, 18);
+            this.label10.Size = new System.Drawing.Size(80, 18);
             this.label10.TabIndex = 1;
-            this.label10.Text = "配置环境变量";
+            this.label10.Text = "完成配置";
             // 
             // stepSixInit
             // 
-            this.stepSixInit.Location = new System.Drawing.Point(318, 296);
+            this.stepSixInit.Location = new System.Drawing.Point(406, 296);
             this.stepSixInit.Name = "stepSixInit";
             this.stepSixInit.Size = new System.Drawing.Size(75, 40);
-            this.stepSixInit.TabIndex = 8;
+            this.stepSixInit.TabIndex = 9;
             this.stepSixInit.Text = "初始化";
             this.stepSixInit.UseVisualStyleBackColor = true;
             this.stepSixInit.Click += new System.EventHandler(this.stepSixInit_Click);
@@ -237,7 +238,7 @@ namespace SetupTools
             // 
             // step2Detect
             // 
-            this.step2Detect.Location = new System.Drawing.Point(406, 84);
+            this.step2Detect.Location = new System.Drawing.Point(325, 84);
             this.step2Detect.Name = "step2Detect";
             this.step2Detect.Size = new System.Drawing.Size(75, 40);
             this.step2Detect.TabIndex = 2;
@@ -247,7 +248,7 @@ namespace SetupTools
             // 
             // stepThreeDetect
             // 
-            this.stepThreeDetect.Location = new System.Drawing.Point(406, 137);
+            this.stepThreeDetect.Location = new System.Drawing.Point(325, 137);
             this.stepThreeDetect.Name = "stepThreeDetect";
             this.stepThreeDetect.Size = new System.Drawing.Size(75, 40);
             this.stepThreeDetect.TabIndex = 4;
@@ -257,7 +258,7 @@ namespace SetupTools
             // 
             // stepFourDetect
             // 
-            this.stepFourDetect.Location = new System.Drawing.Point(406, 190);
+            this.stepFourDetect.Location = new System.Drawing.Point(325, 190);
             this.stepFourDetect.Name = "stepFourDetect";
             this.stepFourDetect.Size = new System.Drawing.Size(75, 40);
             this.stepFourDetect.TabIndex = 6;
@@ -267,10 +268,10 @@ namespace SetupTools
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(412, 355);
+            this.exitButton.Location = new System.Drawing.Point(406, 355);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(75, 40);
-            this.exitButton.TabIndex = 9;
+            this.exitButton.TabIndex = 10;
             this.exitButton.Text = "退出";
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
@@ -283,6 +284,16 @@ namespace SetupTools
             this.label13.Size = new System.Drawing.Size(377, 18);
             this.label13.TabIndex = 3;
             this.label13.Text = "上海交通大学大数据工程技术研究中心 © 2021";
+            // 
+            // stepFiveInstall
+            // 
+            this.stepFiveInstall.Location = new System.Drawing.Point(378, 243);
+            this.stepFiveInstall.Name = "stepFiveInstall";
+            this.stepFiveInstall.Size = new System.Drawing.Size(103, 40);
+            this.stepFiveInstall.TabIndex = 8;
+            this.stepFiveInstall.Text = "安装依赖\r\n";
+            this.stepFiveInstall.UseVisualStyleBackColor = true;
+            this.stepFiveInstall.Click += new System.EventHandler(this.stepFiveInstall_Click);
             // 
             // Form1
             // 
@@ -302,6 +313,7 @@ namespace SetupTools
             this.Controls.Add(this.label5);
             this.Controls.Add(this.stepSixInit);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.stepFiveInstall);
             this.Controls.Add(this.stepFiveConfigure);
             this.Controls.Add(this.stepFourDetect);
             this.Controls.Add(this.stepFourInstall);
@@ -349,6 +361,7 @@ namespace SetupTools
         private System.Windows.Forms.Button stepFourDetect;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button stepFiveInstall;
     }
 }
 
