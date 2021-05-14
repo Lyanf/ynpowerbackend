@@ -52,7 +52,7 @@ namespace SetupTools
             this.cancelButton.Location = new System.Drawing.Point(204, 122);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 40);
-            this.cancelButton.TabIndex = 0;
+            this.cancelButton.TabIndex = 1;
             this.cancelButton.Text = "取消";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
