@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31229.75
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "YunnanPowerSystemSetup", "YunnanPowerSystemSetup.vdproj", "{02E8663B-3367-4D4C-BACD-6C066EEA2BBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02E8663B-3367-4D4C-BACD-6C066EEA2BBE}.Debug|Default.ActiveCfg = Debug
+		{02E8663B-3367-4D4C-BACD-6C066EEA2BBE}.Debug|Default.Build.0 = Debug
+		{02E8663B-3367-4D4C-BACD-6C066EEA2BBE}.Release|Default.ActiveCfg = Release
+		{02E8663B-3367-4D4C-BACD-6C066EEA2BBE}.Release|Default.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17FABA73-47C1-472B-A491-4355A28C8D4A}
+	EndGlobalSection
+EndGlobal
