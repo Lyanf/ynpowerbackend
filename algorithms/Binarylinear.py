@@ -20,7 +20,7 @@ import math
 
 
 
-def Binarylinear(StartYear,EndYear,PreStartYear,PreEndYear,econamelist,pretype="全社会用电量",city="云南省",planflag1=1,plan1=1,planflag2=1,plan2=1):
+def Binarylinear(StartYear,EndYear,PreStartYear,PreEndYear,econamelist,pretype="全社会用电量",city="云南省",planflag1=1,plan1=1,pro1=1,planflag2=1,plan2=1,pro2=1):
     """
     
 
@@ -64,7 +64,7 @@ def Binarylinear(StartYear,EndYear,PreStartYear,PreEndYear,econamelist,pretype="
     
     
     if len(econamelist) !=2:
-        raise ValueError("请重新选择两个经济变量")
+        return {"False":"请重新选择两个经济变量."}
     elif city=="云南省":
         name=[pretype]
         finaldata=[]
@@ -113,7 +113,7 @@ def Binarylinear(StartYear,EndYear,PreStartYear,PreEndYear,econamelist,pretype="
         
         reg = LinearRegression().fit(xx, y)
         
-        testp1 = ic.getpred(testx[:,0],testyear,planflag1,plan1)
+        testp1 = ic.getpred(testx[:,0],testyear,planflag1,plan1,pro1)
         testp1 = np.array(testp1).T
         testpm1 = []
         for i in range(51):
@@ -122,11 +122,12 @@ def Binarylinear(StartYear,EndYear,PreStartYear,PreEndYear,econamelist,pretype="
         testpmm1 = testpm1.index(np.median(testpm1))
         testpredx1 = testp1[testpmm1]
         testpredx1 = [k * testx[:,0][-1] for k in testpredx1]
+        print(testpredx1)
         testpredy1 = [testx[:,0] * reg.coef_[0][0] + reg.intercept_[0] for testx[:,0] in testpredx1]
         
         
         
-        testp2 = ic.getpred(testx[:,1],testyear,planflag2,plan2)
+        testp2 = ic.getpred(testx[:,1],testyear,planflag2,plan2,pro2)
         testp2 = np.array(testp2).T
         testpm2 = []
         for i in range(51):
@@ -159,7 +160,7 @@ def Binarylinear(StartYear,EndYear,PreStartYear,PreEndYear,econamelist,pretype="
         """预测"""       
         preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)
         year=len(preyear)
-        p1 = ic.getpred(xx[:,0],year,planflag1,plan1)
+        p1 = ic.getpred(xx[:,0],year,planflag1,plan1,pro1)
         p1 = np.array(p1).T
         pm1 = []
         for i in range(51):
@@ -172,7 +173,7 @@ def Binarylinear(StartYear,EndYear,PreStartYear,PreEndYear,econamelist,pretype="
         
         
         
-        p2 = ic.getpred(xx[:,1],year,planflag2,plan2)
+        p2 = ic.getpred(xx[:,1],year,planflag2,plan2,pro2)
         p2 = np.array(p2).T
         pm2 = []
         for i in range(51):
@@ -194,11 +195,11 @@ def Binarylinear(StartYear,EndYear,PreStartYear,PreEndYear,econamelist,pretype="
 
 if __name__ == '__main__':
     StartYear="1990"
-    EndYear="2019"
-    PreStartYear="2020"
-    PreEndYear="2025"
+    EndYear="2018"
+    PreStartYear="2021"
+    PreEndYear="2023"
     pretype="全社会用电量"
     city="云南省"
     
-    result=Binarylinear(StartYear,EndYear,PreStartYear,PreEndYear,["GDP","第一产业GDP"],pretype,city)
+    result=Binarylinear(StartYear,EndYear,PreStartYear,PreEndYear,["能源消费总值","第二产业GDP"],pretype,city,1,5,1,1,2,0)
 

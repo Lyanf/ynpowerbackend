@@ -17,7 +17,7 @@ from dao.interface import getData
 import json 
 import math
 """一元一次，已修改，未联调"""
-def Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",econamelist="GDP",city="云南省",planflag=1,plan=1):
+def Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",econamelist="GDP",city="云南省",planflag=1,plan=1,pro=1):
     """
     
 
@@ -98,7 +98,7 @@ def Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用�
             
             # reg = LinearRegression().fit(x, y)
             
-            testp = ic.getpred(testx,testyear,planflag,plan)
+            testp = ic.getpred(testx,testyear,planflag,plan,pro)
             testp = np.array(testp).T
             testpm = []
             for i in range(51):
@@ -109,12 +109,12 @@ def Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用�
             testpredx = [k * testx[-1] for k in testpredx]
             testpredy = [testx * reg.coef_[0][0] + reg.intercept_[0] for testx in testpredx]
             
-            print(final)
+
             
             
             # loadp = reg.predict(testx)#趋势外推
             
-            print(testpredx)
+
   
             mape=MAPE(testpredy,testy)
             rmse=RMSE(testpredy,testy)
@@ -137,7 +137,7 @@ def Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用�
             
             preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)
             year=len(preyear)
-            p = ic.getpred(x,year,planflag,plan)
+            p = ic.getpred(x,year,planflag,plan,pro)
             p = np.array(p).T
             pm = []
             for i in range(51):
@@ -162,6 +162,6 @@ if __name__ == '__main__':
     pretype="全社会用电量"
     city="云南省"
     
-    result=Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype,"能源生产总值",city,1,5)
+    result=Unarylinear(StartYear,EndYear,PreStartYear,PreEndYear,pretype,"能源生产总值",city,1,5,1)
 
      

@@ -20,7 +20,7 @@ import math
 
 
 
-def Exponent(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",econamelist="GDP",city="云南省",planflag=1,plan=1):
+def Exponent(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电量",econamelist="GDP",city="云南省",planflag=1,plan=1,pro=1):
     
     
     
@@ -84,7 +84,7 @@ def Exponent(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电�
         Para = slovePara4(trainx,trainy)
         a, b, c = Para[0]
         
-        testp = ic.getpred(testx,testyear,planflag,plan)
+        testp = ic.getpred(testx,testyear,planflag,plan,pro)
         testp = np.array(testp).T
         testpm = []
         for i in range(51):
@@ -118,7 +118,7 @@ def Exponent(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会用电�
         
         preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)
         year=len(preyear)
-        p = ic.getpred(x,year,planflag,plan)
+        p = ic.getpred(x,year,planflag,plan,pro)
         p = np.array(p).T
         pm = []
         for i in range(51):
