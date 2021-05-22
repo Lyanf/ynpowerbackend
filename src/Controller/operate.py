@@ -449,6 +449,8 @@ def get_missing_list(start, end, area='yunnan', grain='year', kind='xunhou-souku
 def insert_data(array, area='yunnan', grain='year', kind='xunhou-souku-max'):
     print("going to insert data")
     print(array)
+    print(len(array))
+    print(len(array[0]))
     conn = getConn()
     cur = conn.cursor()
     get_id_sql = "select id from metadata where area = '%s' and kind = '%s' and grain = '%s'" % (area, kind, grain)
