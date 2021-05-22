@@ -2,6 +2,7 @@
 #     checkTag, insertAlgorithmContent, getGrain, getKind, getArea
 from numpy.core.fromnumeric import trace
 from algorithms.Outlier import Outlier
+from algorithms.loadcompute.algorithm import typ_jiabi
 from algorithms.loadcompute.default import default_jiabi, default_souku, default_f
 from algorithms.loadcompute.main import dayFeature, monthFeature, yearfeature, yearLoad, dayLoad, typicalDay, \
     yearLoadCon
@@ -418,6 +419,53 @@ def yearlyPayloadTraits(args):
     return result
 
 
+
+def get_missing_list(start, end, area='yunnan', grain='year', kind='xunhou-souku-max') -> list[int]:
+    assert(start <= end)
+    conn = getConn()
+    cur = conn.cursor()
+    get_id_sql = "select id from metadata where area = '%s' and kind = '%s' and grain = '%s'" % (area, kind, grain)
+    cur.execute(get_id_sql)
+    result = cur.fetchall()
+    assert(len(result) == 1)
+    whl_metadata_id = result[0][0]
+
+    conn.commit()
+
+    get_data_sql = "select distinct datatime from electric_data_test where metadataid = %d" % whl_metadata_id
+    cur.execute(get_data_sql)
+    
+    got_years = [v[0].year for v in cur.fetchall()]
+    # print(got_years)
+    
+    missing_years = []
+    for year in range(start, end + 1):
+        if not year in got_years:
+            missing_years.append(year)
+    
+    return missing_years
+
+
+def insert_data(array, area='yunnan', grain='year', kind='xunhou-souku-max'):
+    conn = getConn()
+    cur = conn.cursor()
+    get_id_sql = "select id from metadata where area = '%s' and kind = '%s' and grain = '%s'" % (area, kind, grain)
+    cur.execute(get_id_sql)
+    result = cur.fetchall()
+    assert(len(result) == 1)
+    whl_metadata_id = result[0][0]
+
+    years = list(array.index)
+    categories = list(array.columns)
+
+    for year in years:
+        for cat in categories:
+            value = array[year][cat]
+            insert_sql = "insert into electric_data_test (datatime, dataname, datavalue, metadataid) values (%d-01-01 00:00:00.000000, %s, %f, %d)" % (year, cat, value, whl_metadata_id)
+            cur.execute(insert_sql)
+    cur.commit()
+
+
 def sokuPayloadPredict(args):
     start = args["beginYear"]
     ending = args["endYear"]
@@ -443,6 +491,9 @@ def sokuPayloadPredict(args):
 
     return content
 
+def parse_msg(file) -> tuple:
+    m, _, typee = file.split('_')[-1].split('-')
+    return ['xunqian', 'fengshui', 'xunhou'].index(m), ['max', 'min', 'median'].index(typee)
 
 def clampingPayloadPredict(args):
     start = args["beginYear"]
@@ -453,10 +504,13 @@ def clampingPayloadPredict(args):
     t = args["type"]
     # 第一阶段
     file = getFilenameOfLoadPre(season, t, "jb")
+    kind = file.split('_')[-1]
+    m, typee = parse_msg(file)
 
-    # 获取缺失的年份
-    # 计算出需要的数据
-    # 插入到数据库里 
+    missing = get_missing_list(start, ending, 'yunnan', 'year', kind)
+
+    for year in missing:
+        insert_data(typ_jiabi("yunnan_day_电力电量类", year, m, typee), kind=kind)
 
     # 第二阶段
     result = shuangxiangjiabi(start, ending, premaxload, pretotal,file=file)
