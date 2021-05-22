@@ -464,7 +464,7 @@ def insert_data(array, area='yunnan', grain='year', kind='xunhou-souku-max'):
     for value in array[1:]:
         counter += 1
         cat = 'm_%d' % counter
-        insert_sql = "insert into electric_data_test (datatime, dataname, datavalue, metadataid) values ('%d-01-01', %s, %f, %d)" % (year, cat, value, whl_metadata_id)
+        insert_sql = "insert into electric_data_test (datatime, dataname, datavalue, metadataid) values ('%d-01-01', '%s', %f, %d)" % (year, cat, value, whl_metadata_id)
         print("to exec sql: ", insert_sql)
         cur.execute(insert_sql)
     cur.commit()
