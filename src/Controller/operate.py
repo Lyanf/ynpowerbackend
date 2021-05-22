@@ -508,9 +508,12 @@ def clampingPayloadPredict(args):
     m, typee = parse_msg(file)
 
     missing = get_missing_list(start, ending, 'yunnan', 'year', kind)
-
+    print("丢失的年份：", repr(missing))
     for year in missing:
-        insert_data(typ_jiabi("yunnan_day_电力电量类", year, m, typee), kind=kind)
+        print("准备填充", year, "年")
+        jiabi_result = typ_jiabi("yunnan_day_电力电量类", year, m, typee)
+        insert_data(jiabi_result, kind=kind)
+        print("填充了", jiabi_result)
 
     # 第二阶段
     result = shuangxiangjiabi(start, ending, premaxload, pretotal,file=file)
