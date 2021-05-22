@@ -450,7 +450,6 @@ def insert_data(array, area='yunnan', grain='year', kind='xunhou-souku-max'):
     print("going to insert data")
     print(array)
     print(len(array))
-    print(len(array[0]))
     conn = getConn()
     cur = conn.cursor()
     get_id_sql = "select id from metadata where area = '%s' and kind = '%s' and grain = '%s'" % (area, kind, grain)
@@ -459,14 +458,14 @@ def insert_data(array, area='yunnan', grain='year', kind='xunhou-souku-max'):
     assert(len(result) == 1)
     whl_metadata_id = result[0][0]
 
-    years = list(array.columns.values)
-    categories = list(array.columns)
+    year = array[0]
 
-    for year in years:
-        for cat in categories:
-            value = array[year][cat]
-            insert_sql = "insert into electric_data_test (datatime, dataname, datavalue, metadataid) values (%d-01-01 00:00:00.000000, %s, %f, %d)" % (year, cat, value, whl_metadata_id)
-            cur.execute(insert_sql)
+    counter = 0
+    for value in array[1:]:
+        counter += 1
+        cat = 'm_%d' % counter
+        insert_sql = "insert into electric_data_test (datatime, dataname, datavalue, metadataid) values (%d-01-01 00:00:00.000000, %s, %f, %d)" % (year, cat, value, whl_metadata_id)
+        cur.execute(insert_sql)
     cur.commit()
 
 
