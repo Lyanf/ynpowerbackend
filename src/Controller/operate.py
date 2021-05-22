@@ -455,7 +455,7 @@ def insert_data(array, area='yunnan', grain='year', kind='xunhou-souku-max'):
     assert(len(result) == 1)
     whl_metadata_id = result[0][0]
 
-    years = list(array.index)
+    years = list(array.columns.values)
     categories = list(array.columns)
 
     for year in years:
