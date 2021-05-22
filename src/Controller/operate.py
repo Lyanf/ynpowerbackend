@@ -451,7 +451,14 @@ def clampingPayloadPredict(args):
     pretotal = args["dailyAmount"]
     season = args["season"]
     t = args["type"]
+    # 第一阶段
     file = getFilenameOfLoadPre(season, t, "jb")
+
+    # 获取缺失的年份
+    # 计算出需要的数据
+    # 插入到数据库里 
+
+    # 第二阶段
     result = shuangxiangjiabi(start, ending, premaxload, pretotal,file=file)
     tag = args["tag"]
     tagType = args["tagType"]

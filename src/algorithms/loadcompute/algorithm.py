@@ -189,6 +189,49 @@ def typical_day(file,start,end,m):
 
 	return time[index_max,0], time[index_min,0], time[index_median,0], data[index_max,:], data[index_min,:], data[index_median,:]
 
+def yeardata(file,y):
+	# y year(int), e.g. 2019
+	start = '{}/1/1'.format(y)
+	end = '{}/12/31'.format(y)
+	data = pro_data(file, start,end)[0].reshape((-1,1)).squeeze()
+	if len(data)<8760:
+		print('data is incomplete')
+		return 
+	else:
+		data = [y]+data.tolist()[:8760]
+		return np.array(data)
+
+
+def typ_fenxing(file,y,m,type):
+	# y: year (int) e.g. 2019
+	# m: 0-xunqian 1-fengshui 2-xunhou
+	# type 0-max 1-min 2-median
+	start = '{}/1/1'.format(y)
+	end = '{}/12/31'.format(y)
+	data = typical_day(file,start,end,m)[3+type]
+	data = [y]+data.tolist()
+	return np.array(data)
+
+def typ_jiabi(file,y,m,type):
+	start = '{}/1/1'.format(y)
+	end = '{}/12/31'.format(y)
+	data = typical_day(file,start,end,m)[3+type]
+	maximum = np.max(data)
+	total = np.sum(data)
+	data = [y]+data.tolist()+[maximum, total]
+	return np.array(data)
+
+def typ_souku(file,y,m,type):
+	start = '{}/1/1'.format(y)
+	end = '{}/12/31'.format(y)
+	data = typical_day(file,start,end,m)[3+type]
+	maximum = np.max(data)
+	total = np.sum(data)
+	gamma = np.mean(data)/maximum
+	beta = np.min(data)/maximum
+	data = [y]+data.tolist()+[maximum, total, gamma, beta]
+	return np.array(data)
+
 def y_load(file,start,end):
 	data = pro_data(file, start,end)[0]
 	time = pro_data(file, start,end)[1]
