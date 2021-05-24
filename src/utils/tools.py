@@ -135,7 +135,7 @@ def formatDataCondition(startTime = None, endTime = None, dataName = None, grain
         startTime = formateTimeString(startTime, grain, 0)
         endTime = formateTimeString(endTime, grain, 1)
 
-    if dataName != None:
+    if dataName:
         dataNamelist = dataName.split(',')
         dataNames = ""
         for i in range(len(dataNamelist)):
@@ -148,7 +148,7 @@ def formatDataCondition(startTime = None, endTime = None, dataName = None, grain
         whe.append("datatime >= '{}'".format(startTime))
     if endTime != None:
         whe.append("datatime <= '{}'".format(endTime))
-    if metadataIds != None:
+    if metadataIds:
         whe.append("metadataid in ({})".format(",".join(metadataIds)))
     # print(whe)
     return whe

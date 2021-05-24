@@ -360,7 +360,7 @@ class PerformQuery(Resource):
                 break
         area = request.json['region'].strip()
         category = request.json['category']
-        data = getDataByCondition(grain = grain, startTime = str(startTime), endTime = str(endTime), kind = category[0], dataName = category[1], area = area)
+        data = getDataByCondition(grain = grain, startTime = str(startTime), endTime = str(endTime), kind = category[0], dataName = category[1] if len(category) > 1 else None, area = area)
         # print(data)
         datalist = []
         if data is not None:
