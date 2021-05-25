@@ -15,9 +15,16 @@ from dao.interface import *
 # pprint(majorMetaDataToId("电力电量类"))
 # print(' or '.join(['metadataid=%d' % i for i in majorMetaDataToId("电力电量类")]))
 
+
+
+
+# print(get_missing_list(2010, 2019))
+
 from Controller import *
 from utils import methodNameZhToEn
 from math import isnan
+
+
 # _dir = './apis'
 # if not os.path.exists(_dir):
 #     os.makedirs(_dir)
@@ -353,7 +360,7 @@ class PerformQuery(Resource):
                 break
         area = request.json['region'].strip()
         category = request.json['category']
-        data = getDataByCondition(grain = grain, startTime = str(startTime), endTime = str(endTime), kind = category[0], dataName = category[1], area = area)
+        data = getDataByCondition(grain = grain, startTime = str(startTime), endTime = str(endTime), kind = category[0], dataName = category[1] if len(category) > 1 else None, area = area)
         # print(data)
         datalist = []
         if data is not None:
