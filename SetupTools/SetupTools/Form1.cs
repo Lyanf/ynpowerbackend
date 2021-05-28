@@ -23,7 +23,7 @@ namespace SetupTools
 
         string getInitDbContent(string diskChar)
         {
-            return "set PGPASSWORD=admin123\ntype .\\script\\init.sql | \"" + diskChar + ":\\Program Files\\PostgreSQL\\13\\bin\\psql.exe\" -h \"localhost\" -U \"postgres\" -d \"electric\" -p 5432";
+            return "set PGPASSWORD=admin123\ntype .\\script\\init.sql | \"" + diskChar + ":\\Program Files\\PostgreSQL\\13\\bin\\psql.exe\" -h \"localhost\" -U \"postgres\" -p 5432";
         }
 
         private string getRelativePath(string rel)
