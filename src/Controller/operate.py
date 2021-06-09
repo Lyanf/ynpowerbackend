@@ -575,6 +575,7 @@ def interpolatingPayloadPredict(args):
     for year in missing:
         print("准备填充", year, "年")
         jiabi_result = typ_fenxing("yunnan_day_电力电量类", year, m, typee)
+        print("拿到了 result", jiabi_result)
         insert_data(jiabi_result, kind=kind)
         print("填充了", jiabi_result)
 
