@@ -6,8 +6,6 @@ function result = fracal_forcast(start, ending, power,maxload,file)
     col = 'm_01,m_02,m_03,m_04,m_05,m_06,m_07,m_08,m_09,m_10,m_11,m_12,m_13,m_14,m_15,m_16,m_17,m_18,m_19,m_20,m_21,m_22,m_23,m_24';
     
     s = getData(file,col,num2str(start),num2str(ending));
-    disp(s);
-    disp(s[0]);
     num = length(s);
     for i = 1:num
         a = s(i);
