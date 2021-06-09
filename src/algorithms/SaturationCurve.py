@@ -119,7 +119,7 @@ def SaturationCurve(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会
             ma=10000000
             finalplan=0
             for plan in range(1,16):
-                testp = ic.getpred(testx,testyear,planflag,plan)
+                testp = ic.getpred(testx,testyear,planflag,plan,0)
                 testp = np.array(testp).T
                 testpm = []
                 for i in range(51):
@@ -134,7 +134,7 @@ def SaturationCurve(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会
                     finalplan=plan
                     ma=mape
             
-            testp = ic.getpred(testx,testyear,planflag,finalplan)
+            testp = ic.getpred(testx,testyear,planflag,finalplan,0)
             testp = np.array(testp).T
             testpm = []
             for i in range(51):
@@ -169,7 +169,7 @@ def SaturationCurve(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会
             
             preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)
             year=len(preyear)
-            p = ic.getpred(x,year,planflag,plan)
+            p = ic.getpred(x,year,planflag,plan,0)
             p = np.array(p).T
             pm = []
             for i in range(51):
@@ -191,7 +191,7 @@ if __name__ == '__main__':
     StartYear="1990"
     EndYear="2018"
     PreStartYear="2021"
-    PreEndYear="2026"
+    PreEndYear="2025"
     pretype="全社会用电量"
     city="云南省"
     
