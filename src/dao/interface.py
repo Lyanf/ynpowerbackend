@@ -262,7 +262,8 @@ def getData(location, dataName, startTime, endTime):
                 newDict[r[0]] = r[2]
             resultJsonStr = json.dumps(newDict)
             return resultJsonStr
-    except:
+    except Exception as e:
+        print("发生了错误……", e)
         raise DataRangeError("「%s」下没有「%s」%s 到 %s 时期的数据。" % (dataName, location, startTime, endTime))
 
 
