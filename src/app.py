@@ -1980,8 +1980,8 @@ class addData(Resource):
 class getDefaultOfLoadPre(Resource):
     def get(self):
         try:
-            start = int(request.args["start"])
-            end = int(request.args["end"])
+            start = request.args["start"]
+            end = request.args["end"]
             result = getDefault(start, end)
             return {
                 "msg":"success",
