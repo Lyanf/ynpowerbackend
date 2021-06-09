@@ -421,6 +421,7 @@ def yearlyPayloadTraits(args):
 
 
 def get_missing_list(start, end, area='yunnan', grain='year', kind='xunhou-souku-max') -> list:
+    print("get missing list: ", start, end, area, grain, kind)
     assert(start <= end)
     conn = getConn()
     cur = conn.cursor()
