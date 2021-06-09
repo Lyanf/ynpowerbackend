@@ -1,13 +1,14 @@
 function load=seek22(info,premaxload,gamma,pregamma,prebeta)
 global endyear startyear
-%%Ñ°ÕÒ»ù×¼ÇúÏß
+%%Ñ°ï¿½Ò»ï¿½×¼ï¿½ï¿½ï¿½ï¿½
 numyear=endyear-startyear+1;
 value=abs(gamma-pregamma*ones(1,numyear));
 disp('Hello World!');
 disp(value);
 disp(find(value==min(value))+1);
 yearfind=info(1,find(value==min(value)))
-% disp(yearfind)
+disp('yearfind is:');
+disp(yearfind)
 if(yearfind~=0)
     num=size(info,2);
     for j=1:num
@@ -16,7 +17,7 @@ if(yearfind~=0)
         end
     end
 end
-%%¶Ô»ù×¼ÇúÏß½øÐÐÐÞÕý
+%%ï¿½Ô»ï¿½×¼ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 base=max(loadcurve)*ones(24,1);
 loadcurve2=loadcurve./base;
 loadcurve3=dsort(loadcurve2)
@@ -49,7 +50,7 @@ end
    c=Z-X0-W-A'*V;
     dd=A*Z-b;   
     ex=diag(W)*Z;
-%%Ô¤²âÇúÏß»Ö¸´
+%%Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ß»Ö¸ï¿½
 y1=zeros(24,1);
 d=zeros(24,1);
 y1(1)=1;
@@ -59,7 +60,7 @@ end
 for m=1:24
     d(order(m))=y1(m);
 end
-%%Êµ¼ÊÖµÇúÏß¼ÆËã
+%%Êµï¿½ï¿½Öµï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½
 load=premaxload*d;
 
 
