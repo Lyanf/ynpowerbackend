@@ -21,7 +21,7 @@ function result = z_forecast(start, ending, Tyear, premaxload,file)
             columns = [columns ','];
         end
     end
-    arr = process(columns,2013,2019,260,8500,file);
+    arr = process(columns,start,ending,260,8500,file);
     data = [data,arr];
     
     info = data.';
