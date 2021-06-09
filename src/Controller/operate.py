@@ -457,7 +457,11 @@ def insert_data(array, area='yunnan', grain='year', kind='xunhou-souku-max'):
     get_id_sql = "select id from metadata where area = '%s' and kind = '%s' and grain = '%s'" % (area, kind, grain)
     cur.execute(get_id_sql)
     result = cur.fetchall()
-    assert(len(result) == 1)
+    if len(result) == 0:
+        cur.execute("insert into metadata (area, kind, grain) values ('%s', '%s', '%s')" % (area, kind, grain))
+        cur.execute(get_id_sql)
+        result = cur.fetchall()
+        assert(len(result) != 0)
     whl_metadata_id = result[0][0]
 
     year = array[0]
