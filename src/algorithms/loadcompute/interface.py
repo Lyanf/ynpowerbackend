@@ -2,11 +2,10 @@ import requests
 import json
 from datetime import datetime
 
-host = "http://dclab.club:18000/"
+host = "http://localhost:18000/"
 
 def getData(location, dataName, startTime, endTime):
     l = location.split("_")
-    # url = 'http://ynpowerbackend.dclab.club/getDataJson'
     url = host + 'getDataJson'
     startTime = formateTimeString(startTime, l[1])
     endTime = formateTimeString(endTime, l[1])
@@ -23,8 +22,6 @@ def getData(location, dataName, startTime, endTime):
     # print(r)
     return r.json()
 def insertAlgorithmResult(tag, result):
-
-    # url = 'http://ynpowerbackend.dclab.club/api/insert/result'
     url = host + 'api/insert/result'
     s = json.dumps({
         "result": result,
@@ -39,8 +36,6 @@ def insertAlgorithmResult(tag, result):
 
 #"tags":"tv1,tv2", 是一个字符串
 def getAlgorithmResult(tags):
-
-    # url = 'http://ynpowerbackend.dclab.club/api/get/result'
     url = host + '/api/get/result'
     s = json.dumps({
         "tags": tags
