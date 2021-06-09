@@ -10,7 +10,7 @@ import math
 
 
 """生成概率预测值"""
-def getpred(x,year,planflag,plan,pro):
+def getpred(x,year,planflag,plan,pro=0):
     #求各个指标的增长率
     gr = []
     for i in range(len(x) - 1):
