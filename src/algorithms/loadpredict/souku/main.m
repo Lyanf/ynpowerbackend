@@ -35,5 +35,7 @@ function result = main(start, ending, premaxload, pretotal,pregamma,prebeta,file
     end
     info = array.';
     gamma = ga.';
+    disp("gamma is:");
+    disp(gamma);
     result = seek22(info,premaxload,gamma,pregamma,prebeta);
 end
