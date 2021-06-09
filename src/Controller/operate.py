@@ -429,7 +429,7 @@ def get_missing_list(start, end, area='yunnan', grain='year', kind='xunhou-souku
     cur.execute(get_id_sql)
     result = cur.fetchall()
     if len(result) != 1:
-        raise RuntimeError("找不到对应的 ID 数据条目数（%d），应该是 1" % len(result))
+        return list(range(start, end + 1))
     whl_metadata_id = result[0][0]
 
     conn.commit()
