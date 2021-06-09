@@ -448,7 +448,7 @@ def get_missing_list(start, end, area='yunnan', grain='year', kind='xunhou-souku
     return missing_years
 
 
-def insert_data(array, area='yunnan', grain='year', kind='xunhou-souku-max'):
+def insert_data(array, area='yunnan', grain='year', kind='xunhou-souku-max', superfix8760=False):
     if type(array) == type(None):
         raise RuntimeError("数据不足，无法完成填充")
     print("going to insert data")
@@ -471,7 +471,10 @@ def insert_data(array, area='yunnan', grain='year', kind='xunhou-souku-max'):
     counter = 0
     for value in array[1:]:
         counter += 1
-        cat = 'm_%02d' % counter
+        if superfix8760:
+            cat = '%d' % counter
+        else:
+            cat = 'm_%02d' % counter
         insert_sql = "insert into electric_data_test (datatime, dataname, datavalue, metadataid) values ('%d-01-01', '%s', %f, %d)" % (year, cat, value, whl_metadata_id)
         print("to exec sql: ", insert_sql)
         cur.execute(insert_sql)
@@ -607,7 +610,7 @@ def yearlyContinuousPayloadPredict(args):
     for year in missing:
         print("准备填充", year, "年")
         jiabi_result = yeardata("yunnan_day_电力电量类", year)
-        insert_data(jiabi_result, kind=kind)
+        insert_data(jiabi_result, kind=kind, superfix8760=True)
         print("填充了", jiabi_result)
 
     result = zhishupinghua(start, end, Tyear = Tyear, premaxload = premaxload)
