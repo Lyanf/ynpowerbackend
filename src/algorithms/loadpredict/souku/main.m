@@ -27,6 +27,8 @@ function result = main(start, ending, premaxload, pretotal,pregamma,prebeta,file
         a = s(i);
         x = str2num(a{1,1}{1,1})-start+1;
         if length(a{1,1}{2,1}) == 4
+            disp("a{1,1}{2,1} is");
+            disp(a{1,1}{2,1});
             y = str2num(a{1,1}{2,1}(3:4))+1;
             array(x,y) = a{1,1}{3,1};
         else
