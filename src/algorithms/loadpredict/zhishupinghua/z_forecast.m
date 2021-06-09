@@ -23,8 +23,6 @@ function result = z_forecast(start, ending, Tyear, premaxload,file)
     end
     arr = process(columns,start,ending,260,8500,file);
     data = [data,arr];
-    disp("data.' is:");
-    disp(data);
     
     info = data.';
     
@@ -35,6 +33,8 @@ end
 function [array] = process(col,start,endding,number,point,file)
 array = zeros(endding-start+1,number);
 s = getData(file,col,num2str(start),num2str(endding));
+disp("s is:");
+disp(s);
 num = length(s);
 for i = 1:num
     a = s(i);
