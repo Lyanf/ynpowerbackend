@@ -16,20 +16,11 @@ filename = os.path.join(os.getcwd(), os.path.dirname(os.path.dirname(__file__)),
 # filename = os.path.join(app.root_path, 'algorithms', 'args.xlsx')
 defaultFile = os.path.join(os.getcwd(), os.path.dirname(os.path.dirname(__file__)),'algorithms', 'default.xls')
 
-DIST = True
-
-if DIST:
-    dbname="electric"
-    user="postgres"
-    password="admin123"
-    host="localhost"
-    port="5432"
-else:
-    dbname="electric"
-    user="postgres"
-    password="admin123"
-    host="dclab.club"
-    port="32345"
+dbname="electric"
+user="postgres"
+password="admin123"
+host="localhost"
+port="5432"
 
 class Database():
     # replace the user, password, hostname and database according to your configuration according to your information
@@ -73,7 +64,7 @@ def insertData(data):
 
 # def addPowerData(data, area, grain, kind):
 #     #conn = psycopg2.connect(dbname="electric", user="postgres", password="ynpower", host="127.0.0.1", port="5432")
-#     conn = psycopg2.connect(dbname="electric", user="postgresadmin", password="admin123", host="dclab.club", port="32345")
+#     conn = 
 #     cur = conn.cursor()
 #     values = []
 #     insertjoin = " "
