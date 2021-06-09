@@ -23,15 +23,15 @@ def default_value(key,file,start,end):
 	return y_pred[0]
 
 def default_souku(file,start,end):
-	load_max = default_value("loadmax",file,start,end)
-	electricity = default_value("electricity",file,start,end)
-	gamma = default_value("gamma",file,start,end)
-	beta = default_value("beta",file,start,end)
+	load_max = default_value("m_25",file,start,end)
+	electricity = default_value("m_26",file,start,end)
+	gamma = default_value("m_27",file,start,end)
+	beta = default_value("m_28",file,start,end)
 	return load_max, electricity, gamma, beta
 
 def default_jiabi(file,start,end):
-	load_max = default_value("loadmax",file,start,end)
-	electricity = default_value("electricity",file,start,end)
+	load_max = default_value("m_25",file,start,end)
+	electricity = default_value("m_26",file,start,end)
 	return load_max, electricity
 
 def default_f(file,start,end):

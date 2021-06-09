@@ -797,7 +797,7 @@ def getDefault(start, end):
         "maxPayload": int(loadmax),
         "dailyAmount": int(electricity)
     }
-    loadmax, electricity = default_f(file, start, end)
+    # loadmax, electricity = default_f(file, start, end)
     result["fenxing"] = {
         "maxPayload": int(loadmax),
         "dailyAmount": int(electricity)
