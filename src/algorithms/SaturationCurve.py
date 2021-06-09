@@ -169,7 +169,7 @@ def SaturationCurve(StartYear,EndYear,PreStartYear,PreEndYear,pretype="全社会
             
             preyear = np.arange(int(PreStartYear),int(PreEndYear)+1)
             year=len(preyear)
-            p = ic.getpred(x,year,planflag,plan,0)
+            p = ic.getpred(x,year,planflag,finalplan,0)
             p = np.array(p).T
             pm = []
             for i in range(51):
