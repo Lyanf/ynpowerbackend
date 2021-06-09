@@ -449,7 +449,7 @@ def get_missing_list(start, end, area='yunnan', grain='year', kind='xunhou-souku
 
 
 def insert_data(array, area='yunnan', grain='year', kind='xunhou-souku-max'):
-    if array == None:
+    if type(array) == type(None):
         print("insert None？？？？？")
         return
     print("going to insert data")
