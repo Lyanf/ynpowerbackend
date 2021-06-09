@@ -1980,8 +1980,8 @@ class addData(Resource):
 class getDefaultOfLoadPre(Resource):
     def get(self):
         try:
-            start = request.args["start"]
-            end = request.args["end"]
+            start = int(request.args["start"])
+            end = int(request.args["end"])
             result = getDefault(start, end)
             return {
                 "msg":"success",
@@ -1990,7 +1990,12 @@ class getDefaultOfLoadPre(Resource):
             }
         except DataRangeError as e:
             return {
-                "msg": repr(e),
+                "msg": "还没有对应的差值数据，请先做一次预测，再加载默认参数",
+                "code": -1
+            }
+        except KeyError as e:
+            return {
+                "msg": "Key Error!" + str(e),
                 "code": -1
             }
         except Exception as e:
