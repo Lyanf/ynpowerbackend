@@ -142,11 +142,9 @@ class GetDataJson(Resource):
 
         try:
             re = getDatas(area + "_" + grain + "_" + kind, dataName, startTime, endTime)
-
-            # re = dao.getDataTest(area + "_" + grain + "_" + kind, dataName, startTime, endTime)
             return re
         except:
-            raise DataRangeError("「%s」→「%s」下没有 %s 到 %s 时期的数据。" % (kind, dataName, startTime, endTime))
+            return {}
 
     def get(self):
         dataName = request.args.get('dataName')
