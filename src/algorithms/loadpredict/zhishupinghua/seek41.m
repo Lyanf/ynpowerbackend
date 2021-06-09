@@ -1,13 +1,13 @@
 function P1=seek41(info,cityname,premaxload,Tyear,startyear,endyear)
 numyear=endyear-startyear+1;
 T=Tyear-endyear;
-%%ÏµÊýÑ¡Ôñ
-flaga=strcmp(cityname,'»ª¶«');
-flagb=strcmp(cityname,'ÉÏº£');
-flagc=strcmp(cityname,'½­ËÕ');
-flagd=strcmp(cityname,'Õã½­');
-flage=strcmp(cityname,'°²»Õ');
-flagf=strcmp(cityname,'ÔÆÄÏ');
+%%Ïµï¿½ï¿½Ñ¡ï¿½ï¿½
+flaga=strcmp(cityname,'ï¿½ï¿½ï¿½ï¿½');
+flagb=strcmp(cityname,'ï¿½Ïºï¿½');
+flagc=strcmp(cityname,'ï¿½ï¿½ï¿½ï¿½');
+flagd=strcmp(cityname,'ï¿½ã½­');
+flage=strcmp(cityname,'ï¿½ï¿½ï¿½ï¿½');
+flagf=strcmp(cityname,'ï¿½ï¿½ï¿½ï¿½');
 if(flaga)
     kk=1.31;
     mm=0.0015;
@@ -35,11 +35,11 @@ end
 for ii=1:numyear
     info1(:,ii)=dsort(info(1:8760,ii));
 end
-%%½«8769Êý¾ÝÐÅÏ¢¼ÇÂ¼µ½¾ØÕóÖÐ
+%%ï¿½ï¿½8769ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 for k=1:numyear
     yt(:,k)=info1(:,k);
 end
-%%ÓÃÈý´ÎÖ¸ÊýÆ½»¬½øÐÐÔ¤²â
+%%ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½
 alpha=0.15;
 for j=1:8760
     st1_0=mean(yt(j,:),2);
@@ -63,13 +63,13 @@ for j=1:8760
     xishu=[c(numyear+1),b(numyear+1),a(numyear+1)];
     P(j,1)=polyval(xishu,T);
 end
-%%×îÐ¡¸ººÉ£¬Æ½¾ù¸ººÉÔ¤²â%%
+%%ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½É£ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½%%
 Maxload=info1(1,:);
 Minload=info1(8760,:);
 Meanload=sum(info1)/8760;
 preminload=predict(Minload,Tyear,endyear)*kk;
 premeanload=0.5*(premaxload+preminload);
-%%¶ÔÇúÏß½øÐÐÐÞÕý
+%%ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 for i2=1:8760
     P1(i2,1)=P(i2,1)*premaxload/P(1,1);
 end
