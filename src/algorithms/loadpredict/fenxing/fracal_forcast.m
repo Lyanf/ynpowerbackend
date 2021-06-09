@@ -13,6 +13,7 @@ function result = fracal_forcast(start, ending, power,maxload,file)
         y = str2num(a{1,1}{2,1}(3:4));  
         array(x,y) = a{1,1}{3,1};
     end
-    
+    disp("array is:");
+    disp(array);
     result=Fractal_main(array,power,maxload);
 end
