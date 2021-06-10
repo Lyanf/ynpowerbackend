@@ -1695,7 +1695,7 @@ class PayloadChartsDaily(Resource):
             'yName': '单位：MW',
             'yData': [
                 {
-                    'tag': '负荷',
+                    'tag': '负荷（MW）',
                     'data': result
                 }
             ]
@@ -1765,7 +1765,7 @@ class PayloadChartsDailyTypical(Resource):
                 'yName': '单位：MW',
                 'yData': [
                     {
-                        'tag': '典型负荷',
+                        'tag': '典型负荷（MW）',
                         'data': result["re"]
                     }
                 ]
@@ -1797,7 +1797,7 @@ class PayloadChartsMonthly(Resource):
             payload = {
                     'xName': '月份',
                     'xData': list(range(1, 13)),
-                    'yName': '单位：MW',
+                    'yName': '单位：MW' if not '率' in category else '',
                     'yData': [
                         {
                             'tag': category,
@@ -1844,7 +1844,7 @@ class PayloadChartsYearly(Resource):
             payload = {
                 'xName': '年份',
                 'xData': list(range(int(begin_year), int(end_year) + 1)),
-                'yName': '单位：MW',
+                'yName': '单位：MW' if not '率' in request.args['category'] else '',
                 'yData': [
                     {
                         'tag': '负荷',
