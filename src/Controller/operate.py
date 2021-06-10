@@ -693,13 +693,13 @@ def ChartMonthlyOp(year, category):
         #     result4.append(temp["monthMaxPeekValleyDiffRate"])
         #     beginMonth = getNextMonth(beginMonth)
         #     print(t)
-        if category == "月平均日负荷曲线":
+        if category == "月平均日负荷":
             return result1
-        elif category == "月平均日负荷率曲线":
+        elif category == "月平均日负荷率":
             return result2
-        elif category == "月最大峰谷差曲线":
+        elif category == "月最大峰谷差":
             return result3
-        elif category == "月最大峰谷差率曲线":
+        elif category == "月最大峰谷差率":
             return result4
 
 def payloadChartsDaily(day):
@@ -730,15 +730,15 @@ def payloadChartsYearly(args):
         result4.append(temp["monthImbaRate"])
         result5.append(temp["seasonImbaRate"])
 
-    if category == "历年最大负荷曲线":
+    if category == "年最大负荷":
         return result1
-    elif category == "历年平均负荷曲线":
+    elif category == "年平均负荷":
         return result2
-    elif category == "历年最大峰谷差率曲线":
+    elif category == "年最大峰谷差率":
         return result3
-    elif category == "历年月不平衡曲线":
+    elif category == "月不平衡率":
         return result4
-    elif category == "历年季不平衡曲线":
+    elif category == "季不平衡率":
         return result5
 
 def industryMixModelValidate(methods):

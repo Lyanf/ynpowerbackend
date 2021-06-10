@@ -1765,7 +1765,7 @@ class PayloadChartsDailyTypical(Resource):
                 'yName': '单位：MW',
                 'yData': [
                     {
-                        'tag': '典型负荷（MW）',
+                        'tag': period + category,
                         'data': result["re"]
                     }
                 ]
