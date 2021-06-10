@@ -1847,7 +1847,7 @@ class PayloadChartsYearly(Resource):
                 'yName': '单位：MW' if not '率' in request.args['category'] else '',
                 'yData': [
                     {
-                        'tag': '负荷',
+                        'tag': request.args['category'],
                         'data': result
                     }
                 ]
