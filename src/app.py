@@ -1982,6 +1982,20 @@ class getDefaultOfLoadPre(Resource):
         try:
             start = request.args["start"]
             end = request.args["end"]
+
+            # 所有的 getDefault 用的都是一个 fengshui-souku-max…
+            # @ReveStar 你写的什么烂代码…
+            kind = 'fengshui-souku-max'
+                    
+            missing = get_missing_list(int(start), int(end), 'yunnan', 'year', kind)
+            print("丢失的年份：", repr(missing))
+            for year in missing:
+                print("准备填充", year, "年")
+
+                m, typee = parse_msg(kind)
+                jiabi_result = typ_souku("yunnan_day_电力电量类", year, m, typee)
+                insert_data(jiabi_result, kind=kind)
+                print("填充了", jiabi_result)
             result = getDefault(start, end)
             return {
                 "msg":"success",
