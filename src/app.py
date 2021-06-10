@@ -1695,7 +1695,7 @@ class PayloadChartsDaily(Resource):
             'yName': '单位：MW',
             'yData': [
                 {
-                    'tag': '负荷（MW）',
+                    'tag': '负荷',
                     'data': result
                 }
             ]
