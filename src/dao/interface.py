@@ -898,7 +898,7 @@ def executeAlgorithm(method, args):
             res_unit = getUnit(major, typee)
             if res_unit:
                 result.update({
-                    'unit': res_unit
+                    'unit': '%s（单位：%s）' % (typee, res_unit)
                 })
                 return result
     return result
