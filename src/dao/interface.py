@@ -899,12 +899,20 @@ def executeAlgorithm(method, args):
             res_unit = getUnit(major, typee)
             if res_unit:
                 result.update({
-                    'unit': '    %s下%s的预测结果\n%s（单位：%s）' % (zh_method, typee, typee, res_unit)
+                    'unit': {
+                        'unitname': res_unit,
+                        'method': zh_method,
+                        'typee': typee
+                    }
                 })
                 return result
             else:
                 result.update({
-                    'unit': '    %s下%s的预测结果\n%s' % (zh_method, typee, typee)
+                    'unit': {
+                        'unitname': '无单位',
+                        'method': zh_method,
+                        'typee': typee
+                    }
                 })
     return result
 
