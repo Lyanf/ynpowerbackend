@@ -838,6 +838,7 @@ def getAlgorithmArgs(method = None, filename = None):
 
 
 def executeAlgorithm(method, args):
+    zh_method = method
     print('** exec algorithm **', method, args)
     arg = getAlgorithmArgs(method, filename)
     a, b = getAlgorithmName(filename)
@@ -898,9 +899,13 @@ def executeAlgorithm(method, args):
             res_unit = getUnit(major, typee)
             if res_unit:
                 result.update({
-                    'unit': '%s（单位：%s）' % (typee, res_unit)
+                    'unit': '    %s下%s的预测结果\n%s（单位：%s）' % (zh_method, typee, typee, res_unit)
                 })
                 return result
+            else:
+                result.update({
+                    'unit': '    %s下%s的预测结果\n%s' % (zh_method, typee, typee)
+                })
     return result
 
 def getDataNameByAreaAndKind(area = "云南省", kind = "社会经济类"):
